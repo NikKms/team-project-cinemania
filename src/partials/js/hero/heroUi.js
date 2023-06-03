@@ -1,3 +1,5 @@
+import { heroRefs } from './hero';
+
 function renderTrailer(movieKey) {
   heroRefs.hero.insertAdjacentHTML(
     'beforeEnd',
@@ -44,23 +46,15 @@ function renderSlide(backdrop_path, title, overview, vote_average, id) {
 }
 
 function renderSwiper() {
-  heroRefs.hero.innerHTML = `<!-- Slider main container -->
-<div style="width: 1080px; height: 600px" class="swiper">
-  <!-- Additional required wrapper -->
+  const markup = `<div style="width: 1080px; height: 600px" class="swiper">
   <div class="swiper-wrapper">
-    <!-- Slides -->
 
   </div>
-  <!-- If we need pagination -->
-  <div class="swiper-pagination"></div>
 
-  <!-- If we need navigation buttons -->
   <div style="color: orange" class="swiper-button-prev"></div>
-  <div style="color: orange" class="swiper-button-next"></div>
+  <div style="color: orange" class="swiper-button-next"></div>`;
 
-  <!-- If we need scrollbar -->
-  <div class="swiper-scrollbar"></div>
-</div>`;
+  heroRefs.hero.innerHTML = markup;
 }
 
 export { renderTrailer, renderSlide, renderSwiper };
