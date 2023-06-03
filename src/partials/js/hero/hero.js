@@ -15,6 +15,7 @@ heroHandler();
 async function heroHandler() {
   try {
     const movieArr = await getTopMoviesArr(5);
+
     if (movieArr.length === 0) console.log('sorry nothing found');
 
     renderSwiper();
