@@ -1,0 +1,1 @@
+import * as lib from './partials/js/my-lib/lib-main'

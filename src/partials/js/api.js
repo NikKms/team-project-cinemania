@@ -42,4 +42,9 @@ async function getArrMovies(arr) {
   return await Promise.all(promises);
 }
 
-export { getTrending, getByQuery, getInfoByMovie, getMovie, getArrMovies };
+export { getTrending, getByQuery, getInfoByMovie, getMovie, getArrMovies, getMoviesGenres };
+
+async function getMoviesGenres() {
+  const url = `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`;
+  return await fetchData(url);
+}
