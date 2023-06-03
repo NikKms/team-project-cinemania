@@ -4,7 +4,7 @@ import 'swiper/swiper-bundle.css';
 import { renderTrailer, renderSlide, renderSwiper } from '../hero/heroUi';
 import { getTrending, getMovie } from '../api';
 
-heroRefs = {
+const heroRefs = {
   hero: document.querySelector('#hero'),
 };
 
