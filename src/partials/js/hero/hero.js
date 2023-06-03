@@ -85,8 +85,8 @@ function onWatchTrailer(e) {
     console.log('slider STOP!');
   }
 
-  setTimeout(() => {
-    swiper.autoplay.start();
-    console.log('slider START!');
-  }, 10000);
+  // setTimeout(() => {
+  //   swiper.autoplay.start();
+  //   console.log('slider START!');
+  // }, 10000);
 }
