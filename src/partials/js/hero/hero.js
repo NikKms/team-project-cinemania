@@ -59,7 +59,6 @@ function swiperInit() {
   });
 }
 
-// ============================================================
 heroRefs.hero.addEventListener('click', onWatchTrailer);
 
 async function getTrailerByFilmId(id) {
