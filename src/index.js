@@ -1,2 +1,2 @@
 import * as hero from './partials/js/hero/hero';
-import * as fonts from './partials/js/fonts';
+import { Roboto400, Roboto500, Roboto700 } from './partials/js/fonts';
