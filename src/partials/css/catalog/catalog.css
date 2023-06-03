@@ -1,0 +1,29 @@
+.search-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.search-form-input {
+  width: 173px;
+  height: 40px;
+  padding: 12px 20px;
+  border: 1px solid #595959;
+  border-radius: 8px;
+  color: #595959;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+.search-btn {
+  width: 40px;
+  height: 40px;
+  padding: 11px;
+  border-radius: 50%;
+  background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
+}
+.search-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
