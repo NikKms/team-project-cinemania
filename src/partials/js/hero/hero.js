@@ -5,7 +5,7 @@ import { renderTrailer, renderSlide, renderSwiper } from '../hero/heroUi';
 import { getTrending, getMovie } from '../api';
 
 const heroRefs = {
-  hero: document.querySelector('#hero'),
+  hero: document.querySelector('.hero'),
 };
 
 let swiper = null;
@@ -67,12 +67,12 @@ async function getTrailerByFilmId(id) {
     const trailerKey = movieData.results[0].key;
     renderTrailer(trailerKey);
   } catch (err) {
-    heroRefs.hero.insertAdjacentHTML(
-      'beforeEnd',
-      `
-    <div style="position: absolute" class="player"><iframe width="150" height="75" src='http://www.youtube.com/embed/zwBpUdZ0lrQ' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-      `
-    );
+    // heroRefs.hero.insertAdjacentHTML(
+    //   'beforeEnd',
+    //   `
+    // <div style="position: absolute" class="player"><iframe width="150" height="75" src='http://www.youtube.com/embed/zwBpUdZ0lrQ' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    //   `
+    // );
     console.log(err.message);
   }
 }
@@ -90,3 +90,5 @@ function onWatchTrailer(e) {
   //   console.log('slider START!');
   // }, 10000);
 }
+
+export { heroRefs };
