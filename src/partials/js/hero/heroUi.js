@@ -2,10 +2,13 @@ function renderTrailer(movieKey) {
   heroRefs.hero.insertAdjacentHTML(
     'beforeEnd',
     `
-  <div style="position: absolute; top: 10%; left: 10%; z-index: 999" class="player"><iframe width="720" height="360" src='https://www.youtube.com/embed/${movieKey}
+  <div style="position: absolute; top: 10%; left: 10%; z-index: 999" class="player"><button id="closeTrailerBtn">Close</button><iframe width="720" height="360" src='https://www.youtube.com/embed/${movieKey}
   'frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 `
   );
+  document.querySelector('#closeTrailerBtn').addEventListener('click', () => {
+    heroRefs.hero.innerHTML = '';
+  });
 }
 
 function renderSlide(backdrop_path, title, overview, vote_average, id) {
@@ -22,7 +25,9 @@ function renderSlide(backdrop_path, title, overview, vote_average, id) {
       <h1 class="hero-title" data-swiper-parallax="-300">${title}</h1>
     </div>
     <div class="hero-star-raiting" data-swiper-parallax="-350">
-      <span >Raiting:${Math.round(vote_average / 2)}</span>
+      <span ><div class="Stars" style="--rating: ${
+        vote_average / 2
+      }; " aria-label="Rating of this product is 2.3 out of 5."></span>
     </div>
     <div class="hero-description-wrap">
       <p class="hero-description" data-swiper-parallax="-400">${overview}</p>
