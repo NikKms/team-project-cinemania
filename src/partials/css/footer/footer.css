@@ -1,0 +1,13 @@
+.footer-paragraph {
+  font-size: ;
+}
+.footer-link {
+}
+.footer-link:hover {
+  text-decoration: underline;
+}
+.footer-section {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
