@@ -3,3 +3,5 @@
 // import '@fontsource/roboto/500.css';
 // import '@fontsource/roboto/700.css';
 import './partials/js/hero/hero';
+
+import * as lib from './partials/js/my-lib/lib-main'
