@@ -49,7 +49,7 @@ function renderSlide(backdrop_path, title, overview, vote_average, id) {
     `<div
     style="background-image: url('https://image.tmdb.org/t/p/original${backdrop_path}');
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;"
     class="swiper-slide">
 
@@ -59,7 +59,9 @@ function renderSlide(backdrop_path, title, overview, vote_average, id) {
     <div class="hero-star-raiting" data-swiper-parallax="-350">
       <span ><div class="Stars" style="--rating: ${
         vote_average / 2
-      }; " aria-label="Rating of this product is 2.3 out of 5."></span>
+      }; " aria-label="Rating of this product is ${(vote_average / 2).toFixed(
+      1
+    )} out of 5."></span>
     </div>
     <div class="hero-description-wrap">
       <p class="hero-description" data-swiper-parallax="-400">${overview}</p>
