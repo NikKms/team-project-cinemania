@@ -6,6 +6,7 @@
 
 .backdrop {
   position: fixed;
+  z-index: 20;
   top: 0;
   left: 0;
   width: 100%;
@@ -24,6 +25,7 @@
 
 .modal {
   position: absolute;
+  z-index: 30;
   top: 50%;
   left: 50%;
 
