@@ -27,6 +27,8 @@
 .search-btn:hover {
   background: #fff;
   border: 1px solid linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .search-icon {
@@ -37,4 +39,11 @@
 
 .search-btn:hover .search-icon {
   fill: #f87719;
+  transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.catalog-films {
+  display: flex;
+}
+.catalog-info-border {
+  border-left: 1px solid #fff;
 }

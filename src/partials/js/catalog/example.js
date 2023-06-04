@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getByQuery, getMovie } from '../api';
+import { createCards } from './createCards';
 
 const API_KEY = '88b8a7c5d221d3120fb29d734050dc7d';
 
@@ -32,7 +33,7 @@ const createDataCards = async () => {
       };
     }
   );
-  return newCardsDate;
+  createCards(newCardsDate);
 };
 
 const fetchGenre = async () => {
@@ -59,6 +60,6 @@ const createMovieDate = dateString => {
   return year;
 };
 
-createDataCards().then(res => console.log(res));
+// createDataCards().then(res => console.log(res));
 
 export { createDataCards };
