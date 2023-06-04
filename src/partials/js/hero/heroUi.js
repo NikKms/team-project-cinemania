@@ -18,14 +18,14 @@ function renderTrailer(movieKey) {
   document.body.addEventListener('keydown', listenKeyDawn);
 }
 
-const listenBackdropClick = e => {
-  if (e.target.classList.contains('hero-trailer-backdrop')) {
+const listenBackdropClick = event => {
+  if (event.target.classList.contains('hero-trailer-backdrop')) {
     closeTrailer();
   }
 };
 
-const listenKeyDawn = e => {
-  if ((e.code = 'Escape')) {
+const listenKeyDawn = event => {
+  if (event.key === 'Escape' || event.keyCode === 27) {
     closeTrailer();
   }
 };
