@@ -12,11 +12,12 @@ const createLibMoviesListMarkup = async ({
   release_date,
   first_air_date,
   genre_ids,
+  poster_path,
 }) => {
   const genreNames = await getGenreName(genre_ids);
   const movieTitle = title || name;
   const movieReleaseYear = release_date || first_air_date;
-  return `<li><h3>${movieTitle}</h3><p>${genreNames} | ${movieReleaseYear.substring(
+  return `<li><img src="https://image.tmdb.org/t/p/original${poster_path}" alt="${movieTitle}" /><h3>${movieTitle}</h3><p>${genreNames} | ${movieReleaseYear.substring(
     0,
     4
   )}</p></li>`;
@@ -29,11 +30,9 @@ const renderLibSelectMarkup = genresArr => {
   libSelectEl.insertAdjacentHTML('beforeend', libSelectMarkupEls.join(','));
 };
 
-const renderLibMoviesListMarkup = async (movies, x = 0, initialMoviesCount) => {
+const renderLibMoviesListMarkup = async movies => {
   const libMovieListMarkup = await Promise.all(
-    movies
-      .slice(0, initialMoviesCount)
-      .map(async movie => await createLibMoviesListMarkup(movie))
+    movies.map(async movie => await createLibMoviesListMarkup(movie))
   );
   libMoviesListEl.insertAdjacentHTML('beforeend', libMovieListMarkup.join(','));
 };

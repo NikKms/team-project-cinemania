@@ -5,14 +5,14 @@ import { renderLibMoviesListMarkup, renderLibSelectMarkup } from './lib-markup';
 
 const { libSelectEl, libMoviesListEl, libLoadMoreBtn } = libRefs;
 
-const initialMoviesCount = 9;
-
-let loadedMoviesCount = initialMoviesCount;
+const movieByStep = 9;
+let totalMoviesLoaded = 0;
 
 const getFilteredGenres = async moviesGenreIds => {
   const { genres } = await getMoviesGenres();
   return genres.filter(({ id }) => moviesGenreIds.includes(id));
 };
+
 const getGenreName = async movieGenreIds => {
   const filteredGenres = await getFilteredGenres(movieGenreIds);
   const genreNames = Promise.all(filteredGenres.map(({ name }) => name));
@@ -24,23 +24,33 @@ const renderFilteredGenres = async moviesGenreIds => {
   renderLibSelectMarkup(filteredGenres);
 };
 
-const onLibSelectChange = evt => {
-  const selectedValue = evt.target.value;
+const loadMovies = moviesArr => {
+  const slicedArr = moviesArr.slice(
+    totalMoviesLoaded,
+    totalMoviesLoaded + movieByStep
+  );
 
+  totalMoviesLoaded += movieByStep;
+  renderLibMoviesListMarkup(slicedArr);
+};
+
+const onLibSelectChange = evt => {  
+  const selectedValue = evt.target.value;
+  totalMoviesLoaded = 0;
+  clearHTML();
   filterMoviesListByGenre(selectedValue);
 };
 
 const filterMoviesListByGenre = selectedValue => {
-  clearHTML();
-  if (selectedValue === '1')
-    renderLibMoviesListMarkup(parsedFilms, initialMoviesCount);
+  if (selectedValue === '1') loadMovies(parsedFilms);
   const moviesGenreById = parsedFilms.filter(({ genre_ids }) =>
     genre_ids.includes(parseInt(selectedValue))
   );
-  renderLibMoviesListMarkup(moviesGenreById, 0,  initialMoviesCount);
+  loadMovies(moviesGenreById);
 };
 
-const onLoadBtnClick = () => {};
+const onLoadBtnClick = () => {
+};
 
 const clearHTML = () => {
   libMoviesListEl.innerHTML = '';
@@ -50,7 +60,7 @@ libSelectEl.addEventListener('change', onLibSelectChange);
 
 window.addEventListener('load', () => {
   renderFilteredGenres(parsedFilmsGenreIds);
-  renderLibMoviesListMarkup(parsedFilms, 0, initialMoviesCount);
+  loadMovies(parsedFilms);
 });
 
 libLoadMoreBtn.addEventListener('click', onLoadBtnClick);
