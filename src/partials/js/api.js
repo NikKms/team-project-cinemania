@@ -18,6 +18,25 @@ async function getTrending(page = 1) {
   return await fetchData(url);
 }
 
+// ================== add =============
+
+async function getWeeklyTrending(page = 1) {
+  const url = `${BASE_URL}/trending/all/day?api_key=${API_KEY}&language=en-US&page=${page}`;
+  return await fetchData(url);
+}
+
+async function getUpcoming(formattedStartDate, formattedEndDate) {
+  const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&&primary_release_date.gte=${formattedStartDate}&primary_release_date.lte=${formattedEndDate}`;
+  return await fetchData(url);
+}
+
+async function getGenre() {
+  const url = `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-USs`;
+  return await fetchData(url);
+}
+
+// ==================================
+
 async function getByQuery(query, page) {
   const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}&language=en-US&page=${page}`;
   return await fetchData(url);
@@ -42,4 +61,13 @@ async function getArrMovies(arr) {
   return await Promise.all(promises);
 }
 
-export { getTrending, getByQuery, getInfoByMovie, getMovie, getArrMovies };
+export {
+  getTrending,
+  getByQuery,
+  getInfoByMovie,
+  getMovie,
+  getArrMovies,
+  getWeeklyTrending,
+  getUpcoming,
+  getGenre,
+};
