@@ -1,6 +1,6 @@
-import { libRefs } from './lib-refs';
+import { getGenre } from '../api';
 import { parsedFilms, parsedFilmsGenreIds } from './lib-storage';
-import { getMoviesGenres } from '../api';
+import { libRefs } from './lib-refs';
 import { renderLibMoviesListMarkup, renderLibSelectMarkup } from './lib-markup';
 
 const { libSelectEl, libMoviesListEl, libLoadMoreBtn } = libRefs;
@@ -9,7 +9,7 @@ const movieByStep = 9;
 let totalMoviesLoaded = 0;
 
 const getFilteredGenres = async moviesGenreIds => {
-  const { genres } = await getMoviesGenres();
+  const { genres } = await getGenre();
   return genres.filter(({ id }) => moviesGenreIds.includes(id));
 };
 
@@ -34,7 +34,7 @@ const loadMovies = moviesArr => {
   renderLibMoviesListMarkup(slicedArr);
 };
 
-const onLibSelectChange = evt => {  
+const onLibSelectChange = evt => {
   const selectedValue = evt.target.value;
   totalMoviesLoaded = 0;
   clearHTML();
@@ -49,8 +49,7 @@ const filterMoviesListByGenre = selectedValue => {
   loadMovies(moviesGenreById);
 };
 
-const onLoadBtnClick = () => {
-};
+const onLoadBtnClick = () => {};
 
 const clearHTML = () => {
   libMoviesListEl.innerHTML = '';

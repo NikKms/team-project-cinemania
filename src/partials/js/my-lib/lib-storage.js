@@ -1,4 +1,5 @@
-import { getTrending } from '../api';
+import {getTrending} from "../api"
+
 
 getTrending().then(response =>
   localStorage.setItem('test', JSON.stringify(response.results))
