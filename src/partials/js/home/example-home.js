@@ -26,6 +26,7 @@ function getFirstThreeElements(array) {
 }
 
 async function renderWeeklyThreeTrends(firstThreeFilms) {
+  console.log(firstThreeFilms);
   const markup = await Promise.all(
     firstThreeFilms.map(
       async ({
@@ -35,6 +36,7 @@ async function renderWeeklyThreeTrends(firstThreeFilms) {
         genre_ids,
         id,
         poster_path,
+        vote_average,
       }) => {
         const listGenres = await getGenresById(genre_ids);
         console.log(listGenres);
@@ -48,14 +50,18 @@ async function renderWeeklyThreeTrends(firstThreeFilms) {
           />
          <div class="overlay"></div>       
         </div>
-        <div class="weekly-card-description">
+        <ul class="weekly-card-description">
+        <li>
           <span class="weekly-card-description-title">${title}</span>
           <span class="weekly-card-description-other">${listGenres} | ${release_date.slice(
           0,
           4
-        )}</span>
-        </div>
-        <div class="weekly-card-raiting">Stars5*</div>
+        )}</span></li>
+        <li class="Stars" style="--rating: ${
+          vote_average / 2
+        };" aria-label="Rating of this product is 2.3 out of 5."></li>
+        </ul>
+        
       </li>`;
       }
     )
@@ -90,7 +96,6 @@ async function getUpcomingFilm() {
 }
 
 async function renderUpcomingFilm(upcomingFilm) {
-  console.log(upcomingFilm);
   const {
     backdrop_path,
     genre_ids,
@@ -138,6 +143,7 @@ async function renderUpcomingFilm(upcomingFilm) {
                 <span class="upcoming-card-genre-data">${listGenres}</span>
               </div>
             </div>
+ 
 
             <span class="upcoming-card-about-title">About</span>
 
