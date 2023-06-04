@@ -1,72 +1,58 @@
 import { libRefs } from './lib-refs';
-import { parsedFilms } from './lib-storage';
+import { parsedFilms, parsedFilmsGenreIds } from './lib-storage';
 import { getMoviesGenres } from '../api';
+import { renderLibMoviesListMarkup, renderLibSelectMarkup } from './lib-markup';
 
-const { libSelectEl, libMovieListEl, libLoadMoreBtn } = libRefs;
+const { libSelectEl, libMoviesListEl, libLoadMoreBtn } = libRefs;
 
-const parsedFilmsGenreIds = parsedFilms.flatMap(({ genre_ids }) => genre_ids);
+const initialMoviesCount = 9;
 
-const getGenres = async moviesGenreIds => {
+let loadedMoviesCount = initialMoviesCount;
+
+const getFilteredGenres = async moviesGenreIds => {
   const { genres } = await getMoviesGenres();
-  const genresForRender = genres.filter(({ id }) =>
-    moviesGenreIds.includes(id)
-  );
-  renderLibSelectMarkup(genresForRender);
+  return genres.filter(({ id }) => moviesGenreIds.includes(id));
+};
+const getGenreName = async movieGenreIds => {
+  const filteredGenres = await getFilteredGenres(movieGenreIds);
+  const genreNames = Promise.all(filteredGenres.map(({ name }) => name));
+  return (await genreNames).slice(0, 2).join(', ');
 };
 
-const createLibSelectMarkup = genre => {
-  return `<option value="${genre.id}">${genre.name}</option>`;
-};
-
-const renderLibSelectMarkup = genresArr => {
-  const libSelectMarkupEls = genresArr.map(genre =>
-    createLibSelectMarkup(genre)
-  );
-  libSelectEl.insertAdjacentHTML('beforeend', libSelectMarkupEls.join(','));
-};
-
-const renderLibMovieListMarkup = movies => {
-  const libMovieListMarkup = movies.map(movie =>
-    createLibMovieListMarkup(movie)
-  );
-  libMovieListEl.insertAdjacentHTML('beforeend', libMovieListMarkup.join(','));
-};
-
-const createLibMovieListMarkup = ({
-  title,
-  name,
-  release_date,
-  first_air_date,
-}) => {
-  const movieTitle = title || name;
-  const movieReleaseYear = release_date || first_air_date;
-  return `<li><h3>${movieTitle}</h3><p>${movieReleaseYear.substring(
-    0,
-    4
-  )}</p></li>`;
+const renderFilteredGenres = async moviesGenreIds => {
+  const filteredGenres = await getFilteredGenres(moviesGenreIds);
+  renderLibSelectMarkup(filteredGenres);
 };
 
 const onLibSelectChange = evt => {
   const selectedValue = evt.target.value;
 
-  filterMovieListByGenre(selectedValue);
+  filterMoviesListByGenre(selectedValue);
 };
 
-const filterMovieListByGenre = selectedValue => {
+const filterMoviesListByGenre = selectedValue => {
   clearHTML();
-  if (selectedValue === '1') renderLibMovieListMarkup(parsedFilms);
-  const movieGenreById = parsedFilms.filter(({ genre_ids }) =>
+  if (selectedValue === '1')
+    renderLibMoviesListMarkup(parsedFilms, initialMoviesCount);
+  const moviesGenreById = parsedFilms.filter(({ genre_ids }) =>
     genre_ids.includes(parseInt(selectedValue))
   );
-  renderLibMovieListMarkup(movieGenreById);
+  renderLibMoviesListMarkup(moviesGenreById, 0,  initialMoviesCount);
 };
 
-getGenres(parsedFilmsGenreIds);
+const onLoadBtnClick = () => {};
+
+const clearHTML = () => {
+  libMoviesListEl.innerHTML = '';
+};
 
 libSelectEl.addEventListener('change', onLibSelectChange);
 
-window.addEventListener('load', renderLibMovieListMarkup(parsedFilms));
+window.addEventListener('load', () => {
+  renderFilteredGenres(parsedFilmsGenreIds);
+  renderLibMoviesListMarkup(parsedFilms, 0, initialMoviesCount);
+});
 
-const clearHTML = () => {
-  libMovieListEl.innerHTML = '';
-};
+libLoadMoreBtn.addEventListener('click', onLoadBtnClick);
+
+export { getGenreName };
