@@ -1,0 +1,87 @@
+.mylibrary_movies_section {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.mylibrary_movies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.mylibrary_movie {
+  position: relative;
+  width: 395px;
+  height: 574px;
+}
+.mylibrary_movie:hover {
+  /*box-shadow: 0px 0px 5px 4px rgba(248, 65, 25, 1);*/
+  box-shadow: 0px 4px 4px orange, -0.5em 0 0.4em rgb(158, 145, 3);
+  /*box-shadow: 10px 5px 5px orange;*/
+  border-radius: 4px;
+}
+.mylibrary_movie_dark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 63.48%,
+    rgba(0, 0, 0, 0.9) 92.16%
+  );
+  border-radius: 5px;
+}
+.mylibrary_movies_name {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: --primary-text-color;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding-left: 20px;
+  margin-bottom: 50px;
+}
+.mylibrary__genre_movie {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.2;
+  color: --secondary-text-color;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+.mylibrary_stars {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: --primary-text-color;
+  padding-bottom: 20px;
+  padding-right: 20px;
+}
+.mylibrary_button {
+  display: grid;
+  place-items: center;
+  padding-bottom: 96px;
+}
+.mylibrary_button-order {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.5;
+  width: 134px;
+  height: 52px;
+  cursor: pointer;
+  background: --primary-ligth-theme-btn-color;
+  border-radius: 74px;
+  left: 0;
+}
+.mylibrary_button-order:focus {
+  background: --primary-title-color;
+  border-radius: 74px;
+  color: --accent-color;
+  border-color: --accent-color;
+}
