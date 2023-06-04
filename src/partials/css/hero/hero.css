@@ -1,63 +1,60 @@
-
 .hero-gradient {
-
-    background: linear-gradient(86.77deg, #111111 30.38%, rgba(17, 17, 17, 0) 65.61%)
+  background: linear-gradient(
+    86.77deg,
+    #111111 30.38%,
+    rgba(17, 17, 17, 0) 65.61%
+  );
 }
-
-
 
 .hero-img {
-    background-image:  url("../../../images/hero/hero-home-mob1.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    
+  background-image: url('../../../images/hero/hero-home-mob1.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
-
 
 .hero-title {
-padding-top: 40px;
-padding-left: 20px; 
-padding-bottom: 8px;
-font-family: 'Roboto';
-font-style: normal;
-font-weight: 700;
-font-size: 32px;
-line-height: 1.18;
-color: #FFFFFF;
-margin-right: 101px;}
-
-.hero-description {
-font-family: 'Roboto';
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 1.14;
-display: flex;
-padding-left: 20px;
-color: #F8F8F8;
-padding-bottom: 32px;
-margin-right: 134px;
-   
+  padding-top: 40px;
+  padding-left: 20px;
+  padding-bottom: 8px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.18;
+  color: #ffffff;
+  margin-right: 101px;
 }
 
+.hero-description {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.14;
+  display: flex;
+  padding-left: 20px;
+  color: #f8f8f8;
+  padding-bottom: 32px;
+  margin-right: 134px;
+}
 
 .hero-btn {
-/* background: transparent; */
-background: linear-gradient(141.22deg, #FFC226 9.4%, #F84119 91.91%);
-border-radius: 74px;
-margin-bottom: 80px;
-margin-left: 20px;
-width: 110px;
-height: 38px;
-font-weight: 500;
-font-size: 12px;
-line-height: 14px;
+  /* background: transparent; */
+  background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
+  border-radius: 74px;
+  margin-bottom: 80px;
+  margin-left: 20px;
+  width: 110px;
+  height: 38px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
 }
 
 .hero-btn:hover,
 .hero-btn:focus {
-     border-color: #F84119;
+  border-color: #f84119;
   background: white;
   border: 2px solid #f3c653;
 }
@@ -127,8 +124,8 @@ margin-right: 379px;
       background-image: 
         url("../../../images/hero/hero-home-tablet2.jpg");
     }
-  } */ 
-  /* ---------------MEDIA DESKTOP(1280)---------------------- */
+  } */
+/* ---------------MEDIA DESKTOP(1280)---------------------- */
 
 /* @media screen and (min-width: 1280px) {
   .hero-img {
@@ -180,4 +177,4 @@ margin-right: 784px;
     margin-right: auto;
 
 } 
-}*/ 
+}*/
