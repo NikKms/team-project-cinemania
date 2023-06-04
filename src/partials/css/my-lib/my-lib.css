@@ -2,6 +2,11 @@
   padding-top: 40px;
   padding-bottom: 40px;
 }
+.mylibrary_movies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
 .mylibrary_movie {
   position: relative;
   width: 395px;
