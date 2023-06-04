@@ -1,43 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="./images/icon/favicon.ico" />
+    <link rel="stylesheet" href="./partials/css/styles.css" />
+    <title>Home</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./partials/css/styles.css">
-  <title>Home</title>
-</head>
+  <body>
+    <header>
+      <!--header-->
+      <include src="./partials/html/header-home.html"></include>
+    </header>
 
-<body>
+    <main class="main">
+      <!--hero-->
+      <include src="./partials/html/hero.html"></include>
 
-  <header>
-    <!--header-->
-    <include src="./partials/html/header-home.html"></include>
-  </header>
+      <!--home-->
+      <include src="./partials/html/home.html"></include>
 
-  <main class="main">
+      <!-- modal -->
+      <include src="./partials/html/modal.html"></include>
 
-    <!--hero-->
-    <include src="./partials/html/hero.html"></include>
+      <!-- trailer-modal -->
+      <include src="./partials/html/trailer-modal.html"></include>
+    </main>
 
-    <!--home-->
-    <include src="./partials/html/home.html"></include>
+    <footer>
+      <!--footer-->
+      <include src="./partials/html/footer.html"></include>
+    </footer>
 
-    <!-- modal -->
-    <include src="./partials/html/modal.html"></include>
-
-  </main>
-
-  <footer>
-    <!--footer-->
-    <include src="./partials/html/footer.html"></include>
-
-  </footer>
-
-  <!-- script -->
-  <script type="module" src="./index.js"></script>
-
-</body>
-
+    <!-- script -->
+    <script type="module" src="./index.js"></script>
+  </body>
 </html>
