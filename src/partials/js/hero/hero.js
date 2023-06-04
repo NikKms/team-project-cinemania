@@ -1,11 +1,15 @@
 import Swiper from 'swiper/swiper-bundle';
 import 'swiper/swiper-bundle.css';
+import '../../css/hero/trailer-modal.css';
 
 import { renderTrailer, renderSlide, renderSwiper } from '../hero/heroUi';
 import { getTrending, getMovie } from '../api';
 
 const heroRefs = {
   hero: document.querySelector('.hero'),
+  backDropRef: document.querySelector('.hero-trailer-backdrop'),
+  trailerRef: document.querySelector('.trailer-container'),
+  trailerBtn: document.querySelector('.modal-trailer-btn'),
 };
 
 let swiper = null;
@@ -82,13 +86,8 @@ function onWatchTrailer(e) {
     const dataId = e.target.dataset.id;
     getTrailerByFilmId(dataId);
     swiper.autoplay.stop();
-    console.log('slider STOP!');
   }
-
-  // setTimeout(() => {
-  //   swiper.autoplay.start();
-  //   console.log('slider START!');
-  // }, 10000);
 }
 
 export { heroRefs };
+export { swiper };

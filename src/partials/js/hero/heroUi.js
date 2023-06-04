@@ -1,17 +1,47 @@
 import { heroRefs } from './hero';
+import { swiper } from './hero';
 
 function renderTrailer(movieKey) {
-  heroRefs.hero.insertAdjacentHTML(
+  document.body.classList.add('is-scroll-block');
+
+  heroRefs.backDropRef.classList.remove('is-trailer-hidden');
+  heroRefs.trailerRef.insertAdjacentHTML(
     'beforeEnd',
     `
-  <div style="position: absolute; top: 10%; left: 10%; z-index: 999" class="player"><button id="closeTrailerBtn">Close</button><iframe width="720" height="360" src='https://www.youtube.com/embed/${movieKey}
-  'frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+  <iframe class="trailer-iframe" src='https://www.youtube.com/embed/${movieKey}
+  'frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 `
   );
-  document.querySelector('#closeTrailerBtn').addEventListener('click', () => {
-    heroRefs.hero.innerHTML = '';
-  });
+
+  heroRefs.trailerBtn.addEventListener('click', closeTrailer);
+  heroRefs.backDropRef.addEventListener('click', listenBackdropClick);
+  document.body.addEventListener('keydown', listenKeyDawn);
 }
+
+const listenBackdropClick = event => {
+  if (event.target.classList.contains('hero-trailer-backdrop')) {
+    closeTrailer();
+  }
+};
+
+const listenKeyDawn = event => {
+  if (event.key === 'Escape' || event.keyCode === 27) {
+    closeTrailer();
+  }
+};
+
+const closeTrailer = () => {
+  document.body.classList.remove('is-scroll-block');
+  heroRefs.backDropRef.classList.add('is-trailer-hidden');
+
+  heroRefs.trailerRef.innerHTML = '';
+
+  swiper.autoplay.start();
+
+  document.body.removeEventListener('keydown', listenKeyDawn);
+  heroRefs.backDropRef.removeEventListener('click', listenBackdropClick);
+  heroRefs.trailerBtn.removeEventListener('click', closeTrailer);
+};
 
 function renderSlide(backdrop_path, title, overview, vote_average, id) {
   document.querySelector('.swiper-wrapper').insertAdjacentHTML(
@@ -20,7 +50,7 @@ function renderSlide(backdrop_path, title, overview, vote_average, id) {
     style="background-image: url('https://image.tmdb.org/t/p/original${backdrop_path}');
     background-position: center;
     background-size: contain;
-    background-repeat: no-repeat"
+    background-repeat: no-repeat;"
     class="swiper-slide">
 
     <div class="hero-title-wrap">
@@ -46,11 +76,8 @@ function renderSlide(backdrop_path, title, overview, vote_average, id) {
 }
 
 function renderSwiper() {
-  const markup = `<div style="width: 1080px; height: 600px" class="swiper">
-  <div class="swiper-wrapper">
-
-  </div>
-
+  const markup = `<div class="swiper container">
+  <div class="swiper-wrapper"></div>
   <div style="color: orange" class="swiper-button-prev"></div>
   <div style="color: orange" class="swiper-button-next"></div>`;
 
