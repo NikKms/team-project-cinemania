@@ -1,14 +1,18 @@
 import axios from 'axios';
+import { onLoader, removeLoader } from './loader';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = '88b8a7c5d221d3120fb29d734050dc7d';
 
 async function fetchData(url) {
   try {
+    onLoader();
     const response = await axios.get(url);
+    removeLoader();
     return response.data;
   } catch (error) {
     console.log(error);
+    removeLoader();
     return null;
   }
 }
@@ -42,4 +46,37 @@ async function getArrMovies(arr) {
   return await Promise.all(promises);
 }
 
-export { getTrending, getByQuery, getInfoByMovie, getMovie, getArrMovies };
+// ================== add =============
+
+async function getWeeklyTrending(page = 1) {
+  const url = `${BASE_URL}/trending/all/day?api_key=${API_KEY}&language=en-US&page=${page}`;
+  return await fetchData(url);
+}
+
+async function getUpcoming(formattedStartDate, formattedEndDate) {
+  const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&&primary_release_date.gte=${formattedStartDate}&primary_release_date.lte=${formattedEndDate}`;
+  return await fetchData(url);
+}
+
+async function getGenre() {
+  const url = `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-USs`;
+  return await fetchData(url);
+}
+
+// ==================================
+
+export {
+  getTrending,
+  getByQuery,
+  getInfoByMovie,
+  getMovie,
+  getArrMovies,
+  getWeeklyTrending,
+  getUpcoming,
+  getGenre,
+};
+
+// async function getMoviesGenres() {
+//   const url = `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`;
+//   return await fetchData(url);
+// }
