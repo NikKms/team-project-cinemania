@@ -10,6 +10,10 @@ const submitHandler = e => {
   e.preventDefault();
   const formData = new FormData(e.target);
   const { searchMovies } = Object.fromEntries(formData.entries());
+  if (!searchMovies.length) {
+    showNewestMovies();
+    return;
+  }
   getMoviesByQuery(searchMovies);
 };
 
@@ -60,6 +64,16 @@ const createMovieDate = dateString => {
   return year;
 };
 
+const showNewestMovies = async () => {
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US`
+  );
+  const { results } = data;
+  createDataCards(results);
+  console.log(results);
+};
+
 searchForm.addEventListener('submit', submitHandler);
+window.addEventListener('load', showNewestMovies);
 
 export { createDataCards };
