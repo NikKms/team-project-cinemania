@@ -60,6 +60,6 @@ const createMovieDate = dateString => {
   return year;
 };
 
-// createDataCards().then(res => console.log(res));
+createDataCards().then(res => console.log(res));
 
 export { createDataCards };

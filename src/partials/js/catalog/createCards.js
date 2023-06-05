@@ -5,28 +5,26 @@ export const createCards = dataCard => {
     .map(card => {
       return `<div data-id=${card.id} class="catalog-card">
       <img src='https://image.tmdb.org/t/p/original${card.poster}' alt="${card.title}" loading="lazy" />
-      <div class="catalog-info">
-        <div>
+      <ul class="catalog-info">
+        <li>
           <p class="catalog-info-name">
             <b>${card.title}</b>
           </p>
           <p class="catalog-info-details">
             <span>${card.genres}</span>
-            <span class="catalog-info-border" >${card.date}</span>
+            <span class="catalog-info-border">${card.date}</span>
           </p>
-        </div>
-        <div
+        </li>
+        <li
           class="Stars"
           style="--rating: ${card.rating}"
           aria-label="Rating of this product is 2.3 out of 5."
-        ></div>
-      </div>
+        ></li>
+      </ul>
     </div>`;
     })
     .join('');
   addHTML(markup);
-  console.log(markup);
-  //   dataCard.map(el => console.log(el));
 };
 
 function addHTML(cards) {

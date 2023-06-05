@@ -4,3 +4,4 @@
 // import '@fontsource/roboto/700.css';
 import './partials/js/hero/hero';
 import './partials/js/catalog/example';
+import * as Movies from './partials/js/catalog/searchMovie';
