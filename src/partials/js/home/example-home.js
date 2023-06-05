@@ -17,7 +17,9 @@ seeAll.addEventListener('click', () => {
 
 async function getWeeklyTrends() {
   const data = await getWeeklyTrending();
+
   const firstThreeFilms = getFirstThreeElements(data.results);
+  console.log(firstThreeFilms);
   renderWeeklyThreeTrends(firstThreeFilms);
 }
 
@@ -36,32 +38,29 @@ async function renderWeeklyThreeTrends(firstThreeFilms) {
         genre_ids,
         id,
         poster_path,
-        vote_average,
+        name,
+        first_air_date,
       }) => {
         const listGenres = await getGenresById(genre_ids);
-        console.log(listGenres);
 
-        return `<li class="weekly-card" data-id=${id}>
+        return `<li class="weekly-card" >
         <div class="weekly-container-image">
           <img
             class="weekly-card-image"
            src="https://image.tmdb.org/t/p/original/${poster_path}"
             alt=""
           />
-         <div class="overlay"></div>       
+         <div class="overlay is-id" data-id=${id}></div>       
         </div>
-        <ul class="weekly-card-description">
-        <li>
-          <span class="weekly-card-description-title">${title}</span>
-          <span class="weekly-card-description-other">${listGenres} | ${release_date.slice(
-          0,
-          4
-        )}</span></li>
-        <li class="Stars" style="--rating: ${
-          vote_average / 2
-        };" aria-label="Rating of this product is 2.3 out of 5."></li>
-        </ul>
-        
+        <div class="weekly-card-description">
+          <span class="weekly-card-description-title">${title || name}</span>
+          <span class="weekly-card-description-other">${listGenres} | ${
+          release_date
+            ? release_date.substring(0, 4)
+            : first_air_date.substring(0, 4)
+        }</span>
+        </div>
+        <div class="weekly-card-raiting">Stars5*</div>
       </li>`;
       }
     )

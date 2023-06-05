@@ -1,5 +1,4 @@
 @import '../hero/hero.css';
-@import '../home/modal.css';
 
 .weekly-title-wrap {
     margin-top: 40px;
@@ -102,6 +101,7 @@
 .upcoming-card-img {
     width: 805px;
     height: 458px;
+    object-fit: cover;
 }
 
 .upcoming-card-img img {
@@ -235,6 +235,16 @@
         display: flex;
         gap: 16px;
         margin-bottom: 44px;
+    }
+
+    .upcoming-title {
+        line-height: 28px;
+    }
+
+    .upcoming-card-img {
+        width: 805px;
+        height: 458px;
+        object-fit: cover;
     }
 
     .upcoming-title {

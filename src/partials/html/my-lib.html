@@ -1,0 +1,27 @@
+<section class="mylibrary_movies_section">
+    <div class="container">
+        <select name="" id="js-genre-select"></select>
+        <ul class="mylibrary_movies" id="js-lib-list">
+            <li class="mylibrary_movie">
+                <div class="mylibrary_poster">
+
+                    <div class="mylibrary_move_dark"></div>
+                </div>
+                <h3 class="mylibrary_movies_name"></h3>
+                <p class="mylibrary_genre_movie"></p>
+                <div class="hero-star-raiting" data-swiper-parallax="-350">
+                    <span>
+                        <div class="Stars" style="--rating: ${
+                        vote_average / 2
+                      }; " aria-label="Rating of this product is ${(vote_average / 2).toFixed(
+                      1
+                    )} out of 5.">
+                    </span>
+                </div>
+            </li>
+        </ul>
+        <div class="mylibrary_button">
+            <button type="button" class="mylibrary_button-order" id="js-loadMore-btn">Load more</button>
+        </div>
+    </div>
+</section>
