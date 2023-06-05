@@ -13,8 +13,11 @@ refs.closeModal.addEventListener('click', onCloseModal);
 refs.backdrop.addEventListener('click', onBackdropClick);
 
 function onOpenModal(event) {
-  const cardId = event.target.closest('Li').dataset.id;
-  getMovieById(cardId);
+  console.log(event.target);
+  if (event.target.classList.contains('is-id')) {
+    const cardId = event.target.dataset.id;
+    getMovieById(cardId);
+  }
 
   window.addEventListener('keydown', onEscKeyPress);
   refs.backdrop.classList.remove('is-hidden');
@@ -43,8 +46,8 @@ async function getMovieById(id) {
 function renderFilmInModal(film) {
   console.log(film);
   const {
-    backdrop_path,
     poster_path,
+    backdrop_path,
     genres,
     overview,
     popularity,
@@ -55,45 +58,48 @@ function renderFilmInModal(film) {
   const genresList = genres.map(genre => genre.name);
   const formatedGenres = genresList.join(', ');
 
-  const markup = `<div class="upcoming-card">
+  const imagePath =
+    poster_path !== null
+      ? `https://image.tmdb.org/t/p/original/${poster_path}`
+      : `https://image.tmdb.org/t/p/original/${backdrop_path}`;
 
-            <img class="modal-img" src="https://image.tmdb.org/t/p/original/${poster_path}" alt=" " />
+  const markup = `
+    <div class="modal-card">
+      <img
+        class="modal-img"
+        src="https://image.tmdb.org/t/p/original/${imagePath}"
+        alt=" "
+      />
 
-          <div class="upcoming-card-wrap">
-            <h3 class="upcoming-card-title">${title}</h3>
+      <div class="modal-card-wrap">
+        <h3 class="modal-card-title">${title}</h3>
 
-            <div class="upcoming-card-numbers-wrap-top">
-
-              <div class="upcoming-card-vote-wrap">
-                <div class="upcoming-card-vote"><span>Vote / Votes</span></div>
-                <div class="upcoming-card-vote-data">
-                  <span>${vote_average}</span> / <span>${vote_count}</span>
-                </div>
-              </div>
+          <div class="modal-card-vote-wrap">
+            <div class="modal-card-vote"><span>Vote / Votes</span></div>
+            <div class="modal-card-vote-data">
+              <span>${vote_average}</span> / <span>${vote_count}</span>
             </div>
-
-            <div class="upcoming-card-numbers-wrap-down">
-              <div class="upcoming-card-popularity-wrap">
-                <span class="upcoming-card-popularity-text">Popularity</span>
-                <span class="upcoming-card-popularity-data">${popularity.toFixed(
-                  1
-                )}</span>
-              </div>
-
-              <div class="upcoming-card-genre-wrap">
-                <span class="upcoming-card-genre-text">Genre</span>
-                <span class="upcoming-card-genre-data">${formatedGenres}</span>
-              </div>
-            </div>
-
-            <span class="upcoming-card-about-title">About</span>
-
-            <p class="upcoming-card-about-text">${overview}</p>
-
-            <button class="upcoming-button" type="button">
-              Add to my library
-            </button>
           </div>
-        </div>`;
+        
+          <div class="modal-card-popularity-wrap">
+            <span class="modal-card-popularity-text">Popularity</span>
+            <span class="modal-card-popularity-data"
+              >${popularity.toFixed(1)}</span
+            >
+          </div>
+
+          <div class="modal-card-genre-wrap">
+            <span class="modal-card-genre-text">Genre</span>
+            <span class="modal-card-genre-data">${formatedGenres}</span>
+          </div>
+        
+        <span class="modal-card-about-title">About</span>
+
+        <p class="modal-card-about-text">${overview}</p>
+
+        <button class="modal-button" type="button">Add to my library</button>
+      </div>
+    </div>`;
+
   refs.upcomingWrapLi.innerHTML = markup;
 }
