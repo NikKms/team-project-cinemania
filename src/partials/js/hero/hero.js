@@ -6,7 +6,7 @@ import { renderTrailer, renderSlide, renderSwiper } from '../hero/heroUi';
 import { getTrending, getMovie } from '../api';
 
 const heroRefs = {
-  hero: document.querySelector('.hero'),
+  hero: document.querySelector('.hero-img'),
   backDropRef: document.querySelector('.hero-trailer-backdrop'),
   trailerRef: document.querySelector('.trailer-container'),
   trailerBtn: document.querySelector('.modal-trailer-btn'),
