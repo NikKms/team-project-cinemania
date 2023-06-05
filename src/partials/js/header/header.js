@@ -3,7 +3,7 @@ const navRefs = {
   navLib: document.querySelector('#nav_lib'),
   navCat: document.querySelector('#nav_cat'),
 };
-console.log('Yo');
+
 pageNavSelector();
 
 function pageNavSelector() {
