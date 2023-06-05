@@ -67,3 +67,8 @@
 .close-btn:focus .close-btn-icon {
   fill: var(--color-white);
 } */
+
+.modal-img {
+  width: 294px;
+  object-fit: cover;
+}

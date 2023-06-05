@@ -17,7 +17,9 @@ seeAll.addEventListener('click', () => {
 
 async function getWeeklyTrends() {
   const data = await getWeeklyTrending();
+
   const firstThreeFilms = getFirstThreeElements(data.results);
+  console.log(firstThreeFilms);
   renderWeeklyThreeTrends(firstThreeFilms);
 }
 
@@ -50,10 +52,7 @@ async function renderWeeklyThreeTrends(firstThreeFilms) {
         </div>
         <div class="weekly-card-description">
           <span class="weekly-card-description-title">${title}</span>
-          <span class="weekly-card-description-other">${listGenres} | ${release_date.slice(
-          0,
-          4
-        )}</span>
+          <span class="weekly-card-description-other">${listGenres} | ${release_date}</span>
         </div>
         <div class="weekly-card-raiting">Stars5*</div>
       </li>`;
