@@ -1,14 +1,18 @@
 import axios from 'axios';
+import { onLoader, removeLoader } from './loader';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = '88b8a7c5d221d3120fb29d734050dc7d';
 
 async function fetchData(url) {
   try {
+    onLoader();
     const response = await axios.get(url);
+    removeLoader();
     return response.data;
   } catch (error) {
     console.log(error);
+    removeLoader();
     return null;
   }
 }
