@@ -1,9 +1,10 @@
 import { getGenre } from '../api';
 import { parsedFilms, parsedFilmsGenreIds } from './lib-storage';
+import { renderLibMoviesListMarkup, renderLibSelectMarkup } from './lib-markups';
 import { libRefs } from './lib-refs';
-import { renderLibMoviesListMarkup, renderLibSelectMarkup } from './lib-markup';
 
 const { libSelectEl, libMoviesListEl, libLoadMoreBtn } = libRefs;
+console.log('libLoadMoreBtn: ', libLoadMoreBtn);
 
 const movieByStep = 9;
 let totalMoviesLoaded = 0;
@@ -49,7 +50,9 @@ const filterMoviesListByGenre = selectedValue => {
   loadMovies(moviesGenreById);
 };
 
-const onLoadBtnClick = () => {};
+const onLoadBtnClick = () => {
+  
+};
 
 const clearHTML = () => {
   libMoviesListEl.innerHTML = '';
