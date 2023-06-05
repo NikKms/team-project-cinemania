@@ -2,4 +2,5 @@
 // import '@fontsource/roboto/400.css';
 // import '@fontsource/roboto/500.css';
 // import '@fontsource/roboto/700.css';
-import './partials/js/hero/hero';
+import * as hero from './partials/js/hero/hero';
+import * as header from './partials/js/header/header';
