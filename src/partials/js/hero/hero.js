@@ -25,8 +25,8 @@ async function heroHandler() {
     renderSwiper();
 
     await movieArr.map(
-      ({ backdrop_path, title, overview, vote_average, id }) => {
-        renderSlide(backdrop_path, title, overview, vote_average, id);
+      ({ backdrop_path, title, overview, vote_average, id, name }) => {
+        renderSlide(backdrop_path, title, overview, vote_average, id, name);
       }
     );
 
@@ -71,12 +71,12 @@ async function getTrailerByFilmId(id) {
     const trailerKey = movieData.results[0].key;
     renderTrailer(trailerKey);
   } catch (err) {
-    // heroRefs.hero.insertAdjacentHTML(
-    //   'beforeEnd',
-    //   `
-    // <div style="position: absolute" class="player"><iframe width="150" height="75" src='http://www.youtube.com/embed/zwBpUdZ0lrQ' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-    //   `
-    // );
+    heroRefs.hero.insertAdjacentHTML(
+      'beforeEnd',
+      `
+    <div style="position: absolute" class="player"><iframe width="150" height="75" src='http://www.youtube.com/embed/zwBpUdZ0lrQ' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      `
+    );
     console.log(err.message);
   }
 }
