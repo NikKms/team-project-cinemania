@@ -95,7 +95,7 @@ export default class Pagination {
 
     el.addEventListener('click', this.handlerBtn);
     paginationContainer.addEventListener('click', this.arrowHandler);
-    а;
+
     const prevButton = document.querySelector(
       '.pagination-arrow.pagination-arrows-prev'
     );
