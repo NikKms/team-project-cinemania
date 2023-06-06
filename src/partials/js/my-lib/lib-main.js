@@ -1,10 +1,13 @@
 import { getGenre } from '../api';
 import { parsedFilms, parsedFilmsGenreIds } from './lib-storage';
-import { renderLibMoviesListMarkup, renderLibSelectMarkup } from './lib-markups';
+import {
+  renderLibMoviesListMarkup,
+  renderLibSelectMarkup,
+} from './lib-markups';
 import { libRefs } from './lib-refs';
 
 const { libSelectEl, libMoviesListEl, libLoadMoreBtn } = libRefs;
-console.log('libLoadMoreBtn: ', libLoadMoreBtn);
+console.log('libLoadMoreBtn:', libLoadMoreBtn);
 
 const movieByStep = 9;
 let totalMoviesLoaded = 0;
@@ -16,8 +19,8 @@ const getFilteredGenres = async moviesGenreIds => {
 
 const getGenreName = async movieGenreIds => {
   const filteredGenres = await getFilteredGenres(movieGenreIds);
-  const genreNames = Promise.all(filteredGenres.map(({ name }) => name));
-  return (await genreNames).slice(0, 2).join(', ');
+  const genreNames = await Promise.all(filteredGenres.map(({ name }) => name));
+  return genreNames.slice(0, 2).join(', ');
 };
 
 const renderFilteredGenres = async moviesGenreIds => {
@@ -30,7 +33,6 @@ const loadMovies = moviesArr => {
     totalMoviesLoaded,
     totalMoviesLoaded + movieByStep
   );
-
   totalMoviesLoaded += movieByStep;
   renderLibMoviesListMarkup(slicedArr);
 };
@@ -43,15 +45,18 @@ const onLibSelectChange = evt => {
 };
 
 const filterMoviesListByGenre = selectedValue => {
-  if (selectedValue === '1') loadMovies(parsedFilms);
-  const moviesGenreById = parsedFilms.filter(({ genre_ids }) =>
-    genre_ids.includes(parseInt(selectedValue))
-  );
-  loadMovies(moviesGenreById);
+  if (selectedValue === '1') {
+    loadMovies(parsedFilms);
+  } else {
+    const moviesGenreById = parsedFilms.filter(({ genre_ids }) =>
+      genre_ids.includes(parseInt(selectedValue))
+    );
+    loadMovies(moviesGenreById);
+  }
 };
 
-const onLoadBtnClick = () => {
-  
+const onLoadBtnClick = moviesArr => {
+  loadMovies(moviesArr);
 };
 
 const clearHTML = () => {
@@ -60,11 +65,14 @@ const clearHTML = () => {
 
 libSelectEl.addEventListener('change', onLibSelectChange);
 
-window.addEventListener('load', () => {
-  renderFilteredGenres(parsedFilmsGenreIds);
+window.addEventListener('load', async () => {
+  await renderFilteredGenres(parsedFilmsGenreIds);
   loadMovies(parsedFilms);
 });
 
-libLoadMoreBtn.addEventListener('click', onLoadBtnClick);
+libLoadMoreBtn.addEventListener('click', () => onLoadBtnClick(parsedFilms));
 
+// libMoviesListEl.addEventListener('click', ect => {
+//   console.log(ect.target);
+// });
 export { getGenreName };
