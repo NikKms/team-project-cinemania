@@ -1,0 +1,150 @@
+.lib-btn-hidden {
+  display: none;
+}
+
+/*---------mobile----------*/
+@media screen and (min-width: 320px) {
+  .mylibrary_movies_section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .mylibrary_movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 16px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+    list-style: none;
+  }
+  .mylibrary_movie {
+    position: relative;
+    width: 280px;
+    height: 406px;
+  }
+  .mylibrary_movie:hover {
+    box-shadow: 0px 0px 5px 4px rgba(248, 65, 25, 1);
+    /* box-shadow: 0px 4px 4px orange, -0.5em 0 0.4em rgb(158, 145, 3); */
+    /* box-shadow: 10px 5px 5px orange; */
+    border-radius: 4px;
+  }
+  .mylibrary_poster {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .mylibrary_move_dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 63.48%,
+      rgba(0, 0, 0, 0.9) 92.16%
+    );
+    border-radius: 5px;
+  }
+  .mylibrary_movies_name {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.6;
+    text-transform: uppercase;
+    color: --primary-title-color;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-left: 12px;
+    padding-bottom: 30px;
+  }
+  .mylibrary_genre_movie {
+    font-weight: 500;
+    line-height: 1.4;
+    color: #b7b7b7;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-left: 12px;
+    padding-bottom: 12px;
+  }
+  .mylibrary_button {
+    display: grid;
+    place-items: center;
+  }
+  .mylibrary_button-order {
+    font-weight: 500;
+    line-height: 1.14;
+    padding: 12px 24px;
+    width: auto;
+    cursor: pointer;
+    background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
+    border-radius: 74px;
+    left: 0;
+  }
+  .mylibrary_button-order:focus {
+    background: white;
+    color: #f87719;
+    border-color: #f87719;
+  }
+}
+
+/*---------mobile----------*/
+
+/*---------tablet----------*/
+@media screen and (min-width: 768px) {
+  .mylibrary_movies {
+    padding-top: 35px;
+    padding-bottom: 40px;
+    gap: 28px 16px;
+  }
+  .mylibrary_movie {
+    width: 224px;
+    height: 325px;
+  }
+  .mylibrary_movies_name {
+    line-height: 1.5;
+    padding-left: 12px;
+  }
+  .mylibrary_genre_movie {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+}
+/*---------tablet----------*/
+/*---------desktop----------*/
+@media screen and (min-width: 1280px) {
+  .mylibrary_movies_section {
+    padding-top: 96px;
+    padding-bottom: 96px;
+  }
+  .mylibrary_movies {
+    gap: 32px 16px;
+  }
+  .mylibrary_movie {
+    width: 394px;
+    height: 574px;
+  }
+  .mylibrary_movies_name {
+    font-size: 20px;
+    line-height: 1.15;
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+  .mylibrary_genre_movie {
+    font-size: 20px;
+    line-height: 1.2;
+    padding-left: 20px;
+    padding-bottom: 20px;
+  }
+
+  .mylibrary_button-order {
+    font-size: 18px;
+    line-height: 1.5;
+    width: auto;
+    height: 52px;
+  }
+}
+/*---------desktop----------*/
