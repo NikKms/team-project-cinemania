@@ -2,13 +2,19 @@
 
 /* Mobil */
 
+
+
 @media screen and (min-width: 320px) {
+    .home {
+        padding-top: 40px;
+        padding-bottom: 32px;
+    }
 
     .weekly-title-wrap {
-        margin-top: 40px;
+        /* margin-top: 40px; */
         display: flex;
         justify-content: space-between;
-        padding-bottom: 24px;
+        margin-bottom: 24px;
         font-weight: 500;
         font-size: 16px;
         line-height: 19px;
@@ -31,7 +37,7 @@
                 rgba(0, 0, 0, 0) 63.48%,
                 rgba(0, 0, 0, 0.9) 92.16%);
         border-radius: 5px;
-        margin-bottom: 16px;
+        /* margin-bottom: 16px; */
     }
 
     .weekly-container-image {
@@ -56,18 +62,16 @@
     }
 
     .weekly-card-description {
+
         position: absolute;
-        left: 12px;
-        bottom: 12px;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 20px;
-        text-transform: uppercase;
-        color: var(--white);
         display: flex;
-        width: 266px;
+        width: 100%;
+        height: auto;
         justify-content: space-between;
         align-items: flex-end;
+        padding: 40px 12px 12px;
+        bottom: 0;
+        border-radius: 5px;
     }
 
     .weekly-card-description-title {
@@ -82,10 +86,16 @@
         font-size: 19px;
     }
 
+
+
     .weekly-card-raiting {
         /* position: absolute;
     right: 12px;
     bottom: 12px; */
+    }
+
+    .upcoming {
+        padding-bottom: 40px;
     }
 
     .upcoming_wrap {
@@ -221,22 +231,32 @@
 
 /* Tablet */
 
+
 @media screen and (min-width: 768px) {
+    .home {
+        padding-top: 52px;
+        padding-bottom: 44px;
+    }
+
     .weekly-title-wrap {
-        margin-top: 52px;
+        /* margin-top: 52px; */
         font-size: 24px;
         line-height: 28px;
     }
 
     .weekly-card-description {
         line-height: 18px;
-        width: auto;
+        /* width: auto; */
     }
 
     .weekly-cards-wrap {
         display: flex;
         gap: 16px;
-        margin-bottom: 44px;
+        /* margin-bottom: 44px; */
+    }
+
+    .upcoming {
+        padding-bottom: 77px;
     }
 
     .upcoming-title {
@@ -282,18 +302,21 @@
 /* Desktop */
 
 @media screen and (min-width: 1280px) {
+    .home {
+        padding-top: 80px;
+        padding-bottom: 60px;
+    }
+
     .weekly-title-wrap {
-        margin-top: 80px;
+        /* margin-top: 80px; */
         font-size: 28px;
         line-height: 33px;
     }
 
     .weekly-card-description {
-        left: 20px;
-        bottom: 20px;
+        padding: 40px 20px 20px;
         font-size: 20px;
         line-height: 23px;
-        gap: 33px;
     }
 
     .weekly-card-description .Stars {
@@ -301,11 +324,15 @@
     }
 
     .weekly-cards-wrap {
-        margin-bottom: 60px;
+        /* margin-bottom: 60px; */
     }
 
     .weekly-container-image {
         width: 395px;
+    }
+
+    .upcoming {
+        padding-bottom: 100px;
     }
 
     .upcoming-title {
