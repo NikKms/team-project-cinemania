@@ -15,9 +15,6 @@ const getParsedFilms = () => {
 };
 
 const parsedFilms = getParsedFilms();
-
-console.log('parsedFilms: ', parsedFilms);
-
 const parsedFilmsGenreIds = parsedFilms.flatMap(({ genre_ids }) => genre_ids);
 
 export { parsedFilms, parsedFilmsGenreIds };

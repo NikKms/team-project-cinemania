@@ -7,7 +7,8 @@
   padding-top: 40px;
   padding-left: 20px;
   padding-bottom: 80px;
-  padding-right: 101px;
+  padding-right: 57px;
+  height: 380px;
 }
 
 .hero-img {
@@ -15,14 +16,23 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .hero-description-wrap {
   margin-bottom: 20px;
 }
 
-.hero-description2 {
-  display: none;
+.hero-description1 {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.14;
+
+  color: #f8f8f8;
 }
 
 .hero-title-wrap {
@@ -37,15 +47,8 @@
   color: #ffffff;
 }
 
-.hero-description1 {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.14;
-  display: flex;
-
-  color: #f8f8f8;
+.hero-description2 {
+  display: none;
 }
 
 .hero-btn {
@@ -60,6 +63,17 @@
   transition: border linear 250ms, border-color linear 250ms,
     background linear 250ms, color linear 250ms;
   border: 2px transparent;
+}
+
+.hero-btn.hero-btn-more {
+  outline: 2px solid #f87719;
+  background: transparent;
+  color: #ffffff;
+  margin-left: 14px;
+}
+.hero-btn.hero-btn-more:hover,
+.hero-btn.hero-btn-more:focus {
+  outline: 2px solid #fff;
 }
 
 .hero-btn:hover,
@@ -79,6 +93,11 @@
     background-image: url('../../../images/hero/hero-home-mob2.jpg');
   }
 }
+@media screen and (max-width: 767px) {
+  .hero-btn.hero-btn-more {
+    margin-left: 8px;
+  }
+}
 
 @media screen and (max-width: 1279px) {
   .hero-img {
@@ -88,11 +107,15 @@
 }
 /* ---------------MEDIA TABLET(1024)---------------------- */
 @media screen and (min-width: 768px) {
+  .hero-gradient {
+    height: 372px;
+  }
+
   .hero-title {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
-    font-size: 44px;
+    font-size: 30px;
     line-height: 1.18;
     color: #ffffff;
   }
@@ -109,6 +132,8 @@
   }
 
   .hero-description1 {
+    display: none;
+
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -117,12 +142,11 @@
   }
 
   .hero-description2 {
-    display: inline;
-
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 1.14;
+    display: inline;
   }
 
   .hero-img {
@@ -140,6 +164,12 @@
 /* ---------------MEDIA DESKTOP(1280)---------------------- */
 
 @media screen and (min-width: 1280px) {
+  .hero-title {
+    font-size: 38px;
+  }
+  .hero-gradient {
+    height: 660px;
+  }
   .hero-img {
     background-image: url('../../../images/hero/hero-home-desktop1.jpg');
     background-size: cover;

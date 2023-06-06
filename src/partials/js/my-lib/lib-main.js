@@ -1,10 +1,19 @@
 import { getGenre } from '../api';
 import { parsedFilms, parsedFilmsGenreIds } from './lib-storage';
+import {
+  renderLibMoviesListMarkup,
+  renderLibSelectMarkup,
+} from './lib-markups';
 import { libRefs } from './lib-refs';
-import { renderLibMoviesListMarkup, renderLibSelectMarkup } from './lib-markup';
+import { LoadMoreBtn } from './loadMoreBtn';
 
 const { libSelectEl, libMoviesListEl, libLoadMoreBtn } = libRefs;
 
+const loadMore = new LoadMoreBtn({
+  btnEl: libLoadMoreBtn,
+});
+
+let selectedGenre = '1';
 const movieByStep = 9;
 let totalMoviesLoaded = 0;
 
@@ -15,8 +24,8 @@ const getFilteredGenres = async moviesGenreIds => {
 
 const getGenreName = async movieGenreIds => {
   const filteredGenres = await getFilteredGenres(movieGenreIds);
-  const genreNames = Promise.all(filteredGenres.map(({ name }) => name));
-  return (await genreNames).slice(0, 2).join(', ');
+  const genreNames = filteredGenres.map(({ name }) => name);
+  return genreNames.slice(0, 2).join(', ');
 };
 
 const renderFilteredGenres = async moviesGenreIds => {
@@ -34,22 +43,43 @@ const loadMovies = moviesArr => {
   renderLibMoviesListMarkup(slicedArr);
 };
 
-const onLibSelectChange = evt => {
-  const selectedValue = evt.target.value;
+const onLibSelectChange = () => {
+  selectedGenre = libSelectEl.value;
   totalMoviesLoaded = 0;
   clearHTML();
+  loadMoviesByGenre(selectedGenre);
+};
+
+const loadMoviesByGenre = selectedValue => {
   filterMoviesListByGenre(selectedValue);
 };
 
 const filterMoviesListByGenre = selectedValue => {
-  if (selectedValue === '1') loadMovies(parsedFilms);
-  const moviesGenreById = parsedFilms.filter(({ genre_ids }) =>
-    genre_ids.includes(parseInt(selectedValue))
-  );
-  loadMovies(moviesGenreById);
+  if (selectedValue === '1') {
+    loadMovies(parsedFilms);
+    checkArrLength(parsedFilms);
+  } else {
+    const moviesGenreById = parsedFilms.filter(({ genre_ids }) =>
+      genre_ids.includes(parseInt(selectedValue))
+    );
+    loadMovies(moviesGenreById);
+    checkArrLength(moviesGenreById);
+  }
 };
 
-const onLoadBtnClick = () => {};
+const checkArrLength = moviesArr => {
+  if (moviesArr.length <= totalMoviesLoaded) {
+    loadMore.hideBtn();
+  } else {
+    loadMore.showBtn();
+  }
+};
+
+const onLoadBtnClick = () => {
+  loadMore.disableBtn();
+  loadMoviesByGenre(selectedGenre);
+  loadMore.enableBtn();
+};
 
 const clearHTML = () => {
   libMoviesListEl.innerHTML = '';
@@ -57,8 +87,8 @@ const clearHTML = () => {
 
 libSelectEl.addEventListener('change', onLibSelectChange);
 
-window.addEventListener('load', () => {
-  renderFilteredGenres(parsedFilmsGenreIds);
+window.addEventListener('load', async () => {
+  await renderFilteredGenres(parsedFilmsGenreIds);
   loadMovies(parsedFilms);
 });
 
