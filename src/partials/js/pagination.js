@@ -6,7 +6,7 @@ const VISIBLE_PAGE = 4;
 
 function createPagination(items, pages) {
   const options = {
-    itemPerPage: pages,
+    itemPerPage: 20,
     items,
     pages: Math.min(pages, VISIBLE_PAGE),
   };
@@ -16,5 +16,3 @@ function createPagination(items, pages) {
 
   return pagination;
 }
-
-export { createPagination };
