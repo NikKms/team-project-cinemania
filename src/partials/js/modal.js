@@ -1,11 +1,13 @@
 import { getInfoByMovie } from './api';
 import { getGenre } from './api';
+import { addFilmToStorage } from './my-lib/lib-storage';
 
 const refs = {
   openModal: document.querySelector('[data-modal-open]'),
   closeModal: document.querySelector('[data-modal-close]'),
   backdrop: document.querySelector('[data-modal]'),
   upcomingWrapLi: document.querySelector('.upcoming_modal'),
+  addToLibBtn: null,
 };
 
 refs.openModal.addEventListener('click', onOpenModal);
@@ -54,6 +56,7 @@ function renderFilmInModal(film) {
     title,
     vote_average,
     vote_count,
+    id,
   } = film;
   const genresList = genres.map(genre => genre.name);
   const formatedGenres = genresList.join(', ');
@@ -102,4 +105,14 @@ function renderFilmInModal(film) {
     </div>`;
 
   refs.upcomingWrapLi.innerHTML = markup;
+
+  refs.addToLibBtn = document.querySelector('.modal-button');
+
+  const addToLib = evt => {
+    addFilmToStorage(film);
+    evt.currentTarget.textContent = "!!"
+  };
+  refs.addToLibBtn.addEventListener('click', addToLib);
 }
+
+export { refs };
