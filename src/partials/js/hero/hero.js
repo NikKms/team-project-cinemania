@@ -2,7 +2,7 @@ import Swiper from 'swiper/swiper-bundle';
 import 'swiper/swiper-bundle.css';
 
 import { renderSlide, renderSwiper } from '../hero/heroUi';
-import { renderTrailer } from './trailer-modal';
+import { renderTrailer, onTrailerError } from './trailer-modal';
 import { getTrending, getMovie } from '../api';
 
 const heroRefs = {
@@ -71,12 +71,7 @@ async function getTrailerByFilmId(id) {
     const trailerKey = movieData.results[0].key;
     renderTrailer(trailerKey);
   } catch (err) {
-    heroRefs.hero.insertAdjacentHTML(
-      'beforeEnd',
-      `
-    <div style="position: absolute" class="player"><iframe width="150" height="75" src='http://www.youtube.com/embed/zwBpUdZ0lrQ' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-      `
-    );
+    onTrailerError();
     console.log(err.message);
   }
 }
