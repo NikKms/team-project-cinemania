@@ -6,18 +6,26 @@ export default class Pagination {
     this.totalPages = totalPages;
     this.currentPage = page;
     this.getMovies = getMovies;
+    this.arrPaginationItems = [];
   }
 
   createButton = () => {
-    const arrPaginationItems = [];
+    if (this.totalPages <= 1) {
+      this.reset();
+      return;
+    }
 
-    this.addFirstPages(arrPaginationItems);
-    this.totalPages > 3 && this.addEllipsisIfNeeded(arrPaginationItems);
-    this.totalPages > 3 && this.addMiddlePages(arrPaginationItems);
-    this.totalPages > 3 && this.addEllipsisIfNeeded(arrPaginationItems, true);
-    this.totalPages > 3 && this.addLastPage(arrPaginationItems);
+    this.arrPaginationItems = [];
 
-    const markup = this.createPagination(arrPaginationItems.join(''));
+    this.addFirstPages(this.arrPaginationItems);
+    if (this.totalPages > 6) {
+      this.addEllipsisIfNeeded(this.arrPaginationItems);
+      this.addMiddlePages(this.arrPaginationItems);
+      this.addEllipsisIfNeeded(this.arrPaginationItems, true);
+      this.addLastPage(this.arrPaginationItems);
+    }
+
+    const markup = this.createPagination(this.arrPaginationItems.join(''));
     this.render(markup);
     saveLocal('currentPage', this.currentPage);
     this.getMovies(this.currentPage);
@@ -64,19 +72,93 @@ export default class Pagination {
   };
 
   createPagination = paginationItems => {
-    return `<ul class='pagination'>${paginationItems}</ul>`;
+    const paginationContainer = `
+      <div class='pagination ${
+        this.totalPages <= 1 ? 'pagination-hidden' : ''
+      }'>
+        <div class="pagination-arrows ${
+          this.totalPages <= 1 ? 'pagination-arrows-hidden' : ''
+        }">
+          <button type="button" class='pagination-arrow pagination-arrows-prev'>prev</button>
+          <button type="button" class='pagination-arrow pagination-arrows-next'>next</button>
+        </div>
+        <ul class='pagination-list'>${paginationItems}</ul>
+      </div>`;
+    return paginationContainer;
   };
 
   render = pagination => {
     this.reset();
     refs.catalogFilms.insertAdjacentHTML('afterend', pagination);
     const el = document.querySelector('.pagination');
+    const paginationContainer = document.querySelector('.pagination');
+
     el.addEventListener('click', this.handlerBtn);
+    paginationContainer.addEventListener('click', this.arrowHandler);
+    а;
+    const prevButton = document.querySelector(
+      '.pagination-arrow.pagination-arrows-prev'
+    );
+    if (this.currentPage === 1) {
+      prevButton.style.display = 'none';
+    } else {
+      prevButton.style.display = 'block';
+    }
+
+    const nextButton = document.querySelector(
+      '.pagination-arrow.pagination-arrows-next'
+    );
+    if (this.currentPage === this.totalPages) {
+      nextButton.style.display = 'none';
+    } else {
+      nextButton.style.display = 'block';
+    }
+  };
+
+  arrowHandler = e => {
+    const targetEl = e.target;
+
+    if (targetEl.classList.contains('pagination-arrows-prev')) {
+      this.prev();
+    }
+    if (targetEl.classList.contains('pagination-arrows-next')) {
+      this.next();
+    }
   };
 
   reset = () => {
     const el = document.querySelector('.pagination');
     if (el) el.remove();
+  };
+
+  prev = () => {
+    if (this.currentPage === 1) return;
+    this.currentPage -= 1;
+    this.createButton();
+
+    const prevButton = document.querySelector(
+      '.pagination-arrow.pagination-arrows-prev'
+    );
+    if (this.currentPage === 1) {
+      prevButton.style.display = 'none';
+    } else {
+      prevButton.style.display = 'block';
+    }
+  };
+
+  next = () => {
+    if (this.currentPage === this.totalPages) return;
+    this.currentPage += 1;
+    this.createButton();
+
+    const nextButton = document.querySelector(
+      '.pagination-arrow.pagination-arrows-next'
+    );
+    if (this.currentPage === this.totalPages) {
+      nextButton.style.display = 'none';
+    } else {
+      nextButton.style.display = 'block';
+    }
   };
 
   handlerBtn = e => {
