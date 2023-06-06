@@ -1,7 +1,13 @@
+<<<<<<< HEAD
+import { getMoviesByQuery, showNewestMovies } from './catalogApi';
+import { loadLocal, saveLocal } from './catalogUtils';
+import Pagination from './pagination';
+=======
 import axios from 'axios';
 import { getByQuery, getMovie } from '../api';
 import { refs } from '../refs';
 import { createCards } from './createCards';
+>>>>>>> main
 
 const API_KEY = '88b8a7c5d221d3120fb29d734050dc7d';
 const searchForm = document.querySelector('.search-form');
@@ -14,6 +20,22 @@ const submitHandler = e => {
     showNewestMovies();
     return;
   }
+<<<<<<< HEAD
+  saveLocal('searchTerm', searchMovies);
+  afterSearching(searchMovies);
+};
+
+const afterLoad = async () => {
+  const { page, total_pages } = await showNewestMovies();
+  const pagination = new Pagination(total_pages, page, showNewestMovies);
+  pagination.createButton();
+};
+
+const afterSearching = async () => {
+  const { page, total_pages } = await getMoviesByQuery();
+  const pagination = new Pagination(total_pages, page, getMoviesByQuery);
+  pagination.createButton();
+=======
   getMoviesByQuery(searchMovies);
 };
 
@@ -71,6 +93,7 @@ const showNewestMovies = async () => {
   const { results } = data;
   createDataCards(results);
   console.log(results);
+>>>>>>> main
 };
 
 searchForm.addEventListener('submit', submitHandler);
