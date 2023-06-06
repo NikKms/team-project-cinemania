@@ -1,3 +1,4 @@
+import { swiper } from '../../partials/js/hero/hero';
 import { getInfoByMovie } from './api';
 import { getGenre } from './api';
 
@@ -5,7 +6,7 @@ const refs = {
   openModal: document.querySelector('[data-modal-open]'),
   closeModal: document.querySelector('[data-modal-close]'),
   backdrop: document.querySelector('[data-modal]'),
-  upcomingWrapLi: document.querySelector('.upcoming_modal'),
+  upcomingWrapLi: document.querySelector('.modal-info'),
 };
 
 refs.openModal.addEventListener('click', onOpenModal);
@@ -19,12 +20,16 @@ function onOpenModal(event) {
     getMovieById(cardId);
   }
 
+  swiper.autoplay.stop();
+  document.body.classList.add('not-scroll-body');
   window.addEventListener('keydown', onEscKeyPress);
   refs.backdrop.classList.remove('is-hidden');
 }
 
 function onCloseModal() {
   window.removeEventListener('keydown', onEscKeyPress);
+  swiper.autoplay.start();
+  document.body.classList.remove('not-scroll-body');
   refs.backdrop.classList.add('is-hidden');
 }
 
@@ -56,7 +61,7 @@ function renderFilmInModal(film) {
     vote_count,
   } = film;
   const genresList = genres.map(genre => genre.name);
-  const formatedGenres = genresList.join(', ');
+  const formatedGenres = genresList.join(' ');
 
   const imagePath =
     poster_path !== null
@@ -97,7 +102,8 @@ function renderFilmInModal(film) {
 
         <p class="modal-card-about-text">${overview}</p>
 
-        <button class="modal-button" type="button">Add to my library</button>
+        <button class="modal-button" type="button"><span>Add to my library</span></button>
+        
       </div>
     </div>`;
 

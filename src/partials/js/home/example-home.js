@@ -40,6 +40,7 @@ async function renderWeeklyThreeTrends(firstThreeFilms) {
         name,
         first_air_date,
       }) => {
+        genre_ids = filterGenres(genre_ids);
         const listGenres = await getGenresById(genre_ids);
 
         return `<li class="weekly-card" >
@@ -95,8 +96,9 @@ async function getUpcomingFilm() {
 
 async function renderUpcomingFilm(upcomingFilm) {
   console.log(upcomingFilm);
-  const {
+  let {
     backdrop_path,
+    poster_path,
     genre_ids,
     popularity,
     release_date,
@@ -106,11 +108,16 @@ async function renderUpcomingFilm(upcomingFilm) {
     overview,
   } = upcomingFilm;
 
+  genre_ids = filterGenres(genre_ids);
+
   const listGenres = await getGenresById(genre_ids);
+
+  const isMobile = window.innerWidth < 767;
+  const imagePath = getImagePath(backdrop_path, poster_path, isMobile);
 
   const markup = `<div class="upcoming-card">
 
-            <img class="upcoming-card-img" src="https://image.tmdb.org/t/p/original/${backdrop_path}" alt=" " />
+            <img class="upcoming-card-img" src="https://image.tmdb.org/t/p/original/${imagePath}" alt=" " />
 
           <div class="upcoming-card-wrap">
             <h3 class="upcoming-card-title">${title}</h3>
@@ -153,12 +160,39 @@ async function renderUpcomingFilm(upcomingFilm) {
           </div>
         </div>`;
   upcomingWrapLi.insertAdjacentHTML('beforeend', markup);
+
+  window.addEventListener('resize', () => {
+    updateImagePaths(backdrop_path, poster_path);
+  });
+}
+
+// Функція для визначення шляху зображення на основі ширини екрану
+
+function getImagePath(backdropPath, posterPath, isMobile) {
+  return isMobile ? posterPath : backdropPath;
+}
+// Функція для оновлення шляхів зображень при зміні ширини екрану
+
+function updateImagePaths(backdropPath, posterPath) {
+  const isMobile = window.innerWidth < 767;
+  const imagePath = getImagePath(backdropPath, posterPath, isMobile);
+
+  const imgElement = document.querySelector('.upcoming-card-img');
+  imgElement.src = `https://image.tmdb.org/t/p/original/${imagePath}`;
+}
+
+function filterGenres(genre_ids) {
+  if (genre_ids.length > 2) {
+    return genre_ids.slice(0, 2);
+  }
+
+  return genre_ids;
 }
 
 function getCurrentEndLastDayOfMonth() {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
-  const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0'); // Додаємо 1, оскільки номер місяця починається з 0
+  const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
   const currentDay = String(currentDate.getDate()).padStart(2, '0');
 
   const formattedStartDate = `${currentYear}-${currentMonth}-${currentDay}`;
