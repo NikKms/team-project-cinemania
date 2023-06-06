@@ -45,14 +45,14 @@ const renderLibSelectMarkup = genresArr => {
   const libSelectMarkupEls = genresArr.map(genre =>
     createLibSelectMarkup(genre)
   );
-  libSelectEl.insertAdjacentHTML('beforeend', libSelectMarkupEls.join(','));
+  libSelectEl.insertAdjacentHTML('beforeend', libSelectMarkupEls.join(' '));
 };
 
 const renderLibMoviesListMarkup = async movies => {
   const libMovieListMarkup = await Promise.all(
     movies.map(async movie => await createLibMoviesListMarkup(movie))
   );
-  libMoviesListEl.insertAdjacentHTML('beforeend', libMovieListMarkup.join(','));
+  libMoviesListEl.insertAdjacentHTML('beforeend', libMovieListMarkup.join(' '));
 };
 
 export { renderLibMoviesListMarkup, renderLibSelectMarkup };

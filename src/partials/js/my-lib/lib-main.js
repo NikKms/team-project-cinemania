@@ -5,10 +5,15 @@ import {
   renderLibSelectMarkup,
 } from './lib-markups';
 import { libRefs } from './lib-refs';
+import { LoadMoreBtn } from './loadMoreBtn';
 
 const { libSelectEl, libMoviesListEl, libLoadMoreBtn } = libRefs;
-console.log('libLoadMoreBtn:', libLoadMoreBtn);
 
+const loadMore = new LoadMoreBtn({
+  btnEl: libLoadMoreBtn,
+});
+
+let selectedGenre = '1';
 const movieByStep = 9;
 let totalMoviesLoaded = 0;
 
@@ -19,7 +24,7 @@ const getFilteredGenres = async moviesGenreIds => {
 
 const getGenreName = async movieGenreIds => {
   const filteredGenres = await getFilteredGenres(movieGenreIds);
-  const genreNames = await Promise.all(filteredGenres.map(({ name }) => name));
+  const genreNames = filteredGenres.map(({ name }) => name);
   return genreNames.slice(0, 2).join(', ');
 };
 
@@ -33,30 +38,47 @@ const loadMovies = moviesArr => {
     totalMoviesLoaded,
     totalMoviesLoaded + movieByStep
   );
+
   totalMoviesLoaded += movieByStep;
   renderLibMoviesListMarkup(slicedArr);
 };
 
-const onLibSelectChange = evt => {
-  const selectedValue = evt.target.value;
+const onLibSelectChange = () => {
+  selectedGenre = libSelectEl.value;
   totalMoviesLoaded = 0;
   clearHTML();
+  loadMoviesByGenre(selectedGenre);
+};
+
+const loadMoviesByGenre = selectedValue => {
   filterMoviesListByGenre(selectedValue);
 };
 
 const filterMoviesListByGenre = selectedValue => {
   if (selectedValue === '1') {
     loadMovies(parsedFilms);
+    checkArrLength(parsedFilms);
   } else {
     const moviesGenreById = parsedFilms.filter(({ genre_ids }) =>
       genre_ids.includes(parseInt(selectedValue))
     );
     loadMovies(moviesGenreById);
+    checkArrLength(moviesGenreById);
   }
 };
 
-const onLoadBtnClick = moviesArr => {
-  loadMovies(moviesArr);
+const checkArrLength = moviesArr => {
+  if (moviesArr.length <= totalMoviesLoaded) {
+    loadMore.hideBtn();
+  } else {
+    loadMore.showBtn();
+  }
+};
+
+const onLoadBtnClick = () => {
+  loadMore.disableBtn();
+  loadMoviesByGenre(selectedGenre);
+  loadMore.enableBtn();
 };
 
 const clearHTML = () => {
@@ -70,9 +92,6 @@ window.addEventListener('load', async () => {
   loadMovies(parsedFilms);
 });
 
-libLoadMoreBtn.addEventListener('click', () => onLoadBtnClick(parsedFilms));
+libLoadMoreBtn.addEventListener('click', onLoadBtnClick);
 
-// libMoviesListEl.addEventListener('click', ect => {
-//   console.log(ect.target);
-// });
 export { getGenreName };
