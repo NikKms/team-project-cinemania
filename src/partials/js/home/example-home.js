@@ -28,6 +28,7 @@ function getFirstThreeElements(array) {
 }
 
 async function renderWeeklyThreeTrends(firstThreeFilms) {
+  console.log(firstThreeFilms);
   const markup = await Promise.all(
     firstThreeFilms.map(
       async ({
@@ -39,6 +40,7 @@ async function renderWeeklyThreeTrends(firstThreeFilms) {
         poster_path,
         name,
         first_air_date,
+        vote_average,
       }) => {
         const listGenres = await getGenresById(genre_ids);
 
@@ -51,17 +53,42 @@ async function renderWeeklyThreeTrends(firstThreeFilms) {
           />
          <div class="overlay is-id" data-id=${id}></div>       
         </div>
-        <div class="weekly-card-description">
-          <span class="weekly-card-description-title">${title || name}</span>
+        <ul class="weekly-card-description">
+        <li><span class="weekly-card-description-title">${title || name}</span>
           <span class="weekly-card-description-other">${listGenres} | ${
           release_date
             ? release_date.substring(0, 4)
             : first_air_date.substring(0, 4)
         }</span>
-        </div>
-        <div class="weekly-card-raiting">Stars5*</div>
+        </li>
+         <li class="Stars" style="--rating: ${parseFloat(
+           (vote_average / 2).toFixed(1)
+         )};" aria-label="Rating of this product is 2.3 out of 5."></li> 
+        </ul>
+        
       </li>`;
       }
+
+      //   return `<li class="weekly-card" >
+      //   <div class="weekly-container-image">
+      //     <img
+      //       class="weekly-card-image"
+      //      src="https://image.tmdb.org/t/p/original/${poster_path}"
+      //       alt=""
+      //     />
+      //    <div class="overlay is-id" data-id=${id}></div>
+      //   </div>
+      //   <div class="weekly-card-description">
+      //     <span class="weekly-card-description-title">${title || name}</span>
+      //     <span class="weekly-card-description-other">${listGenres} | ${
+      //     release_date
+      //       ? release_date.substring(0, 4)
+      //       : first_air_date.substring(0, 4)
+      //   }</span>
+      //   </div>
+      //   <div class="weekly-card-raiting">Stars5*</div>
+      // </li>`;
+      // }
     )
   );
 
@@ -94,7 +121,6 @@ async function getUpcomingFilm() {
 }
 
 async function renderUpcomingFilm(upcomingFilm) {
-  console.log(upcomingFilm);
   const {
     backdrop_path,
     genre_ids,
@@ -142,6 +168,7 @@ async function renderUpcomingFilm(upcomingFilm) {
                 <span class="upcoming-card-genre-data">${listGenres}</span>
               </div>
             </div>
+ 
 
             <span class="upcoming-card-about-title">About</span>
 

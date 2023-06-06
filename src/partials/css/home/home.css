@@ -1,319 +1,340 @@
 @import '../hero/hero.css';
 
-.weekly-title-wrap {
-  margin-top: 40px;
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 24px;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-}
-
-.weekly-title-text {
-  text-transform: uppercase;
-  color: var(--white);
-}
-
-.weekly-title-link {
-  color: var(--accent-color);
-}
-
-.weekly-cards-wrap {
-}
-
-.weekly-card {
-  position: relative;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0) 63.48%,
-    rgba(0, 0, 0, 0.9) 92.16%
-  );
-  border-radius: 5px;
-  margin-bottom: 16px;
-}
-
-.weekly-container-image {
-  position: relative;
-}
-
-.overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 300px;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0) 63.48%,
-    rgba(0, 0, 0, 0.95) 92.16%
-  );
-}
-
-.weekly-card-image {
-  display: block;
-  width: 100%;
-  border-radius: 5px;
-}
-
-.weekly-card-description {
-  position: absolute;
-  left: 12px;
-  bottom: 12px;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 20px;
-  text-transform: uppercase;
-  color: var(--white);
-}
-
-.weekly-card-description-title {
-  display: block;
-}
-
-.weekly-card-description-other {
-}
-
-.weekly-card-raiting {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-}
-
-.upcoming_wrap {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-}
-
-.upcoming-title {
-  margin-bottom: 24px;
-  text-transform: uppercase;
-  font-size: 16px;
-}
-
-.upcoming-card {
-}
-
-.upcoming-card-img {
-  width: 805px;
-  height: 458px;
-  object-fit: cover;
-}
-
-.upcoming-card-img img {
-  border-radius: 5px;
-}
-
-.upcoming-card-title {
-  margin-top: 24px;
-  margin-bottom: 20px;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 23px;
-  color: var(--white);
-}
-
-.upcoming-card-release-wrap {
-  margin-bottom: 12px;
-}
-
-.upcoming-card-release-text {
-  margin-right: 57px;
-  color: var(--secondary-text-color);
-}
-
-.upcoming-card-release-data {
-  color: var(--accent-color);
-}
-
-.upcoming-card-vote-wrap {
-  display: flex;
-  margin-bottom: 12px;
-}
-
-.upcoming-card-vote {
-  margin-right: 71px;
-  color: var(--secondary-text-color);
-}
-
-.upcoming-card-vote-data {
-  display: flex;
-  gap: 4px;
-}
-
-.upcoming-card-vote-data :first-child,
-.upcoming-card-vote-data :last-child {
-  padding: 1px 8px;
-  color: var(--black);
-  background: var(--white);
-  border-radius: 5px;
-}
-
-.upcoming-card-popularity-wrap {
-  margin-bottom: 12px;
-}
-
-.upcoming-card-popularity-text {
-  margin-right: 79px;
-  color: var(--secondary-text-color);
-}
-
-.upcoming-card-popularity-data {
-  color: var(--white);
-}
-
-.upcoming-card-genre-wrap {
-  margin-bottom: 12px;
-}
-
-.upcoming-card-genre-text {
-  margin-right: 103px;
-  color: var(--secondary-text-color);
-}
-
-.upcoming-card-genre-data {
-  color: var(--white);
-}
-
-.upcoming-card-about-title {
-  display: block;
-  text-transform: uppercase;
-  color: var(--secondary-text-color);
-  margin-bottom: 20px;
-}
-
-.upcoming-card-about-text {
-  margin-bottom: 20px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--primary-text-color);
-}
-
-.upcoming-button {
-  margin-bottom: 40px;
-  padding: 12px 24px;
-  background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
-  border-radius: 74px;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 14px;
-  cursor: pointer;
-}
-
 /* Mobil */
 
-@media screen and (min-width: 414px) {
+@media screen and (min-width: 320px) {
+
+    .weekly-title-wrap {
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 24px;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+    }
+
+    .weekly-title-text {
+        text-transform: uppercase;
+        color: var(--white);
+    }
+
+    .weekly-title-link {
+        color: var(--accent-color);
+    }
+
+    .weekly-cards-wrap {}
+
+    .weekly-card {
+        position: relative;
+        background: linear-gradient(180deg,
+                rgba(0, 0, 0, 0) 63.48%,
+                rgba(0, 0, 0, 0.9) 92.16%);
+        border-radius: 5px;
+        margin-bottom: 16px;
+    }
+
+    .weekly-container-image {
+        position: relative;
+    }
+
+    .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 300px;
+        background: linear-gradient(180deg,
+                rgba(0, 0, 0, 0) 63.48%,
+                rgba(0, 0, 0, 0.95) 92.16%);
+    }
+
+    .weekly-card-image {
+        display: block;
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .weekly-card-description {
+        position: absolute;
+        left: 12px;
+        bottom: 12px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 20px;
+        text-transform: uppercase;
+        color: var(--white);
+        display: flex;
+        width: 266px;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    .weekly-card-description-title {
+        display: block;
+    }
+
+    .weekly-card-description-other {
+        color: var(--secondary-text-color)
+    }
+
+    .weekly-card-description .Stars {
+        font-size: 19px;
+    }
+
+    .weekly-card-raiting {
+        /* position: absolute;
+    right: 12px;
+    bottom: 12px; */
+    }
+
+    .upcoming_wrap {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+    }
+
+    .upcoming-title {
+        margin-bottom: 24px;
+        text-transform: uppercase;
+        font-size: 16px;
+    }
+
+    .upcoming-card {}
+
+    .upcoming-card-img {
+        width: 805px;
+        height: 458px;
+        object-fit: cover;
+    }
+
+    .upcoming-card-img img {
+        border-radius: 5px;
+    }
+
+    .upcoming-card-title {
+        margin-top: 24px;
+        margin-bottom: 20px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23px;
+        color: var(--white);
+    }
+
+    .upcoming-card-release-wrap {
+        margin-bottom: 12px;
+    }
+
+    .upcoming-card-release-text {
+        margin-right: 57px;
+        color: var(--secondary-text-color);
+    }
+
+    .upcoming-card-release-data {
+        color: var(--accent-color);
+    }
+
+    .upcoming-card-vote-wrap {
+        display: flex;
+        margin-bottom: 12px;
+    }
+
+    .upcoming-card-vote {
+        margin-right: 71px;
+        color: var(--secondary-text-color);
+    }
+
+    .upcoming-card-vote-data {
+        display: flex;
+        gap: 4px;
+    }
+
+    .upcoming-card-vote-data :first-child,
+    .upcoming-card-vote-data :last-child {
+        padding: 1px 8px;
+        color: var(--black);
+        background: var(--white);
+        border-radius: 5px;
+    }
+
+    .upcoming-card-popularity-wrap {
+        margin-bottom: 12px;
+        display: flex;
+    }
+
+    .upcoming-card-popularity-text {
+        margin-right: 87px;
+        color: var(--secondary-text-color);
+    }
+
+    .upcoming-card-popularity-data {
+        color: var(--white);
+    }
+
+    .upcoming-card-genre-wrap {
+        margin-bottom: 12px;
+        display: flex;
+    }
+
+    .upcoming-card-genre-text {
+        margin-right: 113px;
+        color: var(--secondary-text-color);
+    }
+
+    .upcoming-card-genre-data {
+        color: var(--white);
+    }
+
+    .upcoming-card-about-title {
+        display: block;
+        text-transform: uppercase;
+        color: var(--secondary-text-color);
+        margin-bottom: 20px;
+    }
+
+    .upcoming-card-about-text {
+        margin-bottom: 20px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: var(--primary-text-color);
+    }
+
+    .upcoming-button {
+        margin-bottom: 40px;
+        padding: 12px 24px;
+        background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
+        border-radius: 74px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        cursor: pointer;
+    }
+
+    .upcoming-button:hover {
+        background: linear-gradient(323deg, #ffc226 9.4%, #f84119 91.91%);
+    }
+
 }
 
 /* Tablet */
 
 @media screen and (min-width: 768px) {
-  .weekly-title-wrap {
-    margin-top: 52px;
-    font-size: 24px;
-    line-height: 28px;
-  }
+    .weekly-title-wrap {
+        margin-top: 52px;
+        font-size: 24px;
+        line-height: 28px;
+    }
 
-  .weekly-card-description {
-    line-height: 18px;
-  }
+    .weekly-card-description {
+        line-height: 18px;
+        width: auto;
+    }
 
-  .weekly-cards-wrap {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 44px;
-  }
+    .weekly-cards-wrap {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 44px;
+    }
 
-  .upcoming-card-img {
-    width: 805px;
-    height: 458px;
-    object-fit: cover;
-  }
+    .upcoming-title {
+        line-height: 28px;
+    }
 
-  .upcoming-title {
-    line-height: 28px;
-  }
+    .upcoming-card-img {
+        width: 805px;
+        height: 458px;
+        object-fit: cover;
+    }
 
-  .upcoming-card-title {
-    font-size: 28px;
-    line-height: 33px;
-    margin-top: 32px;
-    margin-bottom: 24px;
-  }
-  .upcoming-card-numbers-wrap-top {
-    display: flex;
-    column-gap: 131px;
-  }
+    .upcoming-title {
+        line-height: 28px;
+    }
 
-  .upcoming-card-numbers-wrap-down {
-    display: flex;
-    column-gap: 181px;
-  }
+    .upcoming-card-title {
+        font-size: 28px;
+        line-height: 33px;
+        margin-top: 32px;
+        margin-bottom: 24px;
+    }
 
-  .upcoming-card-vote-data {
-    font-size: 14px;
-  }
+    .upcoming-card-numbers-wrap-top {
+        display: flex;
+        column-gap: 131px;
+    }
 
-  .upcoming-card-about-title {
-    margin-bottom: 16px;
-  }
+    .upcoming-card-numbers-wrap-down {
+        display: flex;
+        column-gap: 181px;
+    }
+
+    .upcoming-card-vote-data {
+        font-size: 14px;
+    }
+
+    .upcoming-card-about-title {
+        margin-bottom: 16px;
+    }
 }
 
 /* Desktop */
 
 @media screen and (min-width: 1280px) {
-  .weekly-title-wrap {
-    margin-top: 80px;
-    font-size: 28px;
-    line-height: 33px;
-  }
+    .weekly-title-wrap {
+        margin-top: 80px;
+        font-size: 28px;
+        line-height: 33px;
+    }
 
-  .weekly-card-description {
-    left: 20px;
-    bottom: 20px;
-    font-size: 20px;
-    line-height: 23px;
-  }
+    .weekly-card-description {
+        left: 20px;
+        bottom: 20px;
+        font-size: 20px;
+        line-height: 23px;
+        gap: 33px;
+    }
 
-  .weekly-cards-wrap {
-    margin-bottom: 60px;
-  }
+    .weekly-card-description .Stars {
+        font-size: 22px;
+    }
 
-  .weekly-container-image {
-    width: 395px;
-  }
+    .weekly-cards-wrap {
+        margin-bottom: 60px;
+    }
 
-  .upcoming-title {
-    font-size: 28px;
-    line-height: 33px;
-    margin-bottom: 28px;
-  }
+    .weekly-container-image {
+        width: 395px;
+    }
 
-  .upcoming-card {
-    display: flex;
-    gap: 16px;
-  }
+    .upcoming-title {
+        font-size: 28px;
+        line-height: 33px;
+        margin-bottom: 28px;
+    }
 
-  .upcoming-card-title {
-    margin-top: 0;
-    font-size: 32px;
-    line-height: 38px;
-    margin-bottom: 28px;
-  }
+    .upcoming-card {
+        display: flex;
+        gap: 16px;
+    }
 
-  .upcoming-card-img img {
-    max-width: fit-content;
-  }
+    .upcoming-card-title {
+        margin-top: 0;
+        font-size: 32px;
+        line-height: 38px;
+        margin-bottom: 28px;
+    }
 
-  .upcoming-card-numbers-wrap-top {
-    flex-direction: column;
-  }
+    .upcoming-card-img img {
+        max-width: fit-content;
+    }
 
-  .upcoming-card-numbers-wrap-down {
-    flex-direction: column;
-  }
+    .upcoming-card-numbers-wrap-top {
+        flex-direction: column;
+    }
+
+    .upcoming-card-numbers-wrap-down {
+        flex-direction: column;
+    }
 }
