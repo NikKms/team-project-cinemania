@@ -1,10 +1,11 @@
 import { refs } from '../refs';
+import { saveLocal } from './catalogUtils';
 
 export default class Pagination {
-  constructor(totalPages, page, updatePage) {
+  constructor(totalPages, page, getMovies) {
     this.totalPages = totalPages;
     this.currentPage = page;
-    this.updatePage = updatePage;
+    this.getMovies = getMovies;
   }
 
   createButton = () => {
@@ -18,7 +19,8 @@ export default class Pagination {
 
     const markup = this.createPagination(arrPaginationItems.join(''));
     this.render(markup);
-    return this.currentPage;
+    saveLocal('currentPage', this.currentPage);
+    this.getMovies(this.currentPage);
   };
 
   addFirstPages = arr => {
@@ -62,7 +64,6 @@ export default class Pagination {
   };
 
   createPagination = paginationItems => {
-    this.updatePage();
     return `<ul class='pagination'>${paginationItems}</ul>`;
   };
 
@@ -76,10 +77,6 @@ export default class Pagination {
   reset = () => {
     const el = document.querySelector('.pagination');
     if (el) el.remove();
-  };
-
-  getActivePage = () => {
-    return this.currentPage;
   };
 
   handlerBtn = e => {

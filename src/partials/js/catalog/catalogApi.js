@@ -1,12 +1,13 @@
 import Pagination from './pagination';
 import { getByQuery } from '../api';
-import { createDataCards } from './catalogUtils';
+import { createDataCards, loadLocal } from './catalogUtils';
 import axios from 'axios';
 
 const API_KEY = '88b8a7c5d221d3120fb29d734050dc7d';
 
-export const getMoviesByQuery = async (searchTerm, chosenPage = 1) => {
-  console.log(chosenPage);
+export const getMoviesByQuery = async (chosenPage = 1) => {
+  const searchTerm = loadLocal('searchTerm');
+  console.log(chosenPage, searchTerm);
   const { results, total_pages, page } = await getByQuery(
     searchTerm,
     chosenPage
@@ -20,7 +21,6 @@ export const getMoviesByQuery = async (searchTerm, chosenPage = 1) => {
 };
 
 export const showNewestMovies = async currentPage => {
-  console.log(currentPage);
   const { data } = await axios.get(
     `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=${currentPage}&language=en-US`
   );

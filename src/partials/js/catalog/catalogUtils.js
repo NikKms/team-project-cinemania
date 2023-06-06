@@ -35,4 +35,28 @@ const createMovieDate = dateString => {
   return year;
 };
 
-export { createDataCards, createGenreStr, createMovieDate };
+const saveLocal = (key, value) => {
+  try {
+    const serializedState = JSON.stringify(value);
+    localStorage.setItem(key, serializedState);
+  } catch (error) {
+    console.error('Set state error: ', error.message);
+  }
+};
+
+const loadLocal = key => {
+  try {
+    const serializedState = localStorage.getItem(key);
+    return serializedState === null ? undefined : JSON.parse(serializedState);
+  } catch (error) {
+    console.error('Get state error: ', error.message);
+  }
+};
+
+export {
+  createDataCards,
+  createGenreStr,
+  createMovieDate,
+  saveLocal,
+  loadLocal,
+};

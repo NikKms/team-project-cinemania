@@ -1,5 +1,6 @@
-import { createPagination } from '../pagination';
 import { getMoviesByQuery, showNewestMovies } from './catalogApi';
+import { loadLocal, saveLocal } from './catalogUtils';
+import Pagination from './pagination';
 
 const searchForm = document.querySelector('.search-form');
 
@@ -11,16 +12,20 @@ const submitHandler = e => {
     afterLoad();
     return;
   }
+  saveLocal('searchTerm', searchMovies);
   afterSearching(searchMovies);
 };
 
 const afterLoad = async () => {
-  const { results, page, total_pages } = await showNewestMovies();
-  //createPagination(results, total_pages);
+  const { page, total_pages } = await showNewestMovies();
+  const pagination = new Pagination(total_pages, page, showNewestMovies);
+  pagination.createButton();
 };
 
-const afterSearching = async searchMovies => {
-  const { results, page, total_pages } = await getMoviesByQuery(searchMovies);
+const afterSearching = async () => {
+  const { page, total_pages } = await getMoviesByQuery();
+  const pagination = new Pagination(total_pages, page, getMoviesByQuery);
+  pagination.createButton();
 };
 
 searchForm.addEventListener('submit', submitHandler);
