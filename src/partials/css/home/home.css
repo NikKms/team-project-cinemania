@@ -28,6 +28,9 @@
   }
 
   .weekly-cards-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   .weekly-card {
@@ -38,7 +41,7 @@
       rgba(0, 0, 0, 0.9) 92.16%
     );
     border-radius: 5px;
-    /* margin-bottom: 16px; */
+    cursor: pointer;
   }
 
   .weekly-container-image {
@@ -115,7 +118,7 @@
 
   .upcoming-card-img {
     width: 805px;
-    height: 458px;
+
     object-fit: cover;
   }
 
@@ -227,6 +230,11 @@
   .upcoming-button:hover {
     background: linear-gradient(323deg, #ffc226 9.4%, #f84119 91.91%);
   }
+  .upcoming-not-found {
+    font-size: 20px;
+    line-height: 28px;
+    text-align: center;
+  }
 }
 
 /* Tablet */
@@ -250,6 +258,7 @@
 
   .weekly-cards-wrap {
     display: flex;
+    flex-direction: row;
     gap: 16px;
     /* margin-bottom: 44px; */
   }
@@ -259,6 +268,7 @@
   }
 
   .upcoming-title {
+    font-size: 24px;
     line-height: 28px;
   }
 

@@ -19,7 +19,6 @@ async function getWeeklyTrends() {
   const data = await getWeeklyTrending();
 
   const firstThreeFilms = getFirstThreeElements(data.results);
-  console.log(firstThreeFilms);
   renderWeeklyThreeTrends(firstThreeFilms);
 }
 
@@ -99,7 +98,8 @@ async function getUpcomingFilm() {
     const randomValue = getRandomValue(data.results);
     renderUpcomingFilm(randomValue);
   } catch (error) {
-    console.log(error.message);
+    upcomingWrapEl.innerHTML =
+      '<p class="upcoming-not-found">OOPS...We are very sorry! We don’t have any results matching your search.</p>';
   }
 }
 
@@ -121,11 +121,11 @@ async function renderUpcomingFilm(upcomingFilm) {
   const listGenres = await getGenresById(genre_ids);
 
   const isMobile = window.innerWidth < 767;
-  const imagePath = getImagePath(backdrop_path, poster_path, isMobile);
+  let imagePath = getImagePath(backdrop_path, poster_path, isMobile);
 
   const markup = `<div class="upcoming-card">
 
-            <img class="upcoming-card-img" src="https://image.tmdb.org/t/p/original/${imagePath}" alt=" " />
+            <img class="upcoming-card-img" src="${imagePath}" alt=" " />
 
           <div class="upcoming-card-wrap">
             <h3 class="upcoming-card-title">${title}</h3>
@@ -169,25 +169,30 @@ async function renderUpcomingFilm(upcomingFilm) {
           </div>
         </div>`;
   upcomingWrapEl.insertAdjacentHTML('beforeend', markup);
-
-  window.addEventListener('resize', () => {
-    updateImagePaths(backdrop_path, poster_path);
-  });
 }
 
 // Функція для визначення шляху зображення на основі ширини екрану
 
 function getImagePath(backdropPath, posterPath, isMobile) {
-  return isMobile ? posterPath : backdropPath;
-}
-// Функція для оновлення шляхів зображень при зміні ширини екрану
-
-function updateImagePaths(backdropPath, posterPath) {
-  const isMobile = window.innerWidth < 767;
-  const imagePath = getImagePath(backdropPath, posterPath, isMobile);
-
-  const imgElement = document.querySelector('.upcoming-card-img');
-  imgElement.src = `https://image.tmdb.org/t/p/original/${imagePath}`;
+  if (isMobile === true && posterPath !== null) {
+    return `https://image.tmdb.org/t/p/original/${posterPath}`;
+  } else if (
+    isMobile === true &&
+    posterPath === null &&
+    backdropPath !== null
+  ) {
+    return `https://image.tmdb.org/t/p/original/${backdropPath}`;
+  } else if (isMobile === false && backdropPath !== null) {
+    return `https://image.tmdb.org/t/p/original/${backdropPath}`;
+  } else if (
+    isMobile === false &&
+    backdropPath === null &&
+    posterPath !== null
+  ) {
+    return `https://image.tmdb.org/t/p/original/${posterPath}`;
+  } else {
+    return 'https://pbs.twimg.com/media/C5OTOt3UEAAExIk.jpg';
+  }
 }
 
 function filterGenres(genre_ids) {

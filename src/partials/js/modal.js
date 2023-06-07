@@ -2,6 +2,7 @@ import { swiper } from '../../partials/js/hero/hero';
 import { getInfoByMovie } from './api';
 import { getGenre } from './api';
 import { addFilmToStorage } from './my-lib/lib-storage';
+import { onWatchTrailer } from './hero/trailer-modal';
 
 const refs = {
   openModal: document.querySelector('[data-modal-open]'),
@@ -62,18 +63,22 @@ function renderFilmInModal(film) {
     id,
   } = film;
   const genresList = genres.map(genre => genre.name);
-  const formatedGenres = genresList.join(' ');
+  const formatedGenres = genresList.join(', ');
 
-  const imagePath =
-    poster_path !== null
-      ? `https://image.tmdb.org/t/p/original/${poster_path}`
-      : `https://image.tmdb.org/t/p/original/${backdrop_path}`;
+  let imagePath = '';
+  if (poster_path !== null) {
+    imagePath = `https://image.tmdb.org/t/p/original/${poster_path}`;
+  } else if (backdrop_path !== null) {
+    imagePath = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
+  } else {
+    imagePath = '../../images/hero/hero-home-mob1';
+  }
 
   const markup = `
     <div class="modal-card">
       <img
         class="modal-img"
-        src="https://image.tmdb.org/t/p/original/${imagePath}"
+        src="${imagePath}"
         alt=" "
       />
 
@@ -105,8 +110,10 @@ function renderFilmInModal(film) {
 
         <p class="modal-card-about-text">${overview}</p>
 
-        <button class="modal-button" type="button"><span>Add to my library</span></button>
-        <button class="modal-button hero-btn-trailer" type="button" data-id=${id}><span>Watch trailer</span></button>
+        <button class="modal-button gap-right" type="button"><span>Add to my library</span></button>
+         <button type="button" class="hero-btn modal-button hero-btn-trailer" id="hero-btn-trailer" data-id="${id}">
+    Watch trailer
+  </button>
       </div>
     </div>`;
 
@@ -122,3 +129,16 @@ function renderFilmInModal(film) {
 }
 
 export { refs };
+
+const imageUrl = '../../images/hero/trailer-error.png';
+
+fetch(imageUrl)
+  .then(response => response.blob())
+  .then(blob => {
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(blob);
+    document.body.append(img);
+  })
+  .catch(error => {
+    console.error('Ошибка при загрузке изображения:', error);
+  });

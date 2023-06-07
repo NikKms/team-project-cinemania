@@ -45,6 +45,10 @@
   transition: transform 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.modal.light-mode {
+  background: white;
+}
+
 .close-btn {
   position: absolute;
   top: 30.75px;
@@ -54,23 +58,18 @@
   background: none;
   border: none;
   cursor: pointer;
-
-  transition: border-color 500ms cubic-bezier(0.075, 0.82, 0.165, 1),
-    background-color 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-/* .close-btn:active,
-.close-btn:hover,
-.close-btn:focus {
-  border-color: var(--primary-button-hover);
-  background-color: var(--primary-button-hover);
+.close-btn .close-btn-icon {
+  stroke: var(--primary-title-color);
+  transition: stroke 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .close-btn:active .close-btn-icon,
 .close-btn:hover .close-btn-icon,
 .close-btn:focus .close-btn-icon {
-  fill: var(--color-white);
-} */
+  stroke: var(--accent-color);
+}
 
 .modal-img {
   width: 248px;
@@ -98,6 +97,7 @@
 
 .modal-card-vote {
   color: var(--secondary-text-color);
+  margin-right: 62px;
 }
 
 .modal-card-vote-data span {
@@ -143,6 +143,7 @@
 
 .modal-button {
   position: relative;
+  min-width: 140px;
   padding: 12px 24px;
   border-radius: 74px;
   background: var(--ligth-theme-title-color);
@@ -151,6 +152,8 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 14px;
+  transition: border 0.25s linear, border-color 0.25s linear,
+    background 0.25s linear, color 0.25s linear;
 }
 
 .modal-button::before {
@@ -164,13 +167,18 @@
   border-radius: 34px;
   z-index: -1;
 }
+.modal-button:hover {
+  background-color: var(--primary-title-color);
+  color: var(--accent-color);
+}
+
+.gap-right {
+  margin-bottom: 8px;
+}
 
 /* Tablet */
 
 @media screen and (max-width: 767px) {
-  .modal-card-vote-wrap {
-    justify-content: space-between;
-  }
 }
 
 @media screen and (min-width: 768px) {
@@ -197,13 +205,14 @@
     line-height: 28px;
   }
 
-  .modal-card-vote {
-    margin-right: 62px;
-  }
-
   .modal-card-about-title {
     margin-top: 20px;
     margin-bottom: 16px;
+  }
+
+  .gap-right {
+    margin-right: 8px;
+    margin-bottom: 0;
   }
 }
 /* Desktop */
