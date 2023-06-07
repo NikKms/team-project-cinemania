@@ -29,6 +29,7 @@ export default class Pagination {
     this.render(markup);
     saveLocal('currentPage', this.currentPage);
     this.getMovies(this.currentPage);
+    console.log(this.totalPages);
   };
 
   addFirstPages = arr => {
@@ -54,7 +55,7 @@ export default class Pagination {
       (atEnd && this.currentPage < this.totalPages - 2) ||
       (!atEnd && this.currentPage > 3)
     ) {
-      arr.push('<li class="pagination-item">...</li>');
+      arr.push('<li class="pagination-item ellipsis">...</li>');
     }
   };
 
@@ -76,13 +77,13 @@ export default class Pagination {
       <div class='pagination ${
         this.totalPages <= 1 ? 'pagination-hidden' : ''
       }'>
-        <div class="pagination-arrows ${
-          this.totalPages <= 1 ? 'pagination-arrows-hidden' : ''
-        }">
-          <button type="button" class='pagination-arrow pagination-arrows-prev'>prev</button>
-          <button type="button" class='pagination-arrow pagination-arrows-next'>next</button>
-        </div>
+      <button type="button" class='pagination-arrow pagination-arrows-prev${
+        this.totalPages <= 1 ? 'pagination-arrows-hidden' : ''
+      }'>prev</button>
         <ul class='pagination-list'>${paginationItems}</ul>
+        <button type="button" class='pagination-arrow pagination-arrows-next${
+          this.totalPages <= 1 ? 'pagination-arrows-hidden' : ''
+        }'>next</button>
       </div>`;
     return paginationContainer;
   };
@@ -160,6 +161,11 @@ export default class Pagination {
       nextButton.style.display = 'block';
     }
   };
+
+  updatePage(page) {
+    this.currentPage = page;
+    this.createButton();
+  }
 
   handlerBtn = e => {
     e.preventDefault();
