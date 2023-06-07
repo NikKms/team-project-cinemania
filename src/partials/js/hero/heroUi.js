@@ -1,9 +1,5 @@
-import { heroRefs } from './hero';
-
 function renderSlide(backdrop_path, title, overview, vote_average, id, name) {
-  document.querySelector('.swiper-wrapper').insertAdjacentHTML(
-    'beforeEnd',
-    `
+  return `
 <div
   style="background-image: url('https://image.tmdb.org/t/p/original${backdrop_path}');"
   class="swiper-slide hero-img">
@@ -14,8 +10,8 @@ function renderSlide(backdrop_path, title, overview, vote_average, id, name) {
   <div data-swiper-parallax="-350" class="Stars" style="--rating: ${
     vote_average / 2
   }; " aria-label="Rating of this product is ${(vote_average / 2).toFixed(
-      1
-    )} out of 5.">
+    1
+  )} out of 5.">
   </div>
   <div class="hero-description-wrap" data-swiper-parallax="-400">
     <p class="hero-description1">${overview}</p>
@@ -28,17 +24,8 @@ function renderSlide(backdrop_path, title, overview, vote_average, id, name) {
   <button type="button" class="hero-btn hero-btn-more is-id" id="hero-btn-more"  data-id="${id}" data-modal-open>
     More details
   </button></div>
-  </div>`
-  );
+  </div>
+  </div>`;
 }
 
-function renderSwiper() {
-  const markup = `<div class="swiper container">
-  <div class="swiper-wrapper"></div>
-  <div style="color: orange" class="swiper-button-prev"></div>
-  <div style="color: orange" class="swiper-button-next"></div>`;
-
-  heroRefs.hero.innerHTML = markup;
-}
-
-export { renderSlide, renderSwiper };
+export { renderSlide };
