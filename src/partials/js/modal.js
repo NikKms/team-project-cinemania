@@ -3,6 +3,7 @@ import { getInfoByMovie } from './api';
 import { getGenre } from './api';
 import { addFilmToStorage } from './my-lib/lib-storage';
 import { onWatchTrailer } from './hero/trailer-modal';
+import { getGenresById } from './home/example-home';
 
 const refs = {
   openModal: document.querySelector('[data-modal-open]'),
@@ -12,7 +13,7 @@ const refs = {
   addToLibBtn: null,
 };
 
-document.addEventListener('click', onOpenModal);
+refs.openModal.addEventListener('click', onOpenModal);
 refs.closeModal.addEventListener('click', onCloseModal);
 refs.backdrop.addEventListener('click', onBackdropClick);
 
@@ -49,7 +50,7 @@ async function getMovieById(id) {
   renderFilmInModal(data);
 }
 
-function renderFilmInModal(film) {
+async function renderFilmInModal(film) {
   console.log(film);
   const {
     poster_path,
@@ -62,8 +63,9 @@ function renderFilmInModal(film) {
     vote_count,
     id,
   } = film;
-  const genresList = genres.map(genre => genre.name);
-  const formatedGenres = genresList.join(', ');
+
+  const genresListIds = genres.map(genre => genre.id);
+  const formatedGenres = await getGenresById(genresListIds);
 
   let imagePath = '';
   if (poster_path !== null) {
@@ -71,7 +73,8 @@ function renderFilmInModal(film) {
   } else if (backdrop_path !== null) {
     imagePath = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
   } else {
-    imagePath = '../../images/hero/hero-home-mob1';
+    imagePath =
+      'https://d2ths1nqi4sbhh.cloudfront.net/images/no-image.png?v=3884857787';
   }
 
   const markup = `
