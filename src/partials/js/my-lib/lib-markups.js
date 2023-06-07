@@ -20,24 +20,28 @@ const createLibMoviesListMarkup = ({
 
   const movieTitle = title || name;
   const movieReleaseYear = release_date || first_air_date;
-  return ` <li class="mylibrary_movie ">
-  <div class="mylibrary_poster">
-  <img src="https://image.tmdb.org/t/p/original${poster_path}" alt="${movieTitle}" />
-      <div class="mylibrary_move_dark is-id" data-id=${id}></div>
+  return ` <li class="weekly-card is-id" data-id=${id}>
+  <div class="weekly-container-image">
+    <img
+      class="weekly-card-image"
+     src="https://image.tmdb.org/t/p/original/${poster_path}"
+      alt=""
+    />
+   <div class="overlay"></div>       
   </div>
-  <h3 class="mylibrary_movies_name">${movieTitle}</h3>
-  <p class="mylibrary_genre_movie">${genreNames.join(
-    ' '
-  )} | ${movieReleaseYear.substring(0, 4)}</p>
-  <div class="hero-star-raiting" >
-      <span>
-          <div class="Stars" style="--rating: ${
-            vote_average / 2
-          }; " aria-label="Rating of this product is ${(
-    vote_average / 2
-  ).toFixed(1)} out of 5.">
-      </span>
+  <div class="weekly-card-description">
+    <div>
+      <title class="weekly-card-description-title">${movieTitle}</title>
+      <p class="weekly-card-description-other">${genreNames} | ${movieReleaseYear.substring(
+    0,
+    4
+  )}</p>
+    </div>
+   <div class="Stars" style="--rating: ${parseFloat(
+     (vote_average / 2).toFixed(1)
+   )};" aria-label="Rating of this product is 2.3 out of 5."></div> 
   </div>
+  
 </li>`;
 };
 
@@ -56,3 +60,4 @@ const renderLibMoviesListMarkup = movies => {
 };
 
 export { renderLibMoviesListMarkup, renderLibSelectMarkup };
+
