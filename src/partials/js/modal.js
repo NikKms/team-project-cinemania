@@ -1,32 +1,36 @@
+import { swiper } from '../../partials/js/hero/hero';
 import { getInfoByMovie } from './api';
 import { getGenre } from './api';
 import { addFilmToStorage } from './my-lib/lib-storage';
+import { onWatchTrailer } from './hero/trailer-modal';
 
 const refs = {
   openModal: document.querySelector('[data-modal-open]'),
   closeModal: document.querySelector('[data-modal-close]'),
   backdrop: document.querySelector('[data-modal]'),
-  upcomingWrapLi: document.querySelector('.upcoming_modal'),
+  upcomingWrapLi: document.querySelector('.modal-info'),
   addToLibBtn: null,
 };
 
-refs.openModal.addEventListener('click', onOpenModal);
+document.addEventListener('click', onOpenModal);
 refs.closeModal.addEventListener('click', onCloseModal);
 refs.backdrop.addEventListener('click', onBackdropClick);
 
 function onOpenModal(event) {
-  console.log(event.target);
-  if (event.target.classList.contains('is-id')) {
-    const cardId = event.target.dataset.id;
-    getMovieById(cardId);
-  }
+  const cardEl = event.target.closest('.is-id');
+  const cardId = cardEl.dataset.id;
+  getMovieById(cardId);
 
+  swiper.autoplay.stop();
+  document.body.classList.add('not-scroll-body');
   window.addEventListener('keydown', onEscKeyPress);
   refs.backdrop.classList.remove('is-hidden');
 }
 
 function onCloseModal() {
   window.removeEventListener('keydown', onEscKeyPress);
+  swiper.autoplay.start();
+  document.body.classList.remove('not-scroll-body');
   refs.backdrop.classList.add('is-hidden');
 }
 
@@ -61,16 +65,20 @@ function renderFilmInModal(film) {
   const genresList = genres.map(genre => genre.name);
   const formatedGenres = genresList.join(', ');
 
-  const imagePath =
-    poster_path !== null
-      ? `https://image.tmdb.org/t/p/original/${poster_path}`
-      : `https://image.tmdb.org/t/p/original/${backdrop_path}`;
+  let imagePath = '';
+  if (poster_path !== null) {
+    imagePath = `https://image.tmdb.org/t/p/original/${poster_path}`;
+  } else if (backdrop_path !== null) {
+    imagePath = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
+  } else {
+    imagePath = '../../images/hero/hero-home-mob1';
+  }
 
   const markup = `
     <div class="modal-card">
       <img
         class="modal-img"
-        src="https://image.tmdb.org/t/p/original/${imagePath}"
+        src="${imagePath}"
         alt=" "
       />
 
@@ -80,7 +88,9 @@ function renderFilmInModal(film) {
           <div class="modal-card-vote-wrap">
             <div class="modal-card-vote"><span>Vote / Votes</span></div>
             <div class="modal-card-vote-data">
-              <span>${vote_average}</span> / <span>${vote_count}</span>
+              <span>${vote_average.toFixed(
+                1
+              )}</span> / <span>${vote_count}</span>
             </div>
           </div>
         
@@ -100,7 +110,10 @@ function renderFilmInModal(film) {
 
         <p class="modal-card-about-text">${overview}</p>
 
-        <button class="modal-button" type="button">Add to my library</button>
+        <button class="modal-button gap-right" type="button"><span>Add to my library</span></button>
+         <button type="button" class="hero-btn modal-button hero-btn-trailer" id="hero-btn-trailer" data-id="${id}">
+    Watch trailer
+  </button>
       </div>
     </div>`;
 
@@ -110,7 +123,7 @@ function renderFilmInModal(film) {
 
   const addToLib = evt => {
     addFilmToStorage(film);
-    evt.currentTarget.textContent = "!!"
+    evt.currentTarget.textContent = '!!';
   };
   refs.addToLibBtn.addEventListener('click', addToLib);
 }

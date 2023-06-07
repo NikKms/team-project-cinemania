@@ -4,7 +4,7 @@ import { getUpcoming } from '../api';
 import { getGenre } from '../api';
 
 const listOfFilms = document.querySelector('.weekly-cards-wrap');
-const upcomingWrapLi = document.querySelector('.upcoming_wrap');
+const upcomingWrapEl = document.querySelector('.upcoming_wrap');
 const seeAll = document.querySelector('.weekly-title-link');
 
 // ================See all=================
@@ -19,7 +19,6 @@ async function getWeeklyTrends() {
   const data = await getWeeklyTrending();
 
   const firstThreeFilms = getFirstThreeElements(data.results);
-  console.log(firstThreeFilms);
   renderWeeklyThreeTrends(firstThreeFilms);
 }
 
@@ -42,16 +41,17 @@ async function renderWeeklyThreeTrends(firstThreeFilms) {
         first_air_date,
         vote_average,
       }) => {
+        genre_ids = filterGenres(genre_ids);
         const listGenres = await getGenresById(genre_ids);
 
-        return `<li class="weekly-card" >
+        return `<li class="weekly-card is-id" data-id=${id}>
         <div class="weekly-container-image">
           <img
             class="weekly-card-image"
            src="https://image.tmdb.org/t/p/original/${poster_path}"
             alt=""
           />
-         <div class="overlay is-id" data-id=${id}></div>       
+         <div class="overlay"></div>       
         </div>
         <div class="weekly-card-description">
           <div>
@@ -71,27 +71,6 @@ async function renderWeeklyThreeTrends(firstThreeFilms) {
         
       </li>`;
       }
-
-      //   return `<li class="weekly-card" >
-      //   <div class="weekly-container-image">
-      //     <img
-      //       class="weekly-card-image"
-      //      src="https://image.tmdb.org/t/p/original/${poster_path}"
-      //       alt=""
-      //     />
-      //    <div class="overlay is-id" data-id=${id}></div>
-      //   </div>
-      //   <div class="weekly-card-description">
-      //     <span class="weekly-card-description-title">${title || name}</span>
-      //     <span class="weekly-card-description-other">${listGenres} | ${
-      //     release_date
-      //       ? release_date.substring(0, 4)
-      //       : first_air_date.substring(0, 4)
-      //   }</span>
-      //   </div>
-      //   <div class="weekly-card-raiting">Stars5*</div>
-      // </li>`;
-      // }
     )
   );
 
@@ -119,13 +98,15 @@ async function getUpcomingFilm() {
     const randomValue = getRandomValue(data.results);
     renderUpcomingFilm(randomValue);
   } catch (error) {
-    console.log(error.message);
+    upcomingWrapEl.innerHTML =
+      '<p class="upcoming-not-found">OOPS...We are very sorry! We don’t have any results matching your search.</p>';
   }
 }
 
 async function renderUpcomingFilm(upcomingFilm) {
-  const {
+  let {
     backdrop_path,
+    poster_path,
     genre_ids,
     popularity,
     release_date,
@@ -135,11 +116,16 @@ async function renderUpcomingFilm(upcomingFilm) {
     overview,
   } = upcomingFilm;
 
+  genre_ids = filterGenres(genre_ids);
+
   const listGenres = await getGenresById(genre_ids);
+
+  const isMobile = window.innerWidth < 767;
+  let imagePath = getImagePath(backdrop_path, poster_path, isMobile);
 
   const markup = `<div class="upcoming-card">
 
-            <img class="upcoming-card-img" src="https://image.tmdb.org/t/p/original/${backdrop_path}" alt=" " />
+            <img class="upcoming-card-img" src="${imagePath}" alt=" " />
 
           <div class="upcoming-card-wrap">
             <h3 class="upcoming-card-title">${title}</h3>
@@ -182,13 +168,45 @@ async function renderUpcomingFilm(upcomingFilm) {
             </button>
           </div>
         </div>`;
-  upcomingWrapLi.insertAdjacentHTML('beforeend', markup);
+  upcomingWrapEl.insertAdjacentHTML('beforeend', markup);
+}
+
+// Функція для визначення шляху зображення на основі ширини екрану
+
+function getImagePath(backdropPath, posterPath, isMobile) {
+  if (isMobile === true && posterPath !== null) {
+    return `https://image.tmdb.org/t/p/original/${posterPath}`;
+  } else if (
+    isMobile === true &&
+    posterPath === null &&
+    backdropPath !== null
+  ) {
+    return `https://image.tmdb.org/t/p/original/${backdropPath}`;
+  } else if (isMobile === false && backdropPath !== null) {
+    return `https://image.tmdb.org/t/p/original/${backdropPath}`;
+  } else if (
+    isMobile === false &&
+    backdropPath === null &&
+    posterPath !== null
+  ) {
+    return `https://image.tmdb.org/t/p/original/${posterPath}`;
+  } else {
+    return 'https://pbs.twimg.com/media/C5OTOt3UEAAExIk.jpg';
+  }
+}
+
+function filterGenres(genre_ids) {
+  if (genre_ids.length > 2) {
+    return genre_ids.slice(0, 2);
+  }
+
+  return genre_ids;
 }
 
 function getCurrentEndLastDayOfMonth() {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
-  const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0'); // Додаємо 1, оскільки номер місяця починається з 0
+  const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
   const currentDay = String(currentDate.getDate()).padStart(2, '0');
 
   const formattedStartDate = `${currentYear}-${currentMonth}-${currentDay}`;
