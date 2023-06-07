@@ -1,3 +1,7 @@
+.not-scroll-body {
+  overflow: hidden;
+}
+
 .backdrop.is-hidden {
   opacity: 0;
   pointer-events: none;
@@ -33,12 +37,41 @@
   width: 280px;
   padding: 52px 16px 64px 16px;
 
-  background: #111111;
+  background: var(--black);
   box-shadow: 1px 1px 14px 4px rgba(255, 107, 8, 0.42);
   border-radius: 16px;
 
   transform: translate(-50%, -50%) scale(1);
   transition: transform 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.modal.light-mode {
+  background: var(--white);
+  color: var(--black);
+}
+
+.modal-card-vote-data span.light-mode {
+  background-color: var(--primary-text-color);
+}
+
+.modal-card-popularity-text.light-mode,
+.modal-card-genre-text.light-mode,
+.modal-card-about-title.light-mode,
+.modal-card-vote.light-mode {
+  color: var(--black);
+}
+
+.modal-card-about-text.light-mode {
+  color: var(--primary-ligth-theme-text-color);
+}
+
+.modal-button.light-mode {
+  background-color: var(--white);
+  color: var(--black);
+}
+.modal-button.light-mode:hover {
+  background-color: var(--black);
+  color: var(--white);
 }
 
 .close-btn {
@@ -50,40 +83,35 @@
   background: none;
   border: none;
   cursor: pointer;
-
-  transition: border-color 500ms cubic-bezier(0.075, 0.82, 0.165, 1),
-    background-color 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-/* .close-btn:active,
-.close-btn:hover,
-.close-btn:focus {
-  border-color: var(--primary-button-hover);
-  background-color: var(--primary-button-hover);
+.close-btn .close-btn-icon {
+  stroke: var(--primary-title-color);
+  transition: stroke 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .close-btn:active .close-btn-icon,
 .close-btn:hover .close-btn-icon,
 .close-btn:focus .close-btn-icon {
-  fill: var(--color-white);
-} */
+  stroke: var(--accent-color);
+}
 
 .modal-img {
   width: 248px;
-  min-height: 315px;
+  max-height: 315px;
   object-fit: cover;
 }
 
 .modal-card-title {
   font-weight: 500;
   font-size: 20px;
-  line-height: 23px;
+  line-height: 1.15;
   margin-top: 22px;
   margin-bottom: 29px;
 }
 
 .modal-card-wrap {
-  line-height: 16px;
+  line-height: 1.14;
   font-weight: 500;
 }
 
@@ -94,6 +122,7 @@
 
 .modal-card-vote {
   color: var(--secondary-text-color);
+  margin-right: 62px;
 }
 
 .modal-card-vote-data span {
@@ -118,7 +147,7 @@
 
 .modal-card-genre-text {
   color: var(--secondary-text-color);
-  margin-right: 102px;
+  margin-right: 105px;
 }
 
 .modal-card-about-title {
@@ -133,30 +162,48 @@
   color: var(--primary-text-color);
   font-weight: 400;
   font-size: 12px;
-  line-height: 20px;
+  line-height: 1.7;
   margin-bottom: 20px;
 }
 
 .modal-button {
+  position: relative;
+  min-width: 140px;
   padding: 12px 24px;
-  background-color: transparent;
-  color: var(--primary-title-color);
   border-radius: 74px;
+  background: var(--black);
+  text-align: center;
+  color: var(--white);
   font-weight: 500;
   font-size: 12px;
-  line-height: 14px;
-  border: 1px solid;
-  border-image: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
-  border-image-slice: 1;
-  border-radius: 74px;
+  line-height: 1.17;
+  transition: border 0.25s linear, border-color 0.25s linear,
+    background 0.25s linear, color 0.25s linear;
+}
+
+.modal-button::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  right: -1px;
+  background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
+  border-radius: 34px;
+  z-index: -1;
+}
+.modal-button:hover {
+  background-color: var(--primary-title-color);
+  color: var(--accent-color);
+}
+
+.gap-right {
+  margin-bottom: 8px;
 }
 
 /* Tablet */
 
 @media screen and (max-width: 767px) {
-  .modal-card-vote-wrap {
-    justify-content: space-between;
-  }
 }
 
 @media screen and (min-width: 768px) {
@@ -180,16 +227,17 @@
   .modal-card-title {
     margin-top: 0;
     font-size: 24px;
-    line-height: 28px;
-  }
-
-  .modal-card-vote {
-    margin-right: 62px;
+    line-height: 1.17;
   }
 
   .modal-card-about-title {
     margin-top: 20px;
     margin-bottom: 16px;
+  }
+
+  .gap-right {
+    margin-right: 8px;
+    margin-bottom: 0;
   }
 }
 /* Desktop */
@@ -211,23 +259,23 @@
   }
 
   .modal-card-title {
-    line-height: 32px;
+    line-height: 1.33;
   }
 
   .modal-card-vote,
   .modal-card-genre-wrap,
   .modal-card-popularity-wrap {
     font-size: 16px;
-    line-height: 19px;
+    line-height: 1.19;
   }
 
   .modal-card-about-title {
     font-size: 16px;
-    line-height: 16px;
+    line-height: 1;
   }
 
   .modal-card-about-text {
     font-size: 14px;
-    line-height: 20px;
+    line-height: 1.42;
   }
 }
