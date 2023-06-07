@@ -10,7 +10,7 @@
   height: 100%;
   visibility: visible;
   opacity: 1;
-  transform: scale(1);
+  /* transform: scale(1); */
   transition: opacity 500ms linear, visibility 500ms linear, transform 500ms;
 }
 .trailer-container.is-trailer-hidden {
@@ -70,7 +70,7 @@
   box-shadow: 0px 0px 60px #f87719;
 }
 
-.modal-trailer-btn {
+/* .modal-trailer-btn {
   position: absolute;
   top: 0;
   right: 0;
@@ -79,9 +79,9 @@
   background: none;
   border: none;
   cursor: pointer;
-}
+} */
 
-.close-btn-icon {
+/* .close-btn-icon {
   stroke: var(--primary-title-color);
   transition: stroke 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
@@ -90,11 +90,11 @@
 .modal-trailer-btn:hover .close-btn-icon,
 .modal-trailer-btn:focus .close-btn-icon {
   stroke: var(--accent-color);
-}
+} */
 
 @media screen and (min-width: 320px) {
   .trailer-modal-container {
-    width: 280px;
+    width: 90vw;
     border-radius: 30px;
     flex-direction: column;
   }

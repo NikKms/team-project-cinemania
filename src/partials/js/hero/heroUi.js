@@ -24,11 +24,11 @@ function crateSlideMarkup(
     <p class="hero-description1">${overview}</p>
     <p class="hero-description2">${overview}</p>
   </div>
-  <div class="hero-btn-wrap" data-swiper-parallax="-450">
+  <div class="hero-btn-wrap is-id" data-swiper-parallax="-450" data-id="${id}">
   <button type="button" class="hero-btn hero-btn-trailer" id="hero-btn-trailer" data-id="${id}">
     Watch trailer
   </button>
-  <button type="button" class="hero-btn hero-btn-more is-id" id="hero-btn-more"  data-id="${id}" data-modal-open>
+  <button type="button" class="hero-btn hero-btn-more" id="hero-btn-more"  data-modal-open data-id="${id}" >
     More details
   </button></div>
   </div>

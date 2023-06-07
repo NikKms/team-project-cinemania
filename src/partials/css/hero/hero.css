@@ -33,7 +33,7 @@
 }
 
 .hero-description1 {
-  height: 99px;
+  height: 80px;
 
   display: inline-block;
   overflow-y: scroll;
@@ -90,8 +90,7 @@
 }
 
 .hero-btn.hero-btn-trailer {
-  margin-bottom: 40px;
-  padding: 12px 24px;
+  padding: 10px 20px;
   background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
   border-radius: 74px;
   font-weight: 500;
@@ -106,7 +105,7 @@
 
 .hero-btn.hero-btn-more {
   position: relative;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: 74px;
   background: var(--ligth-theme-title-color);
   text-align: center;
