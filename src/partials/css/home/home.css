@@ -2,366 +2,375 @@
 
 /* Mobil */
 
-
-
 @media screen and (min-width: 320px) {
-    .home {
-        padding-top: 40px;
-        padding-bottom: 32px;
-    }
+  .home {
+    padding-top: 40px;
+    padding-bottom: 32px;
+  }
 
-    .weekly-title-wrap {
-        /* margin-top: 40px; */
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 24px;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 19px;
-    }
+  .weekly-title-wrap {
+    /* margin-top: 40px; */
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+  }
 
-    .weekly-title-text {
-        text-transform: uppercase;
-        color: var(--white);
-    }
+  .weekly-title-text {
+    text-transform: uppercase;
+    color: var(--white);
+  }
 
-    .weekly-title-link {
-        color: var(--accent-color);
-    }
+  .weekly-title-link {
+    color: var(--accent-color);
+  }
 
-    .weekly-cards-wrap {}
+  .weekly-cards-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 
-    .weekly-card {
-        position: relative;
-        background: linear-gradient(180deg,
-                rgba(0, 0, 0, 0) 63.48%,
-                rgba(0, 0, 0, 0.9) 92.16%);
-        border-radius: 5px;
-        /* margin-bottom: 16px; */
-    }
+  .weekly-card {
+    position: relative;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 63.48%,
+      rgba(0, 0, 0, 0.9) 92.16%
+    );
+    border-radius: 5px;
+    cursor: pointer;
+  }
 
-    .weekly-container-image {
-        position: relative;
-    }
+  .weekly-container-image {
+    position: relative;
+  }
 
-    .overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 300px;
-        background: linear-gradient(180deg,
-                rgba(0, 0, 0, 0) 63.48%,
-                rgba(0, 0, 0, 0.95) 92.16%);
-    }
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 63.48%,
+      rgba(0, 0, 0, 0.95) 92.16%
+    );
+  }
 
-    .weekly-card-image {
-        display: block;
-        width: 100%;
-        border-radius: 5px;
-    }
+  .weekly-card-image {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+  }
 
-    .weekly-card-description {
+  .weekly-card-description {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: auto;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 40px 12px 12px;
+    bottom: 0;
+    border-radius: 5px;
+  }
 
-        position: absolute;
-        display: flex;
-        width: 100%;
-        height: auto;
-        justify-content: space-between;
-        align-items: flex-end;
-        padding: 40px 12px 12px;
-        bottom: 0;
-        border-radius: 5px;
-    }
+  .weekly-card-description-title {
+    display: block;
+  }
 
-    .weekly-card-description-title {
-        display: block;
-    }
+  .weekly-card-description-other {
+    color: var(--secondary-text-color);
+  }
 
-    .weekly-card-description-other {
-        color: var(--secondary-text-color)
-    }
+  .weekly-card-description .Stars {
+    font-size: 19px;
+  }
 
-    .weekly-card-description .Stars {
-        font-size: 19px;
-    }
-
-
-
-    .weekly-card-raiting {
-        /* position: absolute;
+  .weekly-card-raiting {
+    /* position: absolute;
     right: 12px;
     bottom: 12px; */
-    }
+  }
 
-    .upcoming {
-        padding-bottom: 40px;
-    }
+  .upcoming {
+    padding-bottom: 40px;
+  }
 
-    .upcoming_wrap {
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 19px;
-    }
+  .upcoming_wrap {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+  }
 
-    .upcoming-title {
-        margin-bottom: 24px;
-        text-transform: uppercase;
-        font-size: 16px;
-    }
+  .upcoming-title {
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    font-size: 16px;
+  }
 
-    .upcoming-card {}
+  .upcoming-card {
+  }
 
-    .upcoming-card-img {
-        width: 805px;
-        height: 458px;
-        object-fit: cover;
-    }
+  .upcoming-card-img {
+    width: 805px;
 
-    .upcoming-card-img img {
-        border-radius: 5px;
-    }
+    object-fit: cover;
+  }
 
-    .upcoming-card-title {
-        margin-top: 24px;
-        margin-bottom: 20px;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 23px;
-        color: var(--white);
-    }
+  .upcoming-card-img img {
+    border-radius: 5px;
+  }
 
-    .upcoming-card-release-wrap {
-        margin-bottom: 12px;
-    }
+  .upcoming-card-title {
+    margin-top: 24px;
+    margin-bottom: 20px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 23px;
+    color: var(--white);
+  }
 
-    .upcoming-card-release-text {
-        margin-right: 57px;
-        color: var(--secondary-text-color);
-    }
+  .upcoming-card-release-wrap {
+    margin-bottom: 12px;
+  }
 
-    .upcoming-card-release-data {
-        color: var(--accent-color);
-    }
+  .upcoming-card-release-text {
+    margin-right: 57px;
+    color: var(--secondary-text-color);
+  }
 
-    .upcoming-card-vote-wrap {
-        display: flex;
-        margin-bottom: 12px;
-    }
+  .upcoming-card-release-data {
+    color: var(--accent-color);
+  }
 
-    .upcoming-card-vote {
-        margin-right: 71px;
-        color: var(--secondary-text-color);
-    }
+  .upcoming-card-vote-wrap {
+    display: flex;
+    margin-bottom: 12px;
+  }
 
-    .upcoming-card-vote-data {
-        display: flex;
-        gap: 4px;
-    }
+  .upcoming-card-vote {
+    margin-right: 71px;
+    color: var(--secondary-text-color);
+  }
 
-    .upcoming-card-vote-data :first-child,
-    .upcoming-card-vote-data :last-child {
-        padding: 1px 8px;
-        color: var(--black);
-        background: var(--white);
-        border-radius: 5px;
-    }
+  .upcoming-card-vote-data {
+    display: flex;
+    gap: 4px;
+  }
 
-    .upcoming-card-popularity-wrap {
-        margin-bottom: 12px;
-        display: flex;
-    }
+  .upcoming-card-vote-data :first-child,
+  .upcoming-card-vote-data :last-child {
+    padding: 1px 8px;
+    color: var(--black);
+    background: var(--white);
+    border-radius: 5px;
+  }
 
-    .upcoming-card-popularity-text {
-        margin-right: 87px;
-        color: var(--secondary-text-color);
-    }
+  .upcoming-card-popularity-wrap {
+    margin-bottom: 12px;
+    display: flex;
+  }
 
-    .upcoming-card-popularity-data {
-        color: var(--white);
-    }
+  .upcoming-card-popularity-text {
+    margin-right: 87px;
+    color: var(--secondary-text-color);
+  }
 
-    .upcoming-card-genre-wrap {
-        margin-bottom: 12px;
-        display: flex;
-    }
+  .upcoming-card-popularity-data {
+    color: var(--white);
+  }
 
-    .upcoming-card-genre-text {
-        margin-right: 113px;
-        color: var(--secondary-text-color);
-    }
+  .upcoming-card-genre-wrap {
+    margin-bottom: 12px;
+    display: flex;
+  }
 
-    .upcoming-card-genre-data {
-        color: var(--white);
-    }
+  .upcoming-card-genre-text {
+    margin-right: 113px;
+    color: var(--secondary-text-color);
+  }
 
-    .upcoming-card-about-title {
-        display: block;
-        text-transform: uppercase;
-        color: var(--secondary-text-color);
-        margin-bottom: 20px;
-    }
+  .upcoming-card-genre-data {
+    color: var(--white);
+  }
 
-    .upcoming-card-about-text {
-        margin-bottom: 20px;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 20px;
-        color: var(--primary-text-color);
-    }
+  .upcoming-card-about-title {
+    display: block;
+    text-transform: uppercase;
+    color: var(--secondary-text-color);
+    margin-bottom: 20px;
+  }
 
-    .upcoming-button {
-        margin-bottom: 40px;
-        padding: 12px 24px;
-        background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
-        border-radius: 74px;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 14px;
-        cursor: pointer;
-    }
+  .upcoming-card-about-text {
+    margin-bottom: 20px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--primary-text-color);
+  }
 
-    .upcoming-button:hover {
-        background: linear-gradient(323deg, #ffc226 9.4%, #f84119 91.91%);
-    }
+  .upcoming-button {
+    margin-bottom: 40px;
+    padding: 12px 24px;
+    background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
+    border-radius: 74px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    cursor: pointer;
+  }
 
+  .upcoming-button:hover {
+    background: linear-gradient(323deg, #ffc226 9.4%, #f84119 91.91%);
+  }
+  .upcoming-not-found {
+    font-size: 20px;
+    line-height: 28px;
+    text-align: center;
+  }
 }
 
 /* Tablet */
 
-
 @media screen and (min-width: 768px) {
-    .home {
-        padding-top: 52px;
-        padding-bottom: 44px;
-    }
+  .home {
+    padding-top: 52px;
+    padding-bottom: 44px;
+  }
 
-    .weekly-title-wrap {
-        /* margin-top: 52px; */
-        font-size: 24px;
-        line-height: 28px;
-    }
+  .weekly-title-wrap {
+    /* margin-top: 52px; */
+    font-size: 24px;
+    line-height: 28px;
+  }
 
-    .weekly-card-description {
-        line-height: 18px;
-        /* width: auto; */
-    }
+  .weekly-card-description {
+    line-height: 18px;
+    /* width: auto; */
+  }
 
-    .weekly-cards-wrap {
-        display: flex;
-        gap: 16px;
-        /* margin-bottom: 44px; */
-    }
+  .weekly-cards-wrap {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    /* margin-bottom: 44px; */
+  }
 
-    .upcoming {
-        padding-bottom: 77px;
-    }
+  .upcoming {
+    padding-bottom: 77px;
+  }
 
-    .upcoming-title {
-        line-height: 28px;
-    }
+  .upcoming-title {
+    font-size: 24px;
+    line-height: 28px;
+  }
 
-    .upcoming-card-img {
-        width: 805px;
-        height: 458px;
-        object-fit: cover;
-    }
+  .upcoming-card-img {
+    width: 805px;
+    height: 458px;
+    object-fit: cover;
+  }
 
-    .upcoming-title {
-        line-height: 28px;
-    }
+  .upcoming-title {
+    line-height: 28px;
+  }
 
-    .upcoming-card-title {
-        font-size: 28px;
-        line-height: 33px;
-        margin-top: 32px;
-        margin-bottom: 24px;
-    }
+  .upcoming-card-title {
+    font-size: 28px;
+    line-height: 33px;
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
 
-    .upcoming-card-numbers-wrap-top {
-        display: flex;
-        column-gap: 131px;
-    }
+  .upcoming-card-numbers-wrap-top {
+    display: flex;
+    column-gap: 131px;
+  }
 
-    .upcoming-card-numbers-wrap-down {
-        display: flex;
-        column-gap: 181px;
-    }
+  .upcoming-card-numbers-wrap-down {
+    display: flex;
+    column-gap: 181px;
+  }
 
-    .upcoming-card-vote-data {
-        font-size: 14px;
-    }
+  .upcoming-card-vote-data {
+    font-size: 14px;
+  }
 
-    .upcoming-card-about-title {
-        margin-bottom: 16px;
-    }
+  .upcoming-card-about-title {
+    margin-bottom: 16px;
+  }
 }
 
 /* Desktop */
 
 @media screen and (min-width: 1280px) {
-    .home {
-        padding-top: 80px;
-        padding-bottom: 60px;
-    }
+  .home {
+    padding-top: 80px;
+    padding-bottom: 60px;
+  }
 
-    .weekly-title-wrap {
-        /* margin-top: 80px; */
-        font-size: 28px;
-        line-height: 33px;
-    }
+  .weekly-title-wrap {
+    /* margin-top: 80px; */
+    font-size: 28px;
+    line-height: 33px;
+  }
 
-    .weekly-card-description {
-        padding: 40px 20px 20px;
-        font-size: 20px;
-        line-height: 23px;
-    }
+  .weekly-card-description {
+    padding: 40px 20px 20px;
+    font-size: 20px;
+    line-height: 23px;
+  }
 
-    .weekly-card-description .Stars {
-        font-size: 22px;
-    }
+  .weekly-card-description .Stars {
+    font-size: 22px;
+  }
 
-    .weekly-cards-wrap {
-        /* margin-bottom: 60px; */
-    }
+  .weekly-cards-wrap {
+    /* margin-bottom: 60px; */
+  }
 
-    .weekly-container-image {
-        width: 395px;
-    }
+  .weekly-container-image {
+    width: 395px;
+  }
 
-    .upcoming {
-        padding-bottom: 100px;
-    }
+  .upcoming {
+    padding-bottom: 100px;
+  }
 
-    .upcoming-title {
-        font-size: 28px;
-        line-height: 33px;
-        margin-bottom: 28px;
-    }
+  .upcoming-title {
+    font-size: 28px;
+    line-height: 33px;
+    margin-bottom: 28px;
+  }
 
-    .upcoming-card {
-        display: flex;
-        gap: 16px;
-    }
+  .upcoming-card {
+    display: flex;
+    gap: 16px;
+  }
 
-    .upcoming-card-title {
-        margin-top: 0;
-        font-size: 32px;
-        line-height: 38px;
-        margin-bottom: 28px;
-    }
+  .upcoming-card-title {
+    margin-top: 0;
+    font-size: 32px;
+    line-height: 38px;
+    margin-bottom: 28px;
+  }
 
-    .upcoming-card-img img {
-        max-width: fit-content;
-    }
+  .upcoming-card-img img {
+    max-width: fit-content;
+  }
 
-    .upcoming-card-numbers-wrap-top {
-        flex-direction: column;
-    }
+  .upcoming-card-numbers-wrap-top {
+    flex-direction: column;
+  }
 
-    .upcoming-card-numbers-wrap-down {
-        flex-direction: column;
-    }
+  .upcoming-card-numbers-wrap-down {
+    flex-direction: column;
+  }
 }

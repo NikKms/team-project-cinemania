@@ -32,7 +32,7 @@
   width: 100vw;
   height: 100vh;
   opacity: 1;
-  z-index: 1;
+  z-index: 40;
   overflow: auto;
   display: flex;
   align-items: center;
@@ -58,6 +58,7 @@
   justify-content: center;
 }
 .trailer-modal-container {
+  z-index: 50;
   margin-left: auto;
   margin-right: auto;
   background-color: #2423232b;

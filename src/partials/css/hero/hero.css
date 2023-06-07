@@ -9,6 +9,11 @@
   padding-bottom: 80px;
   padding-right: 57px;
   height: 380px;
+  position: relative;
+  right: 22%;
+}
+.container-wrapper {
+  overflow: hidden;
 }
 
 .hero-img {
@@ -19,6 +24,8 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  position: relative;
+  left: 20%;
 }
 
 .hero-description-wrap {
@@ -116,7 +123,11 @@
 }
 
 /* -------- MEDIA -------- */
-
+@media screen and (min-width: 320px) {
+  .hero-img {
+    background-image: url('../../../images/hero/hero-home-mob1.jpg');
+  }
+}
 @media (min-device-pixel-ratio: 2),
   (min-resolution: 192dpi),
   (min-resolution: 2dppx) {
@@ -137,6 +148,8 @@
   }
 }
 /* ---------------MEDIA TABLET(1024)---------------------- */
+
+
 @media screen and (min-width: 768px) {
   .hero-gradient {
     height: 372px;
@@ -205,6 +218,7 @@
     background-image: url('../../../images/hero/hero-home-desktop1.jpg');
     background-size: cover;
     width: 1280px;
+    left: 20%;
   }
   @media (min-device-pixel-ratio: 2),
     (min-resolution: 192dpi),
@@ -220,6 +234,7 @@
     padding-left: 32px;
     padding-bottom: 169px;
     padding-right: 784px;
+    right: 22%;
   }
 
   .hero-title-wrap {
