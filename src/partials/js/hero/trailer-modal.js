@@ -1,22 +1,39 @@
 import { swiper } from './hero';
+import { getMovie } from '../api';
 
 const trailerRefs = {
   backDropRef: document.querySelector('.trailer-backdrop'),
   trailerRef: document.querySelector('.trailer-container'),
   trailerBtn: document.querySelector('.modal-trailer-btn'),
+  trailerImg: document.querySelector('#trailer-img-err'),
 };
+
+function onWatchTrailer(e) {
+  if (e.target.classList.contains('hero-btn-trailer')) {
+    const dataId = e.target.dataset.id;
+    getTrailerByFilmId(dataId);
+    swiper.autoplay.stop();
+  }
+}
+
+async function getTrailerByFilmId(id) {
+  try {
+    const movieData = await getMovie(id);
+    const trailerKey = movieData.results[0].key;
+    renderTrailer(trailerKey);
+  } catch (err) {
+    renderTrailer('zwBpUdZ0lrQ');
+    console.log(err.message);
+  }
+}
 
 function renderTrailer(movieKey) {
   document.body.classList.add('is-scroll-block');
 
   trailerRefs.backDropRef.classList.remove('is-trailer-hidden');
-  trailerRefs.trailerRef.insertAdjacentHTML(
-    'beforeEnd',
-    `
-  <iframe class="trailer-iframe" src='https://www.youtube.com/embed/${movieKey}
+  trailerRefs.trailerRef.innerHTML = `<iframe class="trailer-iframe" src='https://www.youtube.com/embed/${movieKey}
   'frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-`
-  );
+  <p>Oops! Trailer not found...</p>`;
 
   trailerRefs.trailerBtn.addEventListener('click', closeTrailer);
   trailerRefs.backDropRef.addEventListener('click', listenBackdropClick);
@@ -48,4 +65,4 @@ const closeTrailer = () => {
   trailerRefs.trailerBtn.removeEventListener('click', closeTrailer);
 };
 
-export { renderTrailer };
+export { renderTrailer, getTrailerByFilmId, onWatchTrailer };

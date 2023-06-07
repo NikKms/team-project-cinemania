@@ -1,79 +1,99 @@
-import axios from 'axios';
-import { getByQuery, getMovie } from '../api';
-import { refs } from '../refs';
-import { createCards } from './createCards';
+import { fetchGenre, getMoviesByQuery, showNewestMovies } from './catalogApi';
+import { createDataCards, loadLocal, saveLocal } from './catalogUtils';
+import Pagination from './pagination';
 
-const API_KEY = '88b8a7c5d221d3120fb29d734050dc7d';
 const searchForm = document.querySelector('.search-form');
+const selectGenres = document.querySelector('#selectGenres');
+const selectDate = document.querySelector('#selectDate');
 
 const submitHandler = e => {
   e.preventDefault();
   const formData = new FormData(e.target);
   const { searchMovies } = Object.fromEntries(formData.entries());
   if (!searchMovies.length) {
-    showNewestMovies();
+    afterLoad();
     return;
   }
-  getMoviesByQuery(searchMovies);
+  saveLocal('searchTerm', searchMovies);
+  afterSearching(searchMovies);
 };
 
-const getMoviesByQuery = async searchTerm => {
-  const { results } = await getByQuery(searchTerm, 1);
-  createDataCards(results).then(res => console.log(res));
+const afterLoad = async () => {
+  const { page, total_pages } = await showNewestMovies();
+  const pagination = new Pagination(total_pages, page, showNewestMovies);
+  pagination.createButton();
+  localStorage.removeItem('searchTerm');
 };
 
-const createDataCards = async moviesData => {
-  console.log(moviesData);
-  const genre = await fetchGenre();
-  const newCardsDate = moviesData.map(
-    ({ id, title, poster_path, vote_average, genre_ids, release_date }) => {
-      return {
-        id: id,
-        title: title,
-        poster: poster_path,
-        rating: vote_average,
-        genres: createGenreStr(genre, genre_ids),
-        date: createMovieDate(release_date),
-      };
-    }
-  );
-  createCards(newCardsDate);
+const afterSearching = async searchMovies => {
+  const { page, total_pages } = await getMoviesByQuery();
+  const pagination = new Pagination(total_pages, page, getMoviesByQuery);
+  pagination.createButton();
+  selectDate.removeAttribute('disabled');
 };
 
-const fetchGenre = async () => {
-  const { data } = await axios.get(
-    `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`
-  );
-  const { genres } = data;
-  return genres;
-};
-
-const createGenreStr = (genre, genre_ids) => {
-  const genres = [];
-  genre.map(({ id, name }) => {
-    if (genre_ids.indexOf(id) !== -1) {
-      genres.push(name);
-    }
+const filterSelectOptions = async () => {
+  const genres = await fetchGenre();
+  let arrOptions = genres.map(option => {
+    return `<option value="${option.id}">${option.name}</option>`;
   });
-  return genres.join(',');
+  arrOptions.unshift(`<option value='all'>All</option>`);
+  selectGenres.innerHTML = arrOptions.join('');
+  selectGenres.removeAttribute('disabled');
 };
 
-const createMovieDate = dateString => {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  return year;
-};
+const setGenreFilter = async e => {
+  const value = e.target.value;
+  const currentPage = loadLocal('currentPage');
+  const searchTerm = loadLocal('searchTerm');
 
-const showNewestMovies = async () => {
-  const { data } = await axios.get(
-    `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US`
-  );
-  const { results } = data;
-  createDataCards(results);
+  if (searchTerm) {
+    if (value === 'all') {
+      getMoviesByQuery(currentPage, 0);
+      return;
+    }
+    const { results } = await getMoviesByQuery(currentPage, value);
+    createDataCards(results);
+    console.log(results);
+    return;
+  }
+  const { results } = await showNewestMovies(currentPage, value);
   console.log(results);
+  createDataCards(results);
+};
+
+const dateSelectOptions = () => {
+  const endDate = 1970;
+  const startDate = new Date().getFullYear();
+
+  const yearList = [];
+
+  for (let i = startDate; i >= endDate; i--) {
+    yearList.push(`<option value="${i}">${i}</option>`);
+  }
+
+  selectDate.innerHTML = yearList.join('');
+};
+
+const setDateFilter = async e => {
+  const value = e.target.value;
+  const currentPage = loadLocal('currentPage');
+  const searchTerm = loadLocal('searchTerm');
+
+  console.log(searchTerm);
+  if (searchTerm) {
+    if (value === 'all') {
+      getMoviesByQuery(currentPage, 0);
+      return;
+    }
+  }
 };
 
 searchForm.addEventListener('submit', submitHandler);
-window.addEventListener('load', showNewestMovies);
+window.addEventListener('load', afterLoad);
+window.addEventListener('load', filterSelectOptions);
+window.addEventListener('load', dateSelectOptions);
+selectGenres.addEventListener('change', setGenreFilter);
+selectDate.addEventListener('change', setDateFilter);
 
 export { createDataCards };

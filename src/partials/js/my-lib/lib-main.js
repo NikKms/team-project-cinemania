@@ -1,5 +1,5 @@
 import { getGenre } from '../api';
-import { parsedFilms, parsedFilmsGenreIds } from './lib-storage';
+import { parsedFilms, parsedFilmsGenreIds, clearLibrary } from './lib-storage';
 import {
   renderLibMoviesListMarkup,
   renderLibSelectMarkup,
@@ -7,7 +7,7 @@ import {
 import { libRefs } from './lib-refs';
 import { LoadMoreBtn } from './loadMoreBtn';
 
-const { libSelectEl, libMoviesListEl, libLoadMoreBtn } = libRefs;
+const { libSelectEl, libMoviesListEl, libLoadMoreBtn, libClearBtn } = libRefs;
 
 const loadMore = new LoadMoreBtn({
   btnEl: libLoadMoreBtn,
@@ -17,19 +17,14 @@ let selectedGenre = '1';
 const movieByStep = 9;
 let totalMoviesLoaded = 0;
 
-const getFilteredGenres = async moviesGenreIds => {
+const getFilteredGenres = async movieGenresIds => {
   const { genres } = await getGenre();
-  return genres.filter(({ id }) => moviesGenreIds.includes(id));
+
+  return genres.filter(({ id }) => movieGenresIds.includes(id));
 };
 
-const getGenreName = async movieGenreIds => {
-  const filteredGenres = await getFilteredGenres(movieGenreIds);
-  const genreNames = filteredGenres.map(({ name }) => name);
-  return genreNames.slice(0, 2).join(', ');
-};
-
-const renderFilteredGenres = async moviesGenreIds => {
-  const filteredGenres = await getFilteredGenres(moviesGenreIds);
+const renderFilteredGenres = async moviesArr => {
+  const filteredGenres = await getFilteredGenres(moviesArr);
   renderLibSelectMarkup(filteredGenres);
 };
 
@@ -59,11 +54,11 @@ const filterMoviesListByGenre = selectedValue => {
     loadMovies(parsedFilms);
     checkArrLength(parsedFilms);
   } else {
-    const moviesGenreById = parsedFilms.filter(({ genre_ids }) =>
-      genre_ids.includes(parseInt(selectedValue))
+    const filteredMovies = parsedFilms.filter(movie =>
+      movie.genres.some(genre => genre.id === parseInt(selectedValue))
     );
-    loadMovies(moviesGenreById);
-    checkArrLength(moviesGenreById);
+    loadMovies(filteredMovies);
+    checkArrLength(filteredMovies);
   }
 };
 
@@ -85,13 +80,25 @@ const clearHTML = () => {
   libMoviesListEl.innerHTML = '';
 };
 
+const onClearBtnClick = () => {
+  clearLibrary();
+};
+
 libSelectEl.addEventListener('change', onLibSelectChange);
 
-window.addEventListener('load', async () => {
-  await renderFilteredGenres(parsedFilmsGenreIds);
+window.addEventListener('load', () => {
+  renderFilteredGenres(parsedFilmsGenreIds);
   loadMovies(parsedFilms);
+  checkArrLength(parsedFilms);
 });
 
 libLoadMoreBtn.addEventListener('click', onLoadBtnClick);
+const onClick = evt => {
+  console.log(evt.target);
+};
+
+libMoviesListEl.addEventListener('click', onClick);
+
+libClearBtn.addEventListener('click', onClearBtnClick);
 
 export { getGenreName };
