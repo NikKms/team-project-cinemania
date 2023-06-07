@@ -9,8 +9,6 @@
   padding-bottom: 80px;
   padding-right: 57px;
   height: 380px;
-  position: relative;
-  right: 22%;
 }
 .container-wrapper {
   overflow: hidden;
@@ -24,8 +22,9 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  position: relative;
-  left: 20%;
+}
+.hero-img.hero-lib {
+  background-image: url('../../../images/hero/hero-lib-mobilezip.jpg');
 }
 
 .hero-description-wrap {
@@ -143,12 +142,11 @@
 
 @media screen and (max-width: 1279px) {
   .hero-img {
-    margin-left: auto;
-    margin-right: auto;
+    width: 768px;
+    background-image: url('../../../images/hero/hero-home-tablet1.jpg');
   }
 }
 /* ---------------MEDIA TABLET(1024)---------------------- */
-
 
 @media screen and (min-width: 768px) {
   .hero-gradient {
