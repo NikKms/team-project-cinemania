@@ -15,18 +15,12 @@ function swiperInit() {
       delay: 5000,
       disableOnInteraction: false,
     },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
   });
 }
 
 function renderSwiper() {
-  const markup = `<div class="swiper container">
-  <div class="swiper-wrapper"></div>
-  <div style="color: orange" class="swiper-button-prev"></div>
-  <div style="color: orange" class="swiper-button-next"></div>`;
+  const markup = `<div class="swiper">
+  <div class="swiper-wrapper"></div>`;
 
   heroRefs.hero.innerHTML = markup;
 }

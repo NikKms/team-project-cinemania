@@ -1,7 +1,10 @@
 <div class="header">
   <div class="container">
-    <a href="./index.html" class="logo">Cinemania</a>
+    <a href="./index.html" class="logo"><svg width="48" height="48">
+        <use href="./images/sprite.svg#icon-logo"></use>
+      </svg><span class="logo-text">Cinemania</span></a>
     <nav class="nav">
+      <span class="mobile-menu">MENU</span>
       <ul class="nav_list">
         <li class="nav_item">
           <a href="./index.html" class="nav_link current-page" id="nav_home">
@@ -18,16 +21,10 @@
         </li>
       </ul>
     </nav>
-    <label class="toggle-label">
-      <input type="checkbox" id="toggle"">
-      <!-- <svg class=" toggle-icon" width="13" heigth="13">
-      <use href="./images/sprite.svg#icon-moon"></use>
-      </svg> -->
-      <div class=" toggle-slider">
-      </div>
-      <!-- <svg class=" toggle-icon" width="14" heigth="14">
-        <use href="./images/sprite.svg#icon-sun"></use>
-      </svg> -->
+
+    <label class="switch">
+      <input type="checkbox">
+      <span class="slider"></span>
     </label>
   </div>
 </div>
