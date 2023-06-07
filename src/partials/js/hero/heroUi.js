@@ -1,18 +1,11 @@
-function crateSlideMarkup(
-  backdrop_path,
-  title,
-  overview,
-  vote_average,
-  id,
-  name
-) {
+function renderSlide(backdrop_path, title, overview, vote_average, id, name) {
   return `
 <div
   style="background-image: url('https://image.tmdb.org/t/p/original${backdrop_path}');"
   class="swiper-slide hero-img">
  <div class="hero-gradient">
-  <div class="hero-title-wrap" data-swiper-parallax="-300">
-    <h1 class="hero-title">${title || name}</h1>
+  <div class="hero-title-wrap">
+    <h1 class="hero-title" data-swiper-parallax="-300">${title || name}</h1>
   </div>
   <div data-swiper-parallax="-350" class="Stars" style="--rating: ${
     vote_average / 2
@@ -35,4 +28,4 @@ function crateSlideMarkup(
   </div>`;
 }
 
-export { crateSlideMarkup };
+export { renderSlide };
