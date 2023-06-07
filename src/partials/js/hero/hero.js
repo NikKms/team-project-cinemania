@@ -1,5 +1,5 @@
 import { swiper, swiperInit, renderSwiper } from './swiper';
-import { renderSlide } from '../hero/heroUi';
+import { crateSlideMarkup } from '../hero/heroUi';
 import { onWatchTrailer } from './trailer-modal';
 import { getTrending } from '../api';
 
@@ -8,18 +8,25 @@ const heroRefs = {
   backDropRef: document.querySelector('.hero-trailer-backdrop'),
   trailerRef: document.querySelector('.trailer-container'),
   trailerBtn: document.querySelector('.modal-trailer-btn'),
+  heroBtn: document.querySelector('.hero-btn'),
+  heroImgRef: document.querySelector('.hero-img'),
 };
 
 heroHandler();
 
 async function heroHandler() {
+  if (window.location.href.includes('/my-lib-page.html')) {
+    heroRefs.heroImgRef.classList.add('hero-lib');
+    heroRefs.heroBtn.style.display = 'none';
+    return;
+  }
   try {
     const movieArr = await getTopMoviesArr(5);
     if (movieArr.length === 0) console.log('sorry nothing found');
     renderSwiper();
     const markup = movieArr
       .map(({ backdrop_path, title, overview, vote_average, id, name }) => {
-        return renderSlide(
+        return crateSlideMarkup(
           backdrop_path,
           title,
           overview,
