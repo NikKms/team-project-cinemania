@@ -43,7 +43,84 @@
 }
 .catalog-films {
   display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 }
-.catalog-info-border {
-  border-left: 1px solid #fff;
+.catalog-card {
+  position: relative;
+  background: linear-gradient(#0000 63.48%, #000000e6 92.16%);
+  cursor: pointer;
+  flex-basis: calc(((100% - 32px) / 3));
+}
+
+.catalog-card > img {
+  border-radius: 5px;
+}
+
+.catalog-info {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  padding: 20px;
+  z-index: 2;
+}
+
+.catalog-info-container {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.catalog-info-container > .Stars {
+  font-size: 22px;
+}
+
+.catalog-info-name {
+  font-size: 20px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.catalog-info-details {
+  font-size: 20px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: #b7b7b7;
+}
+
+/* Pagination */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pagination-item {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid #b7b7b7;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1;
+  color: #b7b7b7;
+}
+
+.pagination-item.ellipsis {
+  border: none;
+}
+
+.pagination-item.btn-active {
+  color: #ffffff;
+  background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
+  border: none;
+}
+
+.pagination-list {
+  display: flex;
+  gap: 16px;
 }
