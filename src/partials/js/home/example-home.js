@@ -98,8 +98,10 @@ async function getUpcomingFilm() {
     const randomValue = getRandomValue(data.results);
     renderUpcomingFilm(randomValue);
   } catch (error) {
-    upcomingWrapEl.innerHTML =
-      '<p class="upcoming-not-found">OOPS...We are very sorry! We don’t have any results matching your search.</p>';
+    upcomingWrapEl.insertAdjacentHTML(
+      'beforeend',
+      '<p class="upcoming-not-found">OOPS...We are very sorry! We don’t have any results</p>'
+    );
   }
 }
 
@@ -158,7 +160,6 @@ async function renderUpcomingFilm(upcomingFilm) {
               </div>
             </div>
  
-
             <span class="upcoming-card-about-title">About</span>
 
             <p class="upcoming-card-about-text">${overview}</p>
@@ -176,12 +177,6 @@ async function renderUpcomingFilm(upcomingFilm) {
 function getImagePath(backdropPath, posterPath, isMobile) {
   if (isMobile === true && posterPath !== null) {
     return `https://image.tmdb.org/t/p/original/${posterPath}`;
-  } else if (
-    isMobile === true &&
-    posterPath === null &&
-    backdropPath !== null
-  ) {
-    return `https://image.tmdb.org/t/p/original/${backdropPath}`;
   } else if (isMobile === false && backdropPath !== null) {
     return `https://image.tmdb.org/t/p/original/${backdropPath}`;
   } else if (
@@ -190,8 +185,14 @@ function getImagePath(backdropPath, posterPath, isMobile) {
     posterPath !== null
   ) {
     return `https://image.tmdb.org/t/p/original/${posterPath}`;
+  } else if (
+    isMobile === true &&
+    posterPath === null &&
+    backdropPath !== null
+  ) {
+    return `https://image.tmdb.org/t/p/original/${backdropPath}`;
   } else {
-    return 'https://pbs.twimg.com/media/C5OTOt3UEAAExIk.jpg';
+    return 'https://d2ths1nqi4sbhh.cloudfront.net/images/no-image.png?v=3884857787';
   }
 }
 
@@ -229,3 +230,5 @@ function getRandomValue(array) {
 
 window.addEventListener('DOMContentLoaded', getUpcomingFilm);
 window.addEventListener('DOMContentLoaded', getWeeklyTrends);
+
+export { getGenresById, filterGenres };
