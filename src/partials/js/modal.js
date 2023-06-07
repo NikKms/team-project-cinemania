@@ -129,16 +129,3 @@ function renderFilmInModal(film) {
 }
 
 export { refs };
-
-const imageUrl = '../../images/hero/trailer-error.png';
-
-fetch(imageUrl)
-  .then(response => response.blob())
-  .then(blob => {
-    const img = document.createElement('img');
-    img.src = URL.createObjectURL(blob);
-    document.body.append(img);
-  })
-  .catch(error => {
-    console.error('Ошибка при загрузке изображения:', error);
-  });
