@@ -13,7 +13,7 @@
 
   --ligth-theme-title-color: #111111;
 
-  --ligth-theme-bgs: #ffffff;
+  --ligth-theme-bgc: #ffffff;
 
   --primary-ligth-theme-btn-color: linear-gradient(
     141.22deg,
@@ -33,6 +33,11 @@ body {
 
   color: var(--primary-text-color);
   background-color: var(--primary-bgc);
+}
+
+body.ligth-mode {
+  background-color: var(--ligth-theme-bgc);
+  color: var(--secondary-ligth-theme-text-color);
 }
 
 .container {
