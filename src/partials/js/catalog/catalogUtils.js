@@ -2,7 +2,6 @@ import { fetchGenre } from './catalogApi';
 import { createCards } from './createCards';
 
 const createDataCards = async moviesData => {
-  //console.log(moviesData);
   const genre = await fetchGenre();
   const newCardsDate = moviesData.map(
     ({ id, title, poster_path, vote_average, genre_ids, release_date }) => {
@@ -26,7 +25,8 @@ const createGenreStr = (genre, genre_ids) => {
       genres.push(name);
     }
   });
-  return genres.join(',');
+  return genres.slice(0, 2).join(', ');
+  //return genres.join('');
 };
 
 const createMovieDate = dateString => {

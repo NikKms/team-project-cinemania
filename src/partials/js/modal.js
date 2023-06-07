@@ -1,24 +1,24 @@
 import { swiper } from '../../partials/js/hero/hero';
 import { getInfoByMovie } from './api';
 import { getGenre } from './api';
+import { addFilmToStorage } from './my-lib/lib-storage';
 
 const refs = {
   openModal: document.querySelector('[data-modal-open]'),
   closeModal: document.querySelector('[data-modal-close]'),
   backdrop: document.querySelector('[data-modal]'),
   upcomingWrapLi: document.querySelector('.modal-info'),
+  addToLibBtn: null,
 };
 
-refs.openModal.addEventListener('click', onOpenModal);
+document.addEventListener('click', onOpenModal);
 refs.closeModal.addEventListener('click', onCloseModal);
 refs.backdrop.addEventListener('click', onBackdropClick);
 
 function onOpenModal(event) {
-  console.log(event.target);
-  if (event.target.classList.contains('is-id')) {
-    const cardId = event.target.dataset.id;
-    getMovieById(cardId);
-  }
+  const cardEl = event.target.closest('.is-id');
+  const cardId = cardEl.dataset.id;
+  getMovieById(cardId);
 
   swiper.autoplay.stop();
   document.body.classList.add('not-scroll-body');
@@ -59,6 +59,7 @@ function renderFilmInModal(film) {
     title,
     vote_average,
     vote_count,
+    id,
   } = film;
   const genresList = genres.map(genre => genre.name);
   const formatedGenres = genresList.join(' ');
@@ -82,7 +83,9 @@ function renderFilmInModal(film) {
           <div class="modal-card-vote-wrap">
             <div class="modal-card-vote"><span>Vote / Votes</span></div>
             <div class="modal-card-vote-data">
-              <span>${vote_average}</span> / <span>${vote_count}</span>
+              <span>${vote_average.toFixed(
+                1
+              )}</span> / <span>${vote_count}</span>
             </div>
           </div>
         
@@ -103,9 +106,19 @@ function renderFilmInModal(film) {
         <p class="modal-card-about-text">${overview}</p>
 
         <button class="modal-button" type="button"><span>Add to my library</span></button>
-        
+        <button class="modal-button hero-btn-trailer" type="button" data-id=${id}><span>Watch trailer</span></button>
       </div>
     </div>`;
 
   refs.upcomingWrapLi.innerHTML = markup;
+
+  refs.addToLibBtn = document.querySelector('.modal-button');
+
+  const addToLib = evt => {
+    addFilmToStorage(film);
+    evt.currentTarget.textContent = '!!';
+  };
+  refs.addToLibBtn.addEventListener('click', addToLib);
 }
+
+export { refs };

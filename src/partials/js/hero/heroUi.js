@@ -18,12 +18,8 @@ function renderSlide(backdrop_path, title, overview, vote_average, id, name) {
     )} out of 5.">
   </div>
   <div class="hero-description-wrap" data-swiper-parallax="-400">
-    <p class="hero-description1">${
-      overview.length > 110 ? overview.slice(0, 105) + '...' : overview
-    }</p>
-    <p class="hero-description2">${
-      overview.length > 176 ? overview.slice(0, 171) + '...' : overview
-    }</p>
+    <p class="hero-description1">${overview}</p>
+    <p class="hero-description2">${overview}</p>
   </div>
   <div class="hero-btn-wrap" data-swiper-parallax="-450">
   <button type="button" class="hero-btn hero-btn-trailer" id="hero-btn-trailer" data-id="${id}">

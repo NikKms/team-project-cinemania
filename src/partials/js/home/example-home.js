@@ -4,7 +4,7 @@ import { getUpcoming } from '../api';
 import { getGenre } from '../api';
 
 const listOfFilms = document.querySelector('.weekly-cards-wrap');
-const upcomingWrapLi = document.querySelector('.upcoming_wrap');
+const upcomingWrapEl = document.querySelector('.upcoming_wrap');
 const seeAll = document.querySelector('.weekly-title-link');
 
 // ================See all=================
@@ -45,51 +45,33 @@ async function renderWeeklyThreeTrends(firstThreeFilms) {
         genre_ids = filterGenres(genre_ids);
         const listGenres = await getGenresById(genre_ids);
 
-        return `<li class="weekly-card" >
+        return `<li class="weekly-card is-id" data-id=${id}>
         <div class="weekly-container-image">
           <img
             class="weekly-card-image"
            src="https://image.tmdb.org/t/p/original/${poster_path}"
             alt=""
           />
-         <div class="overlay is-id" data-id=${id}></div>       
+         <div class="overlay"></div>       
         </div>
-        <ul class="weekly-card-description">
-        <li><span class="weekly-card-description-title">${title || name}</span>
-          <span class="weekly-card-description-other">${listGenres} | ${
+        <div class="weekly-card-description">
+          <div>
+            <title class="weekly-card-description-title">${
+              title || name
+            }</title>
+            <p class="weekly-card-description-other">${listGenres} | ${
           release_date
             ? release_date.substring(0, 4)
             : first_air_date.substring(0, 4)
-        }</span>
-        </li>
-         <li class="Stars" style="--rating: ${parseFloat(
+        }</p>
+          </div>
+         <div class="Stars" style="--rating: ${parseFloat(
            (vote_average / 2).toFixed(1)
-         )};" aria-label="Rating of this product is 2.3 out of 5."></li> 
-        </ul>
+         )};" aria-label="Rating of this product is 2.3 out of 5."></div> 
+        </div>
         
       </li>`;
       }
-
-      //   return `<li class="weekly-card" >
-      //   <div class="weekly-container-image">
-      //     <img
-      //       class="weekly-card-image"
-      //      src="https://image.tmdb.org/t/p/original/${poster_path}"
-      //       alt=""
-      //     />
-      //    <div class="overlay is-id" data-id=${id}></div>
-      //   </div>
-      //   <div class="weekly-card-description">
-      //     <span class="weekly-card-description-title">${title || name}</span>
-      //     <span class="weekly-card-description-other">${listGenres} | ${
-      //     release_date
-      //       ? release_date.substring(0, 4)
-      //       : first_air_date.substring(0, 4)
-      //   }</span>
-      //   </div>
-      //   <div class="weekly-card-raiting">Stars5*</div>
-      // </li>`;
-      // }
     )
   );
 
@@ -186,7 +168,7 @@ async function renderUpcomingFilm(upcomingFilm) {
             </button>
           </div>
         </div>`;
-  upcomingWrapLi.insertAdjacentHTML('beforeend', markup);
+  upcomingWrapEl.insertAdjacentHTML('beforeend', markup);
 
   window.addEventListener('resize', () => {
     updateImagePaths(backdrop_path, poster_path);
