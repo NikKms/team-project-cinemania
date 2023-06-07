@@ -1,5 +1,8 @@
 // MODAL WINDOW FOOTER
 
+// const footerLink = document.querySelector('.footer-link');
+// footerLink.addEventListener("click", toggleModal)
+
 (() => {
   const refs = {
     openModalBtn: document.querySelector('[data-modal-open]'),

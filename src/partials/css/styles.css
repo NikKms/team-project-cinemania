@@ -8,4 +8,10 @@
 @import './hero/hero.css';
 @import './home/modal.css';
 @import './header/header.css';
+<<<<<<< Updated upstream
 @import './up-btn.css';
+=======
+@import './up-btn.css';
+@import './footer/footer.css';
+@import './footer/team.css';
+>>>>>>> Stashed changes

@@ -1,0 +1,34 @@
+.our-team-title {
+  font-size: 3em;
+  justify-content: center;
+  text-align: center;
+  margin-top: 96px;
+  margin-bottom: 96px;
+}
+.our-team-list {
+  margin: 0 20px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  gap: 24px;
+}
+.our-team-item {
+}
+.our-team-card {
+}
+.our-team-img {
+  width: 264px;
+}
+/* .our-team-card:hover {
+  width: 264px;
+  transform: scale(2);
+} */
+.our-team-info {
+  width: 264px;
+}
+.team-info-title {
+}
+.team-info-text {
+}
