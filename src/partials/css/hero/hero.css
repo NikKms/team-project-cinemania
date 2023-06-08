@@ -13,13 +13,17 @@
 .container-wrapper {
   overflow: hidden;
 }
-
-.hero-img {
+.hero-img.hero-main {
   background-image: url('../../../images/hero/hero-home-mob1.jpg');
+}
+.hero-img {
+  /* background-image: url('../../../images/hero/hero-home-mob1.jpg'); */
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100vw;
   height: 100%;
   object-fit: contain;
 }
@@ -140,7 +144,7 @@
 
 /* -------- MEDIA -------- */
 @media screen and (min-width: 320px) {
-  .hero-img {
+  .hero-img.hero-main {
     background-image: url('../../../images/hero/hero-home-mob1.jpg');
   }
   .hero-img.hero-lib {
@@ -159,7 +163,7 @@
   .hero-btn.hero-btn-trailer {
     margin-right: 16px;
   }
-  .hero-img {
+  .hero-img.hero-main {
     width: 768px;
     background-image: url('../../../images/hero/hero-home-tablet1.jpg');
   }
@@ -220,7 +224,7 @@
     font-size: 38px;
   }
 
-  .hero-img {
+  .hero-img.hero-main {
     background-image: url('../../../images/hero/hero-home-desktop1.jpg');
     background-size: cover;
     width: 1280px;
@@ -265,7 +269,7 @@
 @media screen and (min-device-pixel-ratio: 2) and (max-width: 1279px),
   screen and (min-resolution: 192dpi) and (max-width: 1199px),
   screen and (min-resolution: 2dppx) and (max-width: 1199px) {
-  .hero-img {
+  .hero-img.hero-main {
     background-image: url('../../../images/hero/hero-home-tablet2.jpg');
   }
 
@@ -277,7 +281,7 @@
 @media screen and (min-device-pixel-ratio: 2) and (max-width: 767px),
   screen and (min-resolution: 192dpi) and (max-width: 767px),
   screen and (min-resolution: 2dppx) and (max-width: 767px) {
-  .hero-img {
+  .hero-img.hero-main {
     background-image: url('../../../images/hero/hero-home-mob2.jpg');
   }
 
@@ -289,7 +293,7 @@
 @media screen and (min-device-pixel-ratio: 2) and (min-width: 1280px),
   screen and (min-resolution: 192dpi) and (min-width: 1280px),
   screen and (min-resolution: 2dppx) and (min-width: 1280px) {
-  .hero-img {
+  .hero-img.hero-main {
     background-image: url('../../../images/hero/hero-home-desktop2.jpg');
   }
 

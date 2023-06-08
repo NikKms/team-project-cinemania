@@ -21,7 +21,7 @@ async function heroHandler() {
     return;
   }
   try {
-    const movieArr = await getTopMoviesArr(5);
+    const movieArr = await getTopMoviesArr(10);
     if (movieArr.length === 0) return;
     renderSwiper();
     const markup = movieArr
@@ -40,6 +40,7 @@ async function heroHandler() {
 
     swiperInit();
   } catch (error) {
+    heroRefs.heroImgRef.classList.add('hero-main');
     console.log(error.message);
   }
 }
