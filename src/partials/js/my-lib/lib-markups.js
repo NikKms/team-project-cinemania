@@ -1,35 +1,43 @@
 import { libRefs } from './lib-refs';
+import { handleDeleteFilm, getGenreName } from './lib-main';
 
 const { libSelectEl, libMoviesListEl } = libRefs;
 
 const createLibSelectMarkup = genre => {
-  return `<option value="${genre.id}">${genre.name}</option>`;
+  return `<option class="option-item" value="${genre.id}">${genre.name}</option>`;
 };
 
-const createLibMoviesListMarkup = ({
+const createLibMoviesListMarkup = async ({
   title,
   name,
   release_date,
   first_air_date,
-  genres,
+  genresIds,
   poster_path,
   vote_average,
   id,
 }) => {
-  const genreNames = genres.map(genre => genre.name).slice(0, 2);
-
+  const genreName = await getGenreName(genresIds);
   const movieTitle = title || name;
   const movieReleaseYear = release_date || first_air_date;
-  return `<li class="mylibrary_movie">
+  let imagePath;
+  if (poster_path !== null) {
+    imagePath = `https://image.tmdb.org/t/p/original/${poster_path}`;
+  } else {
+    imagePath =
+      'https://d2ths1nqi4sbhh.cloudfront.net/images/no-image.png?v=3884857787';
+  }
+  return `<li class="mylibrary_movie is-id"  data-id=${id}>
   <div class="mylibrary_dark">
   <img src="https://image.tmdb.org/t/p/original${poster_path}" alt="${movieTitle}" />
   </div>
- <div class="mylibrary_overlay is-id" data-id=${id}></div>
+ <div class="mylibrary_overlay"></div>
   <div class="mylibrary_info">
   <h3 class="mylibrary_movies_name">${movieTitle}</h3>
-  <p class="mylibrary_genre_movie">${genreNames.join(
-    ' '
-  )} | ${movieReleaseYear.substring(0, 4)}</p>
+  <p class="mylibrary_genre_movie">${genreName} | ${movieReleaseYear.substring(
+    0,
+    4
+  )}</p>
   </div>
 <div class="hero_star_raiting">
  <span>
@@ -42,18 +50,26 @@ const createLibMoviesListMarkup = ({
   </span>   
   </li>`;
 };
-const renderLibSelectMarkup = genresArr => {
-  const libSelectMarkupEls = genresArr.map(genre =>
-    createLibSelectMarkup(genre)
+
+const renderLibSelectMarkup = async genresArr => {
+  const libSelectMarkupEls = await Promise.all(
+    genresArr.map(genre => createLibSelectMarkup(genre))
   );
   libSelectEl.insertAdjacentHTML('beforeend', libSelectMarkupEls.join(' '));
 };
 
-const renderLibMoviesListMarkup = movies => {
-  const libMovieListMarkup = movies.map(movie =>
-    createLibMoviesListMarkup(movie)
+const renderLibMoviesListMarkup = async movies => {
+  const libMovieListMarkup = await Promise.all(
+    movies.map(movie => createLibMoviesListMarkup(movie))
   );
   libMoviesListEl.insertAdjacentHTML('beforeend', libMovieListMarkup.join(' '));
+
+  const deleteFilmButtons =
+    libMoviesListEl.querySelectorAll('.delete-film-btn');
+
+  deleteFilmButtons.forEach(button => {
+    button.addEventListener('click', handleDeleteFilm);
+  });
 };
 
 export { renderLibMoviesListMarkup, renderLibSelectMarkup };

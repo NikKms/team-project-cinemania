@@ -2,6 +2,84 @@
   display: none;
 }
 
+.delete-film-btn {
+  position: absolute;
+  /* visibility: hidden; */
+  top: 10;
+  right: 10;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  font-size: 16px;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  border: 2px solid;
+  border-image: var(--primary-btn-color);
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.lib-option-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lib-clear-btn {
+  padding: 12px 24px;
+  background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
+  border-radius: 74px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 14px;
+  cursor: pointer;
+  width: 140px;
+  color: var(--ligth-theme-title-color);
+}
+
+.lib-clear-btn:hover,
+.lib-clear-btn:active,
+.lib-clear-btn:focus {
+  background: linear-gradient(323deg, #ffc226 9.4%, #f84119 91.91%);
+}
+
+.delete-film-btn:hover {
+  color: #f84119;
+}
+.lib-empty-message {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 24px;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  text-align: center;
+  color: #ffffff;
+}
+.lib-empty-message.ligth-mode {
+  color: #111111;
+}
+.lib-link-search {
+  display: block;
+  margin: 0 auto;
+  padding: 12px 24px;
+  background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
+  border-radius: 74px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 14px;
+  cursor: pointer;
+  width: 140px;
+  color: #111111;
+  text-align: center;
+}
+.lib-link-search:hover {
+  background: linear-gradient(323deg, #ffc226 9.4%, #f84119 91.91%);
+}
+/* .overlay:hover + .delete-film-btn {
+  visibility: visible;
+} */
 /*---------mobile----------*/
 @media screen and (min-width: 320px) {
   .mylibrary_movies_section {
@@ -13,6 +91,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+
     gap: 16px;
     margin-top: 15px;
     margin-bottom: 20px;
@@ -23,11 +102,14 @@
     width: 280px;
     height: 406px;
     overflow: hidden;
+    cursor: pointer;
   }
 
   .mylibrary_movie:hover {
-    box-shadow: 0px 0px 5px 4px #f87719;
-    border-radius: 4px;
+    box-shadow: 0 0 25px rgba(255, 193, 36, 0.3),
+      0 0 25px rgba(248, 65, 25, 0.3);
+    transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    scale: 1.03;
   }
   .mylibrary_dark::after {
     content: '';
@@ -42,6 +124,7 @@
       rgba(0, 0, 0, 0.9) 92.16%
     );
   }
+
   .mylibrary_info {
     position: absolute;
     bottom: 0px;
@@ -91,9 +174,7 @@
     border-color: #f87719;
   }
   .mylibrary_button-order:hover {
-    background: white;
-    color: #f87719;
-    border-color: #f87719;
+    background: linear-gradient(323deg, #ffc226 9.4%, #f84119 91.91%);
   }
 }
 

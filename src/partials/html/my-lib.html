@@ -1,15 +1,17 @@
 <section class="mylibrary_movies_section">
-  <div class="container">
-    <button id="clear-lib-btn">Clear Library</button>
-    <select id="js-genre-select">
-      <option value="1">All Genres</option>
-    </select>
-    <ul class="mylibrary_movies" id="js-lib-list" data-modal-open>
-    </ul>
+  <div class="container" id="lib-container-el">
+    <div class="lib-option-wrapper">
+      <select class="lib-select" id="js-genre-select">
+        <option class="option-item" selected value="1">All Genres</option>
+      </select>
+      <button class="lib-clear-btn" id="clear-lib-btn">Clear Library</button>
+    </div>
+    <ul class="mylibrary_movies" id="js-lib-list" data-modal-open></ul>
     <div class="mylibrary_button">
       <button type="button" class="mylibrary_button-order" id="js-loadMore-btn">
         Load more
       </button>
+      <a href="./catalog.html"></a>
     </div>
   </div>
 </section>

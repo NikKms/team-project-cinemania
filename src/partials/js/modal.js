@@ -3,7 +3,7 @@ import { getInfoByMovie } from './api';
 import { getGenre } from './api';
 import { addFilmToStorage } from './my-lib/lib-storage';
 import { onWatchTrailer } from './hero/trailer-modal';
-import { getGenresById } from './home/example-home';
+import { getGenresByIds } from './my-lib/example-my-lib';
 
 const refs = {
   openModal: document.querySelector('[data-modal-open]'),
@@ -74,9 +74,10 @@ async function renderFilmInModal(film) {
     vote_count,
     id,
   } = film;
-
+  
+  console.log('poster_path: ', poster_path);
   const genresListIds = genres.map(genre => genre.id);
-  const formatedGenres = await getGenresById(genresListIds);
+  const formatedGenres = await getGenresByIds(genresListIds);
 
   let imagePath = '';
   if (poster_path !== null) {
@@ -124,8 +125,8 @@ async function renderFilmInModal(film) {
 
         <p class="modal-card-about-text">${overview}</p>
 
-        <button class="modal-button gap-right" type="button"><span>Add to my library</span></button>
-         <button type="button" class=" modal-button hero-btn-trailer" id="hero-btn-trailer" data-id="${id}">
+        <button class="modal-button gap-right" id="add-to-lib-modal" type="button"><span>Add to my library</span></button>
+         <button type="button" class="hero-btn modal-button hero-btn-trailer" id="hero-btn-trailer" data-id="${id}">
     Watch trailer
   </button>
       </div>
@@ -133,12 +134,13 @@ async function renderFilmInModal(film) {
 
   refs.upcomingWrapLi.innerHTML = markup;
 
-  refs.addToLibBtn = document.querySelector('.modal-button');
+  refs.addToLibBtn = document.getElementById('add-to-lib-modal');
+  console.log('addToLibBtn: ', refs.addToLibBtn);
 
   const addToLib = evt => {
     addFilmToStorage(film);
-    evt.currentTarget.textContent = '!!';
   };
+
   refs.addToLibBtn.addEventListener('click', addToLib);
 }
 

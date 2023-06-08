@@ -1,13 +1,22 @@
+import * as hero from '../../js/modal';
+import { swiper } from '../hero/hero';
 import { getGenre } from '../api';
-import { parsedFilms, parsedFilmsGenreIds, clearLibrary } from './lib-storage';
+import { parsedFilms, parsedFilmsGenreIds } from './lib-storage';
 import {
   renderLibMoviesListMarkup,
   renderLibSelectMarkup,
 } from './lib-markups';
 import { libRefs } from './lib-refs';
 import { LoadMoreBtn } from './loadMoreBtn';
+import { Notify } from 'notiflix';
 
-const { libSelectEl, libMoviesListEl, libLoadMoreBtn, libClearBtn } = libRefs;
+const {
+  libSelectEl,
+  libMoviesListEl,
+  libLoadMoreBtn,
+  libClearBtn,
+  libContainerEL,
+} = libRefs;
 
 const loadMore = new LoadMoreBtn({
   btnEl: libLoadMoreBtn,
@@ -23,9 +32,22 @@ const getFilteredGenres = async movieGenresIds => {
   return genres.filter(({ id }) => movieGenresIds.includes(id));
 };
 
+const getGenreName = async movieGenreIds => {
+  const filteredGenres = await getFilteredGenres(movieGenreIds);
+  const genreNames = filteredGenres.map(({ name }) => name);
+  return genreNames.slice(0, 2).join(', ');
+};
+
 const renderFilteredGenres = async moviesArr => {
   const filteredGenres = await getFilteredGenres(moviesArr);
   renderLibSelectMarkup(filteredGenres);
+};
+
+const onLibSelectChange = () => {
+  selectedGenre = libSelectEl.value;
+  totalMoviesLoaded = 0;
+  clearHTML();
+  loadMoviesByGenre(selectedGenre);
 };
 
 const loadMovies = moviesArr => {
@@ -38,13 +60,6 @@ const loadMovies = moviesArr => {
   renderLibMoviesListMarkup(slicedArr);
 };
 
-const onLibSelectChange = () => {
-  selectedGenre = libSelectEl.value;
-  totalMoviesLoaded = 0;
-  clearHTML();
-  loadMoviesByGenre(selectedGenre);
-};
-
 const loadMoviesByGenre = selectedValue => {
   filterMoviesListByGenre(selectedValue);
 };
@@ -55,10 +70,29 @@ const filterMoviesListByGenre = selectedValue => {
     checkArrLength(parsedFilms);
   } else {
     const filteredMovies = parsedFilms.filter(movie =>
-      movie.genres.some(genre => genre.id === parseInt(selectedValue))
+      movie.genresIds.includes(parseInt(selectedValue))
     );
     loadMovies(filteredMovies);
     checkArrLength(filteredMovies);
+  }
+};
+
+const handleDeleteFilm = event => {
+  const filmId = event.currentTarget.closest('.weekly-card').dataset.id;
+  console.log('filmId: ', filmId);
+  removeItemFromLocalStorage(parseInt(filmId));
+  window.location.reload();
+};
+
+const removeItemFromLocalStorage = id => {
+  const items = JSON.parse(localStorage.getItem('films')) || [];
+
+  const index = items.findIndex(item => item.id === id);
+  console.log('index: ', index);
+
+  if (index !== -1) {
+    items.splice(index, 1);
+    localStorage.setItem('films', JSON.stringify(items));
   }
 };
 
@@ -80,6 +114,17 @@ const clearHTML = () => {
   libMoviesListEl.innerHTML = '';
 };
 
+const clearLibrary = () => {
+  localStorage.removeItem('films');
+  libContainerEL.innerHTML = '';
+  renderNotification();
+};
+
+const renderNotification = () => {
+  const notification = `<h2 class="lib-empty-message">OOOPS...<br>We are very sorry!<br>You don't have any movies at your library.</h2>
+  <a class="lib-link-search" href="./catalog.html"> Search movie</a>`;
+  libContainerEL.insertAdjacentHTML('beforeend', notification);
+};
 const onClearBtnClick = () => {
   clearLibrary();
 };
@@ -87,18 +132,18 @@ const onClearBtnClick = () => {
 libSelectEl.addEventListener('change', onLibSelectChange);
 
 window.addEventListener('load', () => {
+  if (!parsedFilms.length) {
+    libContainerEL.innerHTML = '';
+    renderNotification();
+    return;
+  }
   renderFilteredGenres(parsedFilmsGenreIds);
   loadMovies(parsedFilms);
   checkArrLength(parsedFilms);
 });
 
 libLoadMoreBtn.addEventListener('click', onLoadBtnClick);
-const onClick = evt => {
-  console.log(evt.target);
-};
-
-libMoviesListEl.addEventListener('click', onClick);
 
 libClearBtn.addEventListener('click', onClearBtnClick);
 
-export { getGenreName };
+export { getGenreName, handleDeleteFilm };
