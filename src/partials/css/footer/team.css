@@ -2,8 +2,7 @@
   font-size: 3em;
   justify-content: center;
   text-align: center;
-  margin-top: 96px;
-  margin-bottom: 96px;
+  margin-bottom: 20px;
 }
 .our-team-list {
   margin: 0 20px;
@@ -14,21 +13,19 @@
   list-style: none;
   gap: 24px;
 }
-.our-team-item {
-}
+/* .our-team-item {
+} */
 .our-team-card {
+  height: 380px;
+  z-index: 900;
 }
 .our-team-img {
   width: 264px;
 }
-/* .our-team-card:hover {
-  width: 264px;
-  transform: scale(2);
-} */
 .our-team-info {
   width: 264px;
 }
-.team-info-title {
+/* .team-info-title {
 }
 .team-info-text {
-}
+} */

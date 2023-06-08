@@ -3,69 +3,43 @@ const navRefs = {
   navLib: document.querySelector('#nav_lib'),
   navCat: document.querySelector('#nav_cat'),
 };
-const toggleHeader = document.getElementById('toggle');
-const body = document.getElementsByTagName('body')[0];
-// // const toggleSlider = document.querySelector();
 
-toggleHeader.addEventListener('change', toggleLightMode);
+document.addEventListener('DOMContentLoaded', function () {
+  const checkbox = document.querySelector("input[type='checkbox']");
+  const storedTheme = localStorage.getItem('theme');
 
-toggleHeader.checked = true;
-pageNavSelector();
+  if (storedTheme === 'ligth') {
+    checkbox.checked = true;
+    document.body.classList.add('ligth-mode');
+    applyThemeStyles();
+  }
 
-// function pageNavSelector() {
-//   if (window.location.href.includes('/index.html')) {
-//     navRefs.navHome.classList.add('current-page');
-//     navRefs.navLib.classList.remove('current-page');
-//     navRefs.navCat.classList.remove('current-page');
-//   }
-//   if (window.location.href.includes('/catalog.html')) {
-//     navRefs.navHome.classList.remove('current-page');
-//     navRefs.navLib.classList.remove('current-page');
-//     navRefs.navCat.classList.add('current-page');
-//   }
-//   if (window.location.href.includes('/my-lib-page.html')) {
-//     navRefs.navHome.classList.remove('current-page');
-//     navRefs.navLib.classList.add('current-page');
-//     navRefs.navCat.classList.remove('current-page');
-//   }
-// }
+  checkbox.addEventListener('change', function () {
+    const theme = checkbox.checked ? 'ligth' : 'dark';
+    document.body.classList.toggle('ligth-mode', checkbox.checked);
+    localStorage.setItem('theme', theme);
+    applyThemeStyles();
+  });
+});
 
-function toggleLightMode() {
-  const isLightMode = body.classList.toggle('light-mode');
-  localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+function applyThemeStyles() {
+  const theme = document.body.classList.contains('ligth-mode')
+    ? 'ligth'
+    : 'dark';
+
+  const allElements = document.querySelectorAll('*');
+  allElements.forEach(element => {
+    element.classList.toggle('ligth-mode', theme === 'ligth');
+  });
 }
 
+pageNavSelector();
+
 function pageNavSelector() {
-  if (window.location.href.includes('/index.html')) {
-    navRefs.navHome.classList.add('current-page');
-    navRefs.navLib.classList.remove('current-page');
-    navRefs.navCat.classList.remove('current-page');
-  }
-  if (window.location.href.includes('/catalog.html')) {
-    navRefs.navHome.classList.remove('current-page');
-    navRefs.navLib.classList.remove('current-page');
-    navRefs.navCat.classList.add('current-page');
-  }
-  if (window.location.href.includes('/my-lib-page.html')) {
-    navRefs.navHome.classList.remove('current-page');
-    navRefs.navLib.classList.add('current-page');
-    navRefs.navCat.classList.remove('current-page');
-  }
+  const path = window.location.pathname;
+  const currentPage = path.substring(path.lastIndexOf('/') + 1);
 
-  const theme = localStorage.getItem('theme');
-  if (theme === 'light') {
-    body.classList.add('light-mode');
-    toggleHeader.cheked = false;
-    console.log('ligth');
-  } else {
-    body.classList.remove('light-mode');
-    toggleHeader.cheked = true;
-    console.log('dark');
-  }
-
-  if (localStorage.getItem('checkboxState') === 'true') {
-    toggleHeader.checked = true;
-  } else {
-    toggleHeader.checked = false;
+  for (const navRef of Object.values(navRefs)) {
+    navRef.classList.toggle('current-page', navRef.href.endsWith(currentPage));
   }
 }
