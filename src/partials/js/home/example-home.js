@@ -55,22 +55,20 @@ async function renderWeeklyThreeTrends(firstThreeFilms) {
           />
          <div class="overlay"></div>       
         </div>
-        <div class="weekly-card-description">
-          <div>
-            <title class="weekly-card-description-title">${
-              title || name
-            }</title>
-            <p class="weekly-card-description-other">${listGenres} | ${
+  <div class="weekly-card-description">
+    <h3 class="weekly-card-description-title">${title || name}</h3>
+    <div class='weekly-card-description-wrap'>
+       <p class="weekly-card-description-other">${listGenres} | ${
           release_date
             ? release_date.substring(0, 4)
             : first_air_date.substring(0, 4)
         }</p>
-          </div>
-         <div class="Stars" style="--rating: ${parseFloat(
-           (vote_average / 2).toFixed(1)
-         )};" aria-label="Rating of this product is 2.3 out of 5."></div> 
-        </div>
-        
+
+     <div class="Stars" style="--rating: ${parseFloat(
+       (vote_average / 2).toFixed(1)
+     )};" aria-label="Rating of this product is 2.3 out of 5."></div>
+      </div>
+  </div>
       </li>`;
       }
     )
