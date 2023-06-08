@@ -41,6 +41,13 @@ const renderFilteredGenres = async moviesArr => {
   renderLibSelectMarkup(filteredGenres);
 };
 
+const onLibSelectChange = () => {
+  selectedGenre = libSelectEl.value;
+  totalMoviesLoaded = 0;
+  clearHTML();
+  loadMoviesByGenre(selectedGenre);
+};
+
 const loadMovies = moviesArr => {
   const slicedArr = moviesArr.slice(
     totalMoviesLoaded,
@@ -51,12 +58,6 @@ const loadMovies = moviesArr => {
   renderLibMoviesListMarkup(slicedArr);
 };
 
-const onLibSelectChange = () => {
-  selectedGenre = libSelectEl.value;
-  totalMoviesLoaded = 0;
-  clearHTML();
-  loadMoviesByGenre(selectedGenre);
-};
 
 const loadMoviesByGenre = selectedValue => {
   filterMoviesListByGenre(selectedValue);
