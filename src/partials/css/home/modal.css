@@ -31,7 +31,7 @@
   position: absolute;
   z-index: 30;
   overflow-y: scroll;
-  max-height: 100vh;
+  max-height: 90vh;
   top: 50%;
   left: 50%;
   width: 280px;
@@ -219,14 +219,7 @@
   color: var(--accent-color);
 }
 
-.modal.ligth-mode .modal-button::before {
-  background-color: transparent;
-}
-
 /* Tablet */
-
-@media screen and (max-width: 767px) {
-}
 
 @media screen and (min-width: 768px) {
   .modal {
