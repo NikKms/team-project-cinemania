@@ -1,4 +1,4 @@
-import { swiper } from '../../partials/js/hero/hero';
+// import { swiper } from '../../partials/js/hero/hero';
 import { getInfoByMovie } from './api';
 import { getGenre } from './api';
 import { addFilmToStorage } from './my-lib/lib-storage';
@@ -24,7 +24,7 @@ function onOpenModal(event) {
   const cardId = cardEl.dataset.id;
   getMovieById(cardId);
 
-  swiper.autoplay.stop();
+  // swiper.autoplay.stop();
   document.body.classList.add('not-scroll-body');
   window.addEventListener('keydown', onEscKeyPress);
   refs.backdrop.classList.remove('is-hidden');
@@ -32,7 +32,7 @@ function onOpenModal(event) {
 
 function onCloseModal() {
   window.removeEventListener('keydown', onEscKeyPress);
-  swiper.autoplay.start();
+  // swiper.autoplay.start();
   document.body.classList.remove('not-scroll-body');
   refs.backdrop.classList.add('is-hidden');
 }
@@ -65,7 +65,8 @@ async function renderFilmInModal(film) {
     vote_count,
     id,
   } = film;
-
+  
+  console.log('poster_path: ', poster_path);
   const genresListIds = genres.map(genre => genre.id);
   const formatedGenres = await getGenresByIds(genresListIds);
 

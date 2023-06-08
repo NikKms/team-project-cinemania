@@ -4,7 +4,7 @@ import { handleDeleteFilm, getGenreName } from './lib-main';
 const { libSelectEl, libMoviesListEl } = libRefs;
 
 const createLibSelectMarkup = genre => {
-  return `<option value="${genre.id}">${genre.name}</option>`;
+  return `<option class="option-item" value="${genre.id}">${genre.name}</option>`;
 };
 
 const createLibMoviesListMarkup = async ({
@@ -27,30 +27,28 @@ const createLibMoviesListMarkup = async ({
     imagePath =
       'https://d2ths1nqi4sbhh.cloudfront.net/images/no-image.png?v=3884857787';
   }
-  return ` <li class="weekly-card  is-id" data-id=${id}>
-  <div class="weekly-container-image">
-    <img
-      class="weekly-card-image"
-     src="${imagePath}"
-      alt=""
-    />
-   <div class="overlay"></div>      
-   <button class="delete-film-btn">X</button> 
+  return `<li class="mylibrary_movie is-id"  data-id=${id}>
+  <div class="mylibrary_dark">
+  <img src="https://image.tmdb.org/t/p/original${poster_path}" alt="${movieTitle}" />
   </div>
-  <div class="weekly-card-description">
-    <div>
-      <title class="weekly-card-description-title">${movieTitle}</title>
-      <p class="weekly-card-description-other"> ${genreName} | ${movieReleaseYear.substring(
+ <div class="mylibrary_overlay"></div>
+  <div class="mylibrary_info">
+  <h3 class="mylibrary_movies_name">${movieTitle}</h3>
+  <p class="mylibrary_genre_movie">${genreName} | ${movieReleaseYear.substring(
     0,
     4
   )}</p>
-    </div>
-   <div class="Stars" style="--rating: ${parseFloat(
-     (vote_average / 2).toFixed(1)
-   )};" aria-label="Rating of this product is 2.3 out of 5."></div> 
   </div>
-  
-</li>`;
+<div class="hero_star_raiting">
+ <span>
+<div class="Stars thisstars" style="--rating: ${
+    vote_average / 2
+  }; " aria-label="Rating of this product is ${(vote_average / 2).toFixed(
+    1
+  )} out of 5."></div>
+  </div>
+  </span>   
+  </li>`;
 };
 
 const renderLibSelectMarkup = async genresArr => {
