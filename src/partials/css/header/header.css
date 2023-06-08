@@ -9,6 +9,7 @@
 }
 
 .nav_item {
+  width: fit-content;
   text-transform: uppercase;
   font-style: normal;
   font-weight: 500;
