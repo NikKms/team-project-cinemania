@@ -1,5 +1,5 @@
 import { libRefs } from './lib-refs';
-import { getGenreName } from './lib-main';
+import { handleDeleteFilm, getGenreName } from './lib-main';
 
 const { libSelectEl, libMoviesListEl } = libRefs;
 
@@ -27,14 +27,15 @@ const createLibMoviesListMarkup = async ({
     imagePath =
       'https://d2ths1nqi4sbhh.cloudfront.net/images/no-image.png?v=3884857787';
   }
-  return ` <li class="weekly-card is-id" data-id=${id}>
+  return ` <li class="weekly-card  is-id" data-id=${id}>
   <div class="weekly-container-image">
     <img
       class="weekly-card-image"
      src="${imagePath}"
       alt=""
     />
-   <div class="overlay"></div>       
+   <div class="overlay"></div>      
+   <button class="delete-film-btn">X</button> 
   </div>
   <div class="weekly-card-description">
     <div>
@@ -64,6 +65,13 @@ const renderLibMoviesListMarkup = async movies => {
     movies.map(movie => createLibMoviesListMarkup(movie))
   );
   libMoviesListEl.insertAdjacentHTML('beforeend', libMovieListMarkup.join(' '));
+
+  const deleteFilmButtons =
+    libMoviesListEl.querySelectorAll('.delete-film-btn');
+
+  deleteFilmButtons.forEach(button => {
+    button.addEventListener('click', handleDeleteFilm);
+  });
 };
 
 export { renderLibMoviesListMarkup, renderLibSelectMarkup };

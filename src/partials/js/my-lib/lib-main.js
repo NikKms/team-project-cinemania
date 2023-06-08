@@ -1,4 +1,3 @@
-import { swiper } from '../hero/swiper';
 import { getGenre } from '../api';
 import { parsedFilms, parsedFilmsGenreIds } from './lib-storage';
 import {
@@ -7,6 +6,7 @@ import {
 } from './lib-markups';
 import { libRefs } from './lib-refs';
 import { LoadMoreBtn } from './loadMoreBtn';
+import { Notify } from 'notiflix';
 
 const {
   libSelectEl,
@@ -58,7 +58,6 @@ const loadMovies = moviesArr => {
   renderLibMoviesListMarkup(slicedArr);
 };
 
-
 const loadMoviesByGenre = selectedValue => {
   filterMoviesListByGenre(selectedValue);
 };
@@ -73,6 +72,25 @@ const filterMoviesListByGenre = selectedValue => {
     );
     loadMovies(filteredMovies);
     checkArrLength(filteredMovies);
+  }
+};
+
+const handleDeleteFilm = event => {
+  const filmId = event.currentTarget.closest('.weekly-card').dataset.id;
+  console.log('filmId: ', filmId);
+  removeItemFromLocalStorage(parseInt(filmId));
+  window.location.reload();
+};
+
+const removeItemFromLocalStorage = id => {
+  const items = JSON.parse(localStorage.getItem('films')) || [];
+
+  const index = items.findIndex(item => item.id === id);
+  console.log('index: ', index);
+
+  if (index !== -1) {
+    items.splice(index, 1);
+    localStorage.setItem('films', JSON.stringify(items));
   }
 };
 
@@ -112,9 +130,10 @@ const onClearBtnClick = () => {
 libSelectEl.addEventListener('change', onLibSelectChange);
 
 window.addEventListener('load', () => {
-  if (!localStorage.getItem('films')) {
+  if (!parsedFilms.length) {
     libContainerEL.innerHTML = '';
     renderNotification();
+    return;
   }
   renderFilteredGenres(parsedFilmsGenreIds);
   loadMovies(parsedFilms);
@@ -122,12 +141,7 @@ window.addEventListener('load', () => {
 });
 
 libLoadMoreBtn.addEventListener('click', onLoadBtnClick);
-const onClick = evt => {
-  console.log(evt.target);
-};
-
-libMoviesListEl.addEventListener('click', onClick);
 
 libClearBtn.addEventListener('click', onClearBtnClick);
 
-export { getGenreName };
+export { getGenreName, handleDeleteFilm };

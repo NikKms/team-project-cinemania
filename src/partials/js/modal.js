@@ -1,9 +1,9 @@
-// import { swiper } from '../../partials/js/hero/hero';
+import { swiper } from '../../partials/js/hero/hero';
 import { getInfoByMovie } from './api';
 import { getGenre } from './api';
 import { addFilmToStorage } from './my-lib/lib-storage';
 import { onWatchTrailer } from './hero/trailer-modal';
-import { getGenresById } from './my-lib/example-my-lib';
+import { getGenresByIds } from './my-lib/example-my-lib';
 
 const refs = {
   openModal: document.querySelector('[data-modal-open]'),
@@ -24,7 +24,7 @@ function onOpenModal(event) {
   const cardId = cardEl.dataset.id;
   getMovieById(cardId);
 
-  // swiper.autoplay.stop();
+  swiper.autoplay.stop();
   document.body.classList.add('not-scroll-body');
   window.addEventListener('keydown', onEscKeyPress);
   refs.backdrop.classList.remove('is-hidden');
@@ -32,7 +32,7 @@ function onOpenModal(event) {
 
 function onCloseModal() {
   window.removeEventListener('keydown', onEscKeyPress);
-  // swiper.autoplay.start();
+  swiper.autoplay.start();
   document.body.classList.remove('not-scroll-body');
   refs.backdrop.classList.add('is-hidden');
 }
@@ -67,7 +67,7 @@ async function renderFilmInModal(film) {
   } = film;
 
   const genresListIds = genres.map(genre => genre.id);
-  const formatedGenres = await getGenresById(genresListIds);
+  const formatedGenres = await getGenresByIds(genresListIds);
 
   let imagePath = '';
   if (poster_path !== null) {

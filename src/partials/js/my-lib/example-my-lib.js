@@ -1,6 +1,6 @@
 import { getGenre } from '../api';
 
-async function getGenresById(ids) {
+async function getGenresByIds(ids) {
   const data = await getGenre();
   const genres = data.genres;
 
@@ -11,4 +11,4 @@ async function getGenresById(ids) {
   return arrGenres.join(', ');
 }
 
-export { getGenresById };
+export { getGenresByIds };

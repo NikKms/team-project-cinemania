@@ -1,6 +1,4 @@
 import { Report } from 'notiflix';
-import { libRefs } from './lib-refs';
-
 const localMoviesArr = JSON.parse(localStorage.getItem('films')) || [];
 
 const addFilmToStorage = ({
@@ -44,17 +42,6 @@ const addFilmToStorage = ({
   // removeItemFromLocalStorage(film.id);
 };
 
-const removeItemFromLocalStorage = id => {
-  const items = JSON.parse(localStorage.getItem('films')) || [];
-
-  const index = items.findIndex(item => item.id === id);
-
-  if (index !== -1) {
-    items.splice(index, 1);
-    localStorage.setItem('films', JSON.stringify(items));
-  }
-};
-
 const getParsedFilms = () => {
   try {
     const filmsArr = localStorage.getItem('films');
@@ -65,14 +52,9 @@ const getParsedFilms = () => {
 };
 
 const parsedFilms = getParsedFilms();
-console.log('parsedFilms: ', parsedFilms);
 
 const parsedFilmsGenreIds = [
-  ...new Set(
-    parsedFilms.flatMap(film =>
-      film.genresIds && film.genresIds.length > 0 ? film.genresIds : []
-    )
-  ),
+  ...new Set(parsedFilms.flatMap(film => film.genresIds)),
 ];
 
 console.log('parsedFilmsGenreIds: ', parsedFilmsGenreIds);

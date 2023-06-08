@@ -2,6 +2,36 @@
   display: none;
 }
 
+.delete-film-btn {
+  position: absolute;
+  /* visibility: hidden; */
+  top: 10;
+  right: 10;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  font-size: 16px;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  border: 2px solid;
+  border-image: var(--primary-btn-color);
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.delete-film-btn:hover {
+  color: #f84119;
+}
+
+.lib-option-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* .overlay:hover + .delete-film-btn {
+  visibility: visible;
+} */
 /*---------mobile----------*/
 @media screen and (min-width: 320px) {
   .mylibrary_movies_section {
@@ -13,6 +43,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+
     gap: 16px;
     margin-top: 15px;
     margin-bottom: 20px;
