@@ -121,8 +121,8 @@ const clearLibrary = () => {
 };
 
 const renderNotification = () => {
-  const notification = `<h2>OOOPS... We are very sorry! You don't have any movies at your library.</h2>
-  <a href="./catalog.html"> Search movie</a>`;
+  const notification = `<h2 class="lib-empty-message">OOOPS...<br>We are very sorry!<br>You don't have any movies at your library.</h2>
+  <a class="lib-link-search" href="./catalog.html"> Search movie</a>`;
   libContainerEL.insertAdjacentHTML('beforeend', notification);
 };
 const onClearBtnClick = () => {

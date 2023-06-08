@@ -11,9 +11,9 @@ let addToLibBtn = null;
 
 // ================See all=================
 
-seeAll.addEventListener('click', () => {
-  location.href = 'catalog.html';
-});
+// seeAll.addEventListener('click', () => {
+//   location.href = 'catalog.html';
+// });
 
 // ================ Weekly trends section ==============
 
