@@ -3,7 +3,6 @@ const navRefs = {
   navLib: document.querySelector('#nav_lib'),
   navCat: document.querySelector('#nav_cat'),
 };
-
 document.addEventListener('DOMContentLoaded', function () {
   const checkbox = document.querySelector("input[type='checkbox']");
   const storedTheme = localStorage.getItem('theme');
@@ -36,10 +35,20 @@ function applyThemeStyles() {
 pageNavSelector();
 
 function pageNavSelector() {
-  const path = window.location.pathname;
-  const currentPage = path.substring(path.lastIndexOf('/') + 1);
-
-  for (const navRef of Object.values(navRefs)) {
-    navRef.classList.toggle('current-page', navRef.href.endsWith(currentPage));
+  const body = document.getElementsByTagName('body')[0];
+  if (window.location.href.includes('/index.html')) {
+    navRefs.navHome.classList.add('current-page');
+    navRefs.navLib.classList.remove('current-page');
+    navRefs.navCat.classList.remove('current-page');
+  }
+  if (window.location.href.includes('/catalog.html')) {
+    navRefs.navHome.classList.remove('current-page');
+    navRefs.navLib.classList.remove('current-page');
+    navRefs.navCat.classList.add('current-page');
+  }
+  if (window.location.href.includes('/my-lib-page.html')) {
+    navRefs.navHome.classList.remove('current-page');
+    navRefs.navLib.classList.add('current-page');
+    navRefs.navCat.classList.remove('current-page');
   }
 }
