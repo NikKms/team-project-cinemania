@@ -2,10 +2,12 @@ import * as hero from '../../js/modal';
 import { getWeeklyTrending } from '../api';
 import { getUpcoming } from '../api';
 import { getGenre } from '../api';
+import { addFilmToStorage } from '../my-lib/lib-storage';
 
 const listOfFilms = document.querySelector('.weekly-cards-wrap');
 const upcomingWrapEl = document.querySelector('.upcoming_wrap');
 const seeAll = document.querySelector('.weekly-title-link');
+let addToLibBtn = null;
 
 // ================See all=================
 
@@ -117,6 +119,7 @@ async function renderUpcomingFilm(upcomingFilm) {
     vote_count,
     overview,
   } = upcomingFilm;
+  console.log('upcomingFilm: ', upcomingFilm);
 
   genre_ids = filterGenres(genre_ids);
 
@@ -164,12 +167,19 @@ async function renderUpcomingFilm(upcomingFilm) {
 
             <p class="upcoming-card-about-text">${overview}</p>
 
-            <button class="upcoming-button" type="button">
+            <button class="upcoming-button" id="add-to-lib" type="button">
               Add to my library
             </button>
           </div>
         </div>`;
   upcomingWrapEl.insertAdjacentHTML('beforeend', markup);
+
+  addToLibBtn = document.getElementById('add-to-lib');
+
+  const addToLib = evt => {
+    addFilmToStorage(upcomingFilm);
+  };
+  addToLibBtn.addEventListener('click', addToLib);
 }
 
 // Функція для визначення шляху зображення на основі ширини екрану

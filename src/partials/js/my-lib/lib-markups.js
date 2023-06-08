@@ -1,4 +1,5 @@
 import { libRefs } from './lib-refs';
+import { getGenreName } from './lib-main';
 
 const { libSelectEl, libMoviesListEl } = libRefs;
 
@@ -6,25 +7,31 @@ const createLibSelectMarkup = genre => {
   return `<option value="${genre.id}">${genre.name}</option>`;
 };
 
-const createLibMoviesListMarkup = ({
+const createLibMoviesListMarkup = async ({
   title,
   name,
   release_date,
   first_air_date,
-  genres,
+  genresIds,
   poster_path,
   vote_average,
   id,
 }) => {
-  const genreNames = genres.map(genre => genre.name).slice(0, 2);
-
+  const genreName = await getGenreName(genresIds);
   const movieTitle = title || name;
   const movieReleaseYear = release_date || first_air_date;
+  let imagePath;
+  if (poster_path !== null) {
+    imagePath = `https://image.tmdb.org/t/p/original/${poster_path}`;
+  } else {
+    imagePath =
+      'https://d2ths1nqi4sbhh.cloudfront.net/images/no-image.png?v=3884857787';
+  }
   return ` <li class="weekly-card is-id" data-id=${id}>
   <div class="weekly-container-image">
     <img
       class="weekly-card-image"
-     src="https://image.tmdb.org/t/p/original/${poster_path}"
+     src="${imagePath}"
       alt=""
     />
    <div class="overlay"></div>       
@@ -32,7 +39,7 @@ const createLibMoviesListMarkup = ({
   <div class="weekly-card-description">
     <div>
       <title class="weekly-card-description-title">${movieTitle}</title>
-      <p class="weekly-card-description-other">${genreNames} | ${movieReleaseYear.substring(
+      <p class="weekly-card-description-other"> ${genreName} | ${movieReleaseYear.substring(
     0,
     4
   )}</p>
@@ -45,19 +52,18 @@ const createLibMoviesListMarkup = ({
 </li>`;
 };
 
-const renderLibSelectMarkup = genresArr => {
-  const libSelectMarkupEls = genresArr.map(genre =>
-    createLibSelectMarkup(genre)
+const renderLibSelectMarkup = async genresArr => {
+  const libSelectMarkupEls = await Promise.all(
+    genresArr.map(genre => createLibSelectMarkup(genre))
   );
   libSelectEl.insertAdjacentHTML('beforeend', libSelectMarkupEls.join(' '));
 };
 
-const renderLibMoviesListMarkup = movies => {
-  const libMovieListMarkup = movies.map(movie =>
-    createLibMoviesListMarkup(movie)
+const renderLibMoviesListMarkup = async movies => {
+  const libMovieListMarkup = await Promise.all(
+    movies.map(movie => createLibMoviesListMarkup(movie))
   );
   libMoviesListEl.insertAdjacentHTML('beforeend', libMovieListMarkup.join(' '));
 };
 
 export { renderLibMoviesListMarkup, renderLibSelectMarkup };
-

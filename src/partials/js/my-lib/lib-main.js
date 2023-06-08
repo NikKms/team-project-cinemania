@@ -1,5 +1,6 @@
+import { swiper } from '../hero/swiper';
 import { getGenre } from '../api';
-import { parsedFilms, parsedFilmsGenreIds, clearLibrary } from './lib-storage';
+import { parsedFilms, parsedFilmsGenreIds } from './lib-storage';
 import {
   renderLibMoviesListMarkup,
   renderLibSelectMarkup,
@@ -7,7 +8,13 @@ import {
 import { libRefs } from './lib-refs';
 import { LoadMoreBtn } from './loadMoreBtn';
 
-const { libSelectEl, libMoviesListEl, libLoadMoreBtn, libClearBtn } = libRefs;
+const {
+  libSelectEl,
+  libMoviesListEl,
+  libLoadMoreBtn,
+  libClearBtn,
+  libContainerEL,
+} = libRefs;
 
 const loadMore = new LoadMoreBtn({
   btnEl: libLoadMoreBtn,
@@ -21,6 +28,12 @@ const getFilteredGenres = async movieGenresIds => {
   const { genres } = await getGenre();
 
   return genres.filter(({ id }) => movieGenresIds.includes(id));
+};
+
+const getGenreName = async movieGenreIds => {
+  const filteredGenres = await getFilteredGenres(movieGenreIds);
+  const genreNames = filteredGenres.map(({ name }) => name);
+  return genreNames.slice(0, 2).join(', ');
 };
 
 const renderFilteredGenres = async moviesArr => {
@@ -55,7 +68,7 @@ const filterMoviesListByGenre = selectedValue => {
     checkArrLength(parsedFilms);
   } else {
     const filteredMovies = parsedFilms.filter(movie =>
-      movie.genres.some(genre => genre.id === parseInt(selectedValue))
+      movie.genresIds.includes(parseInt(selectedValue))
     );
     loadMovies(filteredMovies);
     checkArrLength(filteredMovies);
@@ -80,6 +93,17 @@ const clearHTML = () => {
   libMoviesListEl.innerHTML = '';
 };
 
+const clearLibrary = () => {
+  localStorage.removeItem('films');
+  libContainerEL.innerHTML = '';
+  renderNotification();
+};
+
+const renderNotification = () => {
+  const notification = `<h2>OOOPS... We are very sorry! You don't have any movies at your library.</h2>
+  <a href="./catalog.html"> Search movie</a>`;
+  libContainerEL.insertAdjacentHTML('beforeend', notification);
+};
 const onClearBtnClick = () => {
   clearLibrary();
 };
@@ -87,6 +111,10 @@ const onClearBtnClick = () => {
 libSelectEl.addEventListener('change', onLibSelectChange);
 
 window.addEventListener('load', () => {
+  if (!localStorage.getItem('films')) {
+    libContainerEL.innerHTML = '';
+    renderNotification();
+  }
   renderFilteredGenres(parsedFilmsGenreIds);
   loadMovies(parsedFilms);
   checkArrLength(parsedFilms);

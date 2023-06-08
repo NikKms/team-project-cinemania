@@ -1,9 +1,9 @@
-import { swiper } from '../../partials/js/hero/hero';
+// import { swiper } from '../../partials/js/hero/hero';
 import { getInfoByMovie } from './api';
 import { getGenre } from './api';
 import { addFilmToStorage } from './my-lib/lib-storage';
 import { onWatchTrailer } from './hero/trailer-modal';
-import { getGenresById } from './home/example-home';
+import { getGenresById } from './my-lib/example-my-lib';
 
 const refs = {
   openModal: document.querySelector('[data-modal-open]'),
@@ -22,7 +22,7 @@ function onOpenModal(event) {
   const cardId = cardEl.dataset.id;
   getMovieById(cardId);
 
-  swiper.autoplay.stop();
+  // swiper.autoplay.stop();
   document.body.classList.add('not-scroll-body');
   window.addEventListener('keydown', onEscKeyPress);
   refs.backdrop.classList.remove('is-hidden');
@@ -30,7 +30,7 @@ function onOpenModal(event) {
 
 function onCloseModal() {
   window.removeEventListener('keydown', onEscKeyPress);
-  swiper.autoplay.start();
+  // swiper.autoplay.start();
   document.body.classList.remove('not-scroll-body');
   refs.backdrop.classList.add('is-hidden');
 }
@@ -113,7 +113,7 @@ async function renderFilmInModal(film) {
 
         <p class="modal-card-about-text">${overview}</p>
 
-        <button class="modal-button gap-right" type="button"><span>Add to my library</span></button>
+        <button class="modal-button gap-right" id="add-to-lib-modal" type="button"><span>Add to my library</span></button>
          <button type="button" class="hero-btn modal-button hero-btn-trailer" id="hero-btn-trailer" data-id="${id}">
     Watch trailer
   </button>
@@ -122,12 +122,13 @@ async function renderFilmInModal(film) {
 
   refs.upcomingWrapLi.innerHTML = markup;
 
-  refs.addToLibBtn = document.querySelector('.modal-button');
+  refs.addToLibBtn = document.getElementById('add-to-lib-modal');
+  console.log('addToLibBtn: ', refs.addToLibBtn);
 
   const addToLib = evt => {
     addFilmToStorage(film);
-    evt.currentTarget.textContent = '!!';
   };
+
   refs.addToLibBtn.addEventListener('click', addToLib);
 }
 
