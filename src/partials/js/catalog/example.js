@@ -78,15 +78,10 @@ const dateSelectOptions = () => {
 const setDateFilter = async e => {
   const value = e.target.value;
   const currentPage = loadLocal('currentPage');
-  const searchTerm = loadLocal('searchTerm');
 
-  console.log(searchTerm);
-  if (searchTerm) {
-    if (value === 'all') {
-      getMoviesByQuery(currentPage, 0);
-      return;
-    }
-  }
+  const { total_pages, page } = await getMoviesByQuery(currentPage, value);
+  const pagination = new Pagination(total_pages, 1, getMoviesByQuery);
+  pagination.createButton();
 };
 
 searchForm.addEventListener('submit', submitHandler);

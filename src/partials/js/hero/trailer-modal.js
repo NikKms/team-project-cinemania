@@ -1,10 +1,11 @@
+import { Notify } from 'notiflix';
 import { swiper } from './hero';
 import { getMovie } from '../api';
 
 const trailerRefs = {
   backDropRef: document.querySelector('.trailer-backdrop'),
   trailerRef: document.querySelector('.trailer-container'),
-  trailerBtn: document.querySelector('.modal-trailer-btn'),
+  // trailerBtn: document.querySelector('.modal-trailer-btn'),
   trailerImg: document.querySelector('#trailer-img-err'),
 };
 
@@ -23,6 +24,10 @@ async function getTrailerByFilmId(id) {
     renderTrailer(trailerKey);
   } catch (err) {
     renderTrailer('zwBpUdZ0lrQ');
+    Notify.warning(
+      'OOPS... We are very sorry! But we couldn’t find the trailer.'
+    );
+
     console.log(err.message);
   }
 }
@@ -35,7 +40,7 @@ function renderTrailer(movieKey) {
   'frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   <p>Oops! Trailer not found...</p>`;
 
-  trailerRefs.trailerBtn.addEventListener('click', closeTrailer);
+  // trailerRefs.trailerBtn.addEventListener('click', closeTrailer);
   trailerRefs.backDropRef.addEventListener('click', listenBackdropClick);
   document.body.addEventListener('keydown', listenKeyDawn);
 }
@@ -62,7 +67,7 @@ const closeTrailer = () => {
 
   document.body.removeEventListener('keydown', listenKeyDawn);
   trailerRefs.backDropRef.removeEventListener('click', listenBackdropClick);
-  trailerRefs.trailerBtn.removeEventListener('click', closeTrailer);
+  // trailerRefs.trailerBtn.removeEventListener('click', closeTrailer);
 };
 
 export { renderTrailer, getTrailerByFilmId, onWatchTrailer };

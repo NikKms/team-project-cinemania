@@ -1,41 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="./images/icon/favicon.ico" />
-    <link rel="stylesheet" href="./partials/css/styles.css" />
-    <title>Home</title>
-  </head>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="./images/icon/favicon.ico" />
+  <link rel="stylesheet" href="./partials/css/styles.css" />
+  <title>Home</title>
+</head>
+
+<body>
+  <header>
+    <!--header-->
+    <include src="./partials/html/header.html"></include>
+  </header>
 
   <body>
     <header>
       <!--header-->
       <include src="./partials/html/header.html"></include>
+      <include src="./partials/html/backdrop-mob.html"></include>
     </header>
 
-    <main class="main">
-      <!--hero-->
-      <include src="./partials/html/hero.html"></include>
+    <!--home-->
+    <include src="./partials/html/home.html"></include>
 
-      <!--home-->
-      <include src="./partials/html/home.html"></include>
+    <!--upcoming-->
+    <include src="./partials/html/upcoming.html"></include>
 
-      <!--upcoming-->
-      <include src="./partials/html/upcoming.html"></include>
+    <!-- modal -->
+    <include src="./partials/html/modal.html"></include>
+    =======
+    <!-- trailer-modal -->
+    <include src="./partials/html/trailer-modal.html"></include>
+    >>>>>>> Stashed changes
+    <!-- <include src="./partials/html/backdrop-mob.html"></include> -->
 
-      <!-- modal -->
-      <include src="./partials/html/modal.html"></include>
-      =======
-      <!-- trailer-modal -->
-      <include src="./partials/html/trailer-modal.html"></include>
-      >>>>>>> Stashed changes
-      <!-- <include src="./partials/html/backdrop-mob.html"></include> -->
+    <!-- up-btn -->
+    <include src="./partials/html/up-btn.html"></include>
+    <include src="./partials/html/team.html"></include>
+    </main>
 
-      <!-- up-btn -->
-      <include src="./partials/html/up-btn.html"></include>
-       <include src="./partials/html/team.html"></include>
+    <footer>
+      <!--footer-->
+      <include src="./partials/html/footer.html"></include>
+    </footer>
+
+
+
+    <!-- up-btn -->
+    <include src="./partials/html/up-btn.html"></include>
+
     </main>
 
     <footer>
@@ -46,4 +62,5 @@
     <!-- script -->
     <script type="module" src="./index.js"></script>
   </body>
+
 </html>
