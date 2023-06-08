@@ -1,3 +1,4 @@
+import { Notify } from 'notiflix';
 import { swiper } from './hero';
 import { getMovie } from '../api';
 
@@ -23,6 +24,10 @@ async function getTrailerByFilmId(id) {
     renderTrailer(trailerKey);
   } catch (err) {
     renderTrailer('zwBpUdZ0lrQ');
+    Notify.warning(
+      'OOPS... We are very sorry! But we couldn’t find the trailer.'
+    );
+
     console.log(err.message);
   }
 }

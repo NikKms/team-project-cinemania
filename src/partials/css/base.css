@@ -33,6 +33,7 @@ body {
 
   color: var(--primary-text-color);
   background-color: var(--primary-bgc);
+  margin: 0;
 }
 
 body.ligth-mode {
