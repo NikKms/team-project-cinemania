@@ -19,15 +19,20 @@ const submitHandler = e => {
 };
 
 const afterLoad = async () => {
-  const { page, total_pages } = await showNewestMovies();
+  const { page, total_pages } = await showNewestMovies(1);
   const pagination = new Pagination(total_pages, page, showNewestMovies);
   pagination.createButton();
-  localStorage.removeItem('searchTerm');
 };
 
 const afterSearching = async searchMovies => {
-  const { page, total_pages } = await getMoviesByQuery();
-  const pagination = new Pagination(total_pages, page, getMoviesByQuery);
+  const searchTerm = loadLocal('searchTerm');
+  console.log('afterSearching', searchTerm);
+  const { page, total_pages } = await getMoviesByQuery(searchTerm, 1);
+
+  const pagination = new Pagination(total_pages, page, getMoviesByQuery, [
+    searchTerm,
+    page,
+  ]);
   pagination.createButton();
   selectDate.removeAttribute('disabled');
 };
@@ -44,22 +49,11 @@ const filterSelectOptions = async () => {
 
 const setGenreFilter = async e => {
   const value = e.target.value;
-  const currentPage = loadLocal('currentPage');
-  const searchTerm = loadLocal('searchTerm');
 
-  if (searchTerm) {
-    if (value === 'all') {
-      getMoviesByQuery(currentPage, 0);
-      return;
-    }
-    const { results } = await getMoviesByQuery(currentPage, value);
-    createDataCards(results);
-    console.log(results);
-    return;
-  }
-  const { results } = await showNewestMovies(currentPage, value);
-  console.log(results);
-  createDataCards(results);
+  const { total_pages, results } = await showNewestMovies(1, e.target.value);
+
+  const pagination = new Pagination(total_pages, 1, showNewestMovies, [value]);
+  pagination.createButton();
 };
 
 const dateSelectOptions = () => {
@@ -77,17 +71,24 @@ const dateSelectOptions = () => {
 
 const setDateFilter = async e => {
   const value = e.target.value;
-  const currentPage = loadLocal('currentPage');
+  const searchTerm = loadLocal('searchTerm');
 
-  const { total_pages, page } = await getMoviesByQuery(currentPage, value);
-  const pagination = new Pagination(total_pages, 1, getMoviesByQuery);
+  const { total_pages, page } = await getMoviesByQuery(searchTerm, 1, value);
+
+  const pagination = new Pagination(total_pages, 1, getMoviesByQuery, [
+    searchTerm,
+    1,
+    value,
+  ]);
   pagination.createButton();
 };
 
 searchForm.addEventListener('submit', submitHandler);
 window.addEventListener('load', afterLoad);
+
 window.addEventListener('load', filterSelectOptions);
 window.addEventListener('load', dateSelectOptions);
+
 selectGenres.addEventListener('change', setGenreFilter);
 selectDate.addEventListener('change', setDateFilter);
 
