@@ -13,12 +13,14 @@ const refs = {
   addToLibBtn: null,
 };
 
-refs.openModal.addEventListener('click', onOpenModal);
+document.addEventListener('click', onOpenModal);
 refs.closeModal.addEventListener('click', onCloseModal);
 refs.backdrop.addEventListener('click', onBackdropClick);
 
 function onOpenModal(event) {
   const cardEl = event.target.closest('.is-id');
+  if (cardEl === null) return;
+
   const cardId = cardEl.dataset.id;
   getMovieById(cardId);
 
@@ -89,7 +91,7 @@ async function renderFilmInModal(film) {
         <h3 class="modal-card-title">${title}</h3>
 
           <div class="modal-card-vote-wrap">
-            <div class="modal-card-vote"><span>Vote / Votes</span></div>
+            <div class="modal-card-vote color-description"><span>Vote / Votes</span></div>
             <div class="modal-card-vote-data">
               <span>${vote_average.toFixed(
                 1
@@ -98,23 +100,23 @@ async function renderFilmInModal(film) {
           </div>
         
           <div class="modal-card-popularity-wrap">
-            <span class="modal-card-popularity-text">Popularity</span>
+            <span class="modal-card-popularity-text color-description">Popularity</span>
             <span class="modal-card-popularity-data"
               >${popularity.toFixed(1)}</span
             >
           </div>
 
           <div class="modal-card-genre-wrap">
-            <span class="modal-card-genre-text">Genre</span>
+            <span class="modal-card-genre-text color-description">Genre</span>
             <span class="modal-card-genre-data">${formatedGenres}</span>
           </div>
         
-        <span class="modal-card-about-title">About</span>
+        <span class="modal-card-about-title color-description">About</span>
 
         <p class="modal-card-about-text">${overview}</p>
 
         <button class="modal-button gap-right" type="button"><span>Add to my library</span></button>
-         <button type="button" class="hero-btn modal-button hero-btn-trailer" id="hero-btn-trailer" data-id="${id}">
+         <button type="button" class=" modal-button hero-btn-trailer" id="hero-btn-trailer" data-id="${id}">
     Watch trailer
   </button>
       </div>

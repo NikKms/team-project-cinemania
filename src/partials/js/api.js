@@ -22,11 +22,11 @@ async function getTrending(page = 1) {
   return await fetchData(url);
 }
 
-async function getByQuery(query, page, genre_id) {
-  console.log(genre_id);
-  const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}${`&with_genres=${
-    genre_id ? genre_id : ''
-  }`}&page=${page}&language=en-US`;
+async function getByQuery(query, page, date) {
+  console.log(date);
+  const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}&page=${page}&language=en-US${
+    date ? `&primary_release_year=${date}` : ''
+  }`;
   return await fetchData(url);
 }
 
