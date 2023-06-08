@@ -3,14 +3,31 @@ import { getByQuery } from '../api';
 import { createDataCards, loadLocal } from './catalogUtils';
 import axios from 'axios';
 import { refs } from '../refs';
+import { onLoader, removeLoader } from '../loader';
 
 const API_KEY = '88b8a7c5d221d3120fb29d734050dc7d';
 
-export const getMoviesByQuery = async (chosenPage = 1, date = 0) => {
+async function fetchData(url) {
+  try {
+    onLoader();
+    const data = await axios.get(url);
+    removeLoader();
+    return data;
+  } catch (error) {
+    console.log(error);
+    removeLoader();
+    return null;
+  }
+}
+
+export const getMoviesByQuery = async (
+  searchTerm,
+  chosenPage = 1,
+  date = ''
+) => {
   refs.selectGenres.disabled = true;
   refs.selectDate.disabled = false;
-  const searchTerm = loadLocal('searchTerm');
-  console.log(chosenPage, searchTerm, date);
+  console.log(searchTerm, chosenPage, date);
   const { results, total_pages, page } = await getByQuery(
     searchTerm,
     chosenPage,
@@ -24,16 +41,18 @@ export const getMoviesByQuery = async (chosenPage = 1, date = 0) => {
   };
 };
 
-export const showNewestMovies = async (currentPage, genre_id = 0) => {
-  console.log(genre_id);
+export const showNewestMovies = async (chosenPage, genre_id = 0) => {
   refs.selectGenres.disabled = false;
   refs.selectDate.disabled = true;
-  const { data } = await axios.get(
-    `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=${currentPage}${
+
+  const { data } = await fetchData(
+    `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=${chosenPage}${
       genre_id ? `&with_genres=${genre_id}` : ''
     }&language=en-US`
   );
+  console.log(data);
   const { results, page, total_pages } = data;
+  console.log(results);
   createDataCards(results);
   return {
     results,

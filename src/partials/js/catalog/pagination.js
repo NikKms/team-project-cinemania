@@ -2,14 +2,17 @@ import { refs } from '../refs';
 import { saveLocal } from './catalogUtils';
 
 export default class Pagination {
-  constructor(totalPages, page, getMovies) {
+  constructor(totalPages, page, getMovies, params = []) {
+    console.log(params);
     this.totalPages = totalPages;
     this.currentPage = page;
     this.getMovies = getMovies;
+    this.params = params;
     this.arrPaginationItems = [];
   }
 
-  createButton = () => {
+  createButton = async () => {
+    console.log(this.params);
     if (this.totalPages <= 1) {
       this.reset();
       return;
@@ -28,14 +31,15 @@ export default class Pagination {
     const markup = this.createPagination(this.arrPaginationItems.join(''));
     this.render(markup);
     saveLocal('currentPage', this.currentPage);
-    this.getMovies(this.currentPage);
+    console.log(...this.params);
+    await this.getMovies(this.currentPage, ...this.params);
     console.log(this.totalPages);
   };
 
   addFirstPages = arr => {
     for (let page = 1; page <= Math.min(3, this.totalPages); page++) {
       const activeEl = this.currentPage === page ? 'btn-active' : '';
-      const btn = this.createPaginationItem(page, activeEl);
+      const btn = this.createPaginationItem('0' + page, activeEl);
       arr.push(btn);
     }
   };
@@ -45,7 +49,12 @@ export default class Pagination {
     const endPage = Math.min(this.currentPage + 1, this.totalPages - 1);
     for (let page = startPage; page <= endPage; page++) {
       const activeEl = this.currentPage === page ? 'btn-active' : '';
-      const btn = this.createPaginationItem(page, activeEl);
+      let btn = [];
+      if (page <= 9) {
+        btn = this.createPaginationItem('0' + page, activeEl);
+      } else {
+        btn = this.createPaginationItem(page, activeEl);
+      }
       arr.push(btn);
     }
   };
