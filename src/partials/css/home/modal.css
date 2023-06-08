@@ -37,7 +37,7 @@
   width: 280px;
   padding: 52px 16px 64px 16px;
 
-  background: var(--black);
+  background-color: var(--black);
   box-shadow: 1px 1px 14px 4px rgba(255, 107, 8, 0.42);
   border-radius: 16px;
 
@@ -45,39 +45,10 @@
   transition: transform 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.modal.light-mode {
-  background: var(--white);
-  color: var(--black);
-}
-
-.modal-card-vote-data span.light-mode {
-  background-color: var(--primary-text-color);
-}
-
-.modal-card-popularity-text.light-mode,
-.modal-card-genre-text.light-mode,
-.modal-card-about-title.light-mode,
-.modal-card-vote.light-mode {
-  color: var(--black);
-}
-
-.modal-card-about-text.light-mode {
-  color: var(--primary-ligth-theme-text-color);
-}
-
-.modal-button.light-mode {
-  background-color: var(--white);
-  color: var(--black);
-}
-.modal-button.light-mode:hover {
-  background-color: var(--black);
-  color: var(--white);
-}
-
 .close-btn {
   position: absolute;
-  top: 30.75px;
-  right: 30.75px;
+  top: 20px;
+  right: 16px;
   padding: 0;
 
   background: none;
@@ -192,13 +163,64 @@
   border-radius: 34px;
   z-index: -1;
 }
-.modal-button:hover {
-  background-color: var(--primary-title-color);
+
+.modal-button:hover,
+.modal-button:active,
+.modal-button:focus {
+  background: var(--white);
   color: var(--accent-color);
 }
 
 .gap-right {
   margin-bottom: 8px;
+}
+
+.modal.ligth-mode {
+  background-color: var(--white);
+  color: var(--black);
+}
+
+.modal.ligth-mode .modal-card-vote-data span {
+  background-color: #f8f8f8;
+}
+
+.close-btn.ligth-mode .close-btn-icon {
+  stroke: var(--black);
+}
+
+.close-btn:active .close-btn-icon.ligth-mode,
+.close-btn:hover .close-btn-icon.ligth-mode,
+.close-btn:focus .close-btn-icon.ligth-mode {
+  stroke: var(--accent-color);
+}
+
+.modal.ligth-mode {
+  background: var(--white);
+  color: var(--black);
+}
+
+.modal.ligth-mode .color-description {
+  color: var(--black);
+}
+
+.modal.ligth-mode .modal-card-about-text {
+  color: var(--primary-bgc);
+}
+
+.modal.ligth-mode .modal-button {
+  background-color: var(--white);
+  color: var(--black);
+}
+
+.modal.ligth-mode .modal-button:hover,
+.modal.ligth-mode .modal-button:active,
+.modal.ligth-mode .modal-button:focus {
+  background-color: var(--black);
+  color: var(--accent-color);
+}
+
+.modal.ligth-mode .modal-button::before {
+  background-color: transparent;
 }
 
 /* Tablet */
@@ -222,6 +244,11 @@
     display: flex;
     gap: 16px;
     align-items: start;
+  }
+
+  .close-btn {
+    top: 24px;
+    right: 24px;
   }
 
   .modal-card-title {
@@ -251,6 +278,11 @@
 
   .modal-card {
     gap: 20px;
+  }
+
+  .close-btn {
+    top: 40px;
+    right: 40px;
   }
 
   .modal-img {
