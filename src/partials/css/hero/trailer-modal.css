@@ -94,7 +94,8 @@
 
 @media screen and (min-width: 320px) {
   .trailer-modal-container {
-    width: 90vw;
+    width: 95vw;
+    height: 25vh;
     border-radius: 30px;
     flex-direction: column;
   }
