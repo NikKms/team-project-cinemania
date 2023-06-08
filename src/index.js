@@ -5,3 +5,5 @@ import * as hero from './partials/js/hero/hero';
 import * as home from './partials/js/home/example-home';
 import * as header from './partials/js/header/header';
 import * as upBtn from './partials/js/up-btn';
+import * as footer from './partials/js/footer/footer';
+import * as team from './partials/js/footer/team';
