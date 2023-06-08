@@ -22,7 +22,7 @@ async function heroHandler() {
   }
   try {
     const movieArr = await getTopMoviesArr(5);
-    if (movieArr.length === 0) console.log('sorry nothing found');
+    if (movieArr.length === 0) return;
     renderSwiper();
     const markup = movieArr
       .map(({ backdrop_path, title, overview, vote_average, id, name }) => {
@@ -47,7 +47,14 @@ async function heroHandler() {
 async function getTopMoviesArr(numberOfMovies) {
   try {
     const data = await getTrending();
-    return data.results.slice(0, numberOfMovies);
+    const moviesArr = data.results;
+
+    let randomMoviesArr = [];
+    for (let i = 0; i < numberOfMovies; i++) {
+      let randomIndex = Math.floor(Math.random() * moviesArr.length);
+      randomMoviesArr.push(moviesArr.splice(randomIndex, 1)[0]);
+    }
+    return randomMoviesArr;
   } catch (error) {
     console.log(error.message);
   }

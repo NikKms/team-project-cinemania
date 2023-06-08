@@ -24,6 +24,11 @@
   object-fit: contain;
 }
 .hero-img.hero-lib {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100vw;
+}
+.hero-img.hero-lib {
   background-image: url('../../../images/hero/hero-lib-mobilezip.jpg');
 }
 
