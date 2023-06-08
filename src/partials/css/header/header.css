@@ -219,7 +219,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: orange;
+  background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
   transition: 0.4s;
   border-radius: 30px;
 }
