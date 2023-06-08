@@ -24,7 +24,11 @@ function onOpenModal(event) {
   const cardId = cardEl.dataset.id;
   getMovieById(cardId);
 
-  swiper.autoplay.stop();
+  let currentUrl = window.location.href;
+  if (!currentUrl.includes('my-lib-page.html')) {
+    swiper.autoplay.stop();
+  }
+
   document.body.classList.add('not-scroll-body');
   window.addEventListener('keydown', onEscKeyPress);
   refs.backdrop.classList.remove('is-hidden');
@@ -32,7 +36,12 @@ function onOpenModal(event) {
 
 function onCloseModal() {
   window.removeEventListener('keydown', onEscKeyPress);
-  swiper.autoplay.start();
+
+  let currentUrl = window.location.href;
+  if (!currentUrl.includes('my-lib-page.html')) {
+    swiper.autoplay.start();
+  }
+
   document.body.classList.remove('not-scroll-body');
   refs.backdrop.classList.add('is-hidden');
 }

@@ -9,9 +9,9 @@ const seeAll = document.querySelector('.weekly-title-link');
 
 // ================See all=================
 
-seeAll.addEventListener('click', () => {
-  location.href = 'catalog.html';
-});
+// seeAll.addEventListener('click', () => {
+//   location.href = 'catalog.html';
+// });
 
 // ================ Weekly trends section ==============
 
