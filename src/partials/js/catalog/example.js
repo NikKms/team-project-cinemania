@@ -26,7 +26,6 @@ const afterLoad = async () => {
 
 const afterSearching = async searchMovies => {
   const searchTerm = loadLocal('searchTerm');
-  console.log('afterSearching', searchTerm);
   const { page, total_pages } = await getMoviesByQuery(1, searchTerm);
 
   const pagination = new Pagination(total_pages, page, getMoviesByQuery, [
@@ -90,5 +89,10 @@ window.addEventListener('load', dateSelectOptions);
 
 selectGenres.addEventListener('change', setGenreFilter);
 selectDate.addEventListener('change', setDateFilter);
+searchForm.querySelector('input').addEventListener('input', e => {
+  const value = e.target.value;
+  selectGenres.disabled = true;
+  if (!value.length) selectGenres.disabled = false;
+});
 
 export { createDataCards };

@@ -28,7 +28,6 @@ export const createCards = dataCard => {
     .join('');
   if (!markup.length) {
     const errorMarkup = createSearchErrors();
-    console.log(errorMarkup);
     refs.catalogFilms.insertAdjacentHTML('beforebegin', errorMarkup);
     refs.catalogFilms.innerHTML = '';
     return;
