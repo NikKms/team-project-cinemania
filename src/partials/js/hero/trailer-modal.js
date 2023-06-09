@@ -23,7 +23,7 @@ async function getTrailerByFilmId(id) {
     const trailerKey = movieData.results[0].key;
     renderTrailer(trailerKey);
   } catch (err) {
-    renderTrailer('zwBpUdZ0lrQ');
+    renderTrailer('DB68T2s7gfI');
     Notify.warning(
       'OOPS... We are very sorry! But we couldn’t find the trailer.'
     );

@@ -31,9 +31,6 @@ export default class Pagination {
     const markup = this.createPagination(this.arrPaginationItems.join(''));
     this.render(markup);
     saveLocal('currentPage', this.currentPage);
-    console.log(...this.params);
-    await this.getMovies(this.currentPage, ...this.params);
-    console.log(this.totalPages);
   };
 
   addFirstPages = arr => {
@@ -176,12 +173,14 @@ export default class Pagination {
     this.createButton();
   }
 
-  handlerBtn = e => {
+  handlerBtn = async e => {
     e.preventDefault();
     const page = parseInt(e.target.dataset.page);
     if (!isNaN(page)) {
       this.currentPage = page;
       this.createButton();
+
+      await this.getMovies(this.currentPage, ...this.params);
     }
   };
 }
