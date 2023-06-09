@@ -27,8 +27,6 @@ async function getTrailerByFilmId(id) {
     Notify.warning(
       'OOPS... We are very sorry! But we couldn’t find the trailer.'
     );
-
-    console.log(err.message);
   }
 }
 
