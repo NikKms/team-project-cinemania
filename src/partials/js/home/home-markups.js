@@ -1,5 +1,4 @@
 import { homeRefs } from './home-refs';
-import { addFilmToStorage } from '../my-lib/lib-storage';
 import { getGenresById, getImagePath, filterGenres } from './example-home';
 import { handleFilmInStorage } from '../my-lib/lib-storage';
 
