@@ -15,7 +15,6 @@ function selectHandler(e) {
 
 function selectItem(selectElement) {
   const selectEl = selectElement;
-  console.log(selectElement);
 
   selectElement.innerHtml = selectElement;
 

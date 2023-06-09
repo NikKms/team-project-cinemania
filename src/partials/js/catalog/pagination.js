@@ -3,7 +3,6 @@ import { saveLocal } from './catalogUtils';
 
 export default class Pagination {
   constructor(totalPages, page, getMovies, params = []) {
-    console.log(params);
     this.totalPages = totalPages;
     this.currentPage = page;
     this.getMovies = getMovies;
@@ -12,7 +11,6 @@ export default class Pagination {
   }
 
   createButton = async () => {
-    console.log(this.params);
     if (this.totalPages <= 1) {
       this.reset();
       return;
