@@ -27,11 +27,11 @@ const afterLoad = async () => {
 const afterSearching = async searchMovies => {
   const searchTerm = loadLocal('searchTerm');
   console.log('afterSearching', searchTerm);
-  const { page, total_pages } = await getMoviesByQuery(searchTerm, 1);
+  const { page, total_pages } = await getMoviesByQuery(1, searchTerm);
 
   const pagination = new Pagination(total_pages, page, getMoviesByQuery, [
     searchTerm,
-    page,
+    1,
   ]);
   pagination.createButton();
   selectDate.removeAttribute('disabled');
@@ -73,11 +73,10 @@ const setDateFilter = async e => {
   const value = e.target.value;
   const searchTerm = loadLocal('searchTerm');
 
-  const { total_pages, page } = await getMoviesByQuery(searchTerm, 1, value);
+  const { total_pages, page } = await getMoviesByQuery(1, searchTerm, value);
 
   const pagination = new Pagination(total_pages, 1, getMoviesByQuery, [
     searchTerm,
-    1,
     value,
   ]);
   pagination.createButton();
