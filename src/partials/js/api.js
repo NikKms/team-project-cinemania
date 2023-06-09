@@ -22,7 +22,7 @@ async function getTrending(page = 1) {
   return await fetchData(url);
 }
 
-async function getByQuery(query, page, date) {
+async function getByQuery(page, query, date) {
   console.log(query, page, date);
   const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}&page=${page}&language=en-US${
     date ? `&primary_release_year=${date}` : ''
