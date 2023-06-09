@@ -1,5 +1,4 @@
 import * as hero from '../../js/modal';
-import { swiper } from '../hero/hero';
 import { getGenre } from '../api';
 import { parsedFilms, parsedFilmsGenreIds } from './lib-storage';
 import {
@@ -77,25 +76,6 @@ const filterMoviesListByGenre = selectedValue => {
   }
 };
 
-const handleDeleteFilm = event => {
-  const filmId = event.currentTarget.closest('.weekly-card').dataset.id;
-  console.log('filmId: ', filmId);
-  removeItemFromLocalStorage(parseInt(filmId));
-  window.location.reload();
-};
-
-const removeItemFromLocalStorage = id => {
-  const items = JSON.parse(localStorage.getItem('films')) || [];
-
-  const index = items.findIndex(item => item.id === id);
-  console.log('index: ', index);
-
-  if (index !== -1) {
-    items.splice(index, 1);
-    localStorage.setItem('films', JSON.stringify(items));
-  }
-};
-
 const checkArrLength = moviesArr => {
   if (moviesArr.length <= totalMoviesLoaded) {
     loadMore.hideBtn();
@@ -118,6 +98,7 @@ const clearLibrary = () => {
   localStorage.removeItem('films');
   libContainerEL.innerHTML = '';
   renderNotification();
+  Notify.success('Library was cleared succesfully');
 };
 
 const renderNotification = () => {
@@ -146,4 +127,4 @@ libLoadMoreBtn.addEventListener('click', onLoadBtnClick);
 
 libClearBtn.addEventListener('click', onClearBtnClick);
 
-export { getGenreName, handleDeleteFilm };
+export { getGenreName };

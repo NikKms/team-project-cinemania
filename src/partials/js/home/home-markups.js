@@ -1,9 +1,9 @@
 import { homeRefs } from './home-refs';
-import { addFilmToStorage } from '../my-lib/lib-storage';
 import { getGenresById, getImagePath, filterGenres } from './example-home';
+import { handleFilmInStorage } from '../my-lib/lib-storage';
 
 const { upcomingWrapEl, listOfFilms } = homeRefs;
-let addToLibBtn = null;
+let addToLibBtnHome = null;
 
 async function renderWeeklyThreeTrends(firstThreeFilms) {
   const markup = await Promise.all(
@@ -55,6 +55,7 @@ async function renderWeeklyThreeTrends(firstThreeFilms) {
 
 async function renderUpcomingFilm(upcomingFilm) {
   let {
+    id,
     backdrop_path,
     poster_path,
     genre_ids,
@@ -119,12 +120,28 @@ async function renderUpcomingFilm(upcomingFilm) {
         </div>`;
   upcomingWrapEl.insertAdjacentHTML('beforeend', markup);
 
-  addToLibBtn = document.getElementById('add-to-lib');
+  addToLibBtnHome = document.getElementById('add-to-lib');
+
+  const isFilmInLocalStorage = id => {
+    const films = JSON.parse(localStorage.getItem('films')) || [];
+
+    const filmExists = films.some(film => film.id === id);
+    if (filmExists) {
+      addToLibBtnHome.textContent = 'Remove from the library';
+    }
+  };
+
+  isFilmInLocalStorage(id);
 
   const addToLib = evt => {
-    addFilmToStorage(upcomingFilm);
+    handleFilmInStorage(upcomingFilm);
+    let currentUrl = window.location.href;
+    if (currentUrl.includes('my-lib-page.html')) {
+      window.location.reload();
+    }
   };
-  addToLibBtn.addEventListener('click', addToLib);
+
+  addToLibBtnHome.addEventListener('click', addToLib);
 }
 
-export { renderUpcomingFilm, renderWeeklyThreeTrends };
+export { renderUpcomingFilm, renderWeeklyThreeTrends, addToLibBtnHome };

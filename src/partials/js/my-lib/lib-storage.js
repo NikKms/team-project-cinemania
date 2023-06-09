@@ -1,7 +1,8 @@
 import { Report } from 'notiflix';
+import { refs } from '../modal';
 const localMoviesArr = JSON.parse(localStorage.getItem('films')) || [];
 
-const addFilmToStorage = ({
+const handleFilmInStorage = ({
   poster_path,
   title,
   name,
@@ -33,13 +34,40 @@ const addFilmToStorage = ({
       'Film was added to the library',
       'Go to the library and check it :)'
     );
+
+    if (!refs.addToLibBtn) {
+      return;
+    } else {
+      refs.addToLibBtn.textContent = 'Remove from the library';
+    }
     return;
   }
-  Report.failure(
-    'Is added already',
-    "Sorry, but you've already added this film to your library "
-  );
-  // removeItemFromLocalStorage(film.id);
+
+  if (!refs.addToLibBtn) {
+    Report.error(
+      "Sorry, you've added tis film already",
+      'Go to the library and check it!'
+    );
+    return;
+  } else {
+    removeItemFromLocalStorage(id);
+    refs.addToLibBtn.textContent = 'Add to the library';
+    Report.info(
+      'Film was removed',
+      'You can find something else in our catalog!'
+    );
+  }
+};
+
+const removeItemFromLocalStorage = id => {
+  const items = localMoviesArr || [];
+
+  const index = items.findIndex(item => item.id === id);
+
+  if (index !== -1) {
+    items.splice(index, 1);
+    localStorage.setItem('films', JSON.stringify(items));
+  }
 };
 
 const getParsedFilms = () => {
@@ -57,6 +85,5 @@ const parsedFilmsGenreIds = [
   ...new Set(parsedFilms.flatMap(film => film.genresIds)),
 ];
 
-console.log('parsedFilmsGenreIds: ', parsedFilmsGenreIds);
 
-export { parsedFilms, parsedFilmsGenreIds, addFilmToStorage };
+export { parsedFilms, parsedFilmsGenreIds, handleFilmInStorage };
