@@ -1,7 +1,8 @@
 import { Report } from 'notiflix';
+import { refs } from '../modal';
 const localMoviesArr = JSON.parse(localStorage.getItem('films')) || [];
 
-const addFilmToStorage = ({
+const handleFilmInStorage = ({
   poster_path,
   title,
   name,
@@ -33,13 +34,32 @@ const addFilmToStorage = ({
       'Film was added to the library',
       'Go to the library and check it :)'
     );
+
+    if (!refs.addToLibBtn) {
+      console.log(10);
+    } else {
+      refs.addToLibBtn.textContent = 'Remove from the library';
+    }
     return;
   }
-  Report.failure(
-    'Is added already',
-    "Sorry, but you've already added this film to your library "
-  );
-  // removeItemFromLocalStorage(film.id);
+
+  removeItemFromLocalStorage(id);
+  if (!refs.addToLibBtn) {
+    console.log(10);
+  } else {
+    refs.addToLibBtn.textContent = 'Add to the library';
+  }
+};
+
+const removeItemFromLocalStorage = id => {
+  const items = localMoviesArr || [];
+
+  const index = items.findIndex(item => item.id === id);
+
+  if (index !== -1) {
+    items.splice(index, 1);
+    localStorage.setItem('films', JSON.stringify(items));
+  }
 };
 
 const getParsedFilms = () => {
@@ -59,4 +79,4 @@ const parsedFilmsGenreIds = [
 
 console.log('parsedFilmsGenreIds: ', parsedFilmsGenreIds);
 
-export { parsedFilms, parsedFilmsGenreIds, addFilmToStorage };
+export { parsedFilms, parsedFilmsGenreIds, handleFilmInStorage };

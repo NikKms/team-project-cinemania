@@ -18,6 +18,10 @@
   color: #fff;
   transition: all 0.3s ease-in-out;
 }
+.modal-button-added {
+  background: var(--white);
+  color: var(--accent-color);
+}
 
 .lib-option-wrapper {
   width: 100%;

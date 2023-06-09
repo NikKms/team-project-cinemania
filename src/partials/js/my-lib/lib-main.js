@@ -1,5 +1,4 @@
 import * as hero from '../../js/modal';
-import { swiper } from '../hero/hero';
 import { getGenre } from '../api';
 import { parsedFilms, parsedFilmsGenreIds } from './lib-storage';
 import {

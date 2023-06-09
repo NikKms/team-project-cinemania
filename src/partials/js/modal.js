@@ -1,7 +1,8 @@
 import { swiper } from '../../partials/js/hero/hero';
+// import { render } from './my-lib/lib-main';
 import { getInfoByMovie } from './api';
 import { getGenre } from './api';
-import { addFilmToStorage } from './my-lib/lib-storage';
+import { handleFilmInStorage } from './my-lib/lib-storage';
 import { onWatchTrailer } from './hero/trailer-modal';
 import { getGenresByIds } from './my-lib/example-my-lib';
 
@@ -74,8 +75,7 @@ async function renderFilmInModal(film) {
     vote_count,
     id,
   } = film;
-  
-  console.log('poster_path: ', poster_path);
+
   const genresListIds = genres.map(genre => genre.id);
   const formatedGenres = await getGenresByIds(genresListIds);
 
@@ -135,10 +135,24 @@ async function renderFilmInModal(film) {
   refs.upcomingWrapLi.innerHTML = markup;
 
   refs.addToLibBtn = document.getElementById('add-to-lib-modal');
-  console.log('addToLibBtn: ', refs.addToLibBtn);
+
+  const isFilmInLocalStorage = id => {
+    const films = JSON.parse(localStorage.getItem('films')) || [];
+
+    const filmExists = films.some(film => film.id === id);
+    if (filmExists) {
+      refs.addToLibBtn.textContent = 'Remove from the library';
+    }
+  };
+
+  isFilmInLocalStorage(id);
 
   const addToLib = evt => {
-    addFilmToStorage(film);
+    handleFilmInStorage(film);
+    let currentUrl = window.location.href;
+    if (currentUrl.includes('my-lib-page.html')) {
+      window.location.reload();
+    }
   };
 
   refs.addToLibBtn.addEventListener('click', addToLib);

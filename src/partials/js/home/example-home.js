@@ -2,12 +2,12 @@ import * as hero from '../../js/modal';
 import { getWeeklyTrending } from '../api';
 import { getUpcoming } from '../api';
 import { getGenre } from '../api';
-import { addFilmToStorage } from '../my-lib/lib-storage';
+import { handleFilmInStorage } from '../my-lib/lib-storage';
 
 const listOfFilms = document.querySelector('.weekly-cards-wrap');
 const upcomingWrapEl = document.querySelector('.upcoming_wrap');
 const seeAll = document.querySelector('.weekly-title-link');
-let addToLibBtn = null;
+let addToLibBtnHome = null;
 
 // ================See all=================
 
@@ -107,6 +107,7 @@ async function getUpcomingFilm() {
 
 async function renderUpcomingFilm(upcomingFilm) {
   let {
+    id,
     backdrop_path,
     poster_path,
     genre_ids,
@@ -170,14 +171,31 @@ async function renderUpcomingFilm(upcomingFilm) {
             </button>
           </div>
         </div>`;
+
   upcomingWrapEl.insertAdjacentHTML('beforeend', markup);
 
-  addToLibBtn = document.getElementById('add-to-lib');
+  const isFilmInLocalStorage = id => {
+    const films = JSON.parse(localStorage.getItem('films')) || [];
+
+    const filmExists = films.some(film => film.id === id);
+    if (filmExists) {
+      addToLibBtnHome.textContent = 'Remove from the library';
+    }
+  };
+
+  addToLibBtnHome = document.getElementById('add-to-lib');
+
+  isFilmInLocalStorage(id);
 
   const addToLib = evt => {
-    addFilmToStorage(upcomingFilm);
+    handleFilmInStorage(upcomingFilm);
+    addToLibBtnHome.textContent = 'Remove from the library';
+    if (addToLibBtnHome.textContent === 'Remove from the library') {
+      addToLibBtnHome.textContent = '111  ';
+    }
   };
-  addToLibBtn.addEventListener('click', addToLib);
+
+  addToLibBtnHome.addEventListener('click', addToLib);
 }
 
 // Функція для визначення шляху зображення на основі ширини екрану

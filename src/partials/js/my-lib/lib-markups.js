@@ -1,5 +1,6 @@
 import { libRefs } from './lib-refs';
-import { handleDeleteFilm, getGenreName } from './lib-main';
+import { getGenreName } from './lib-main';
+
 
 const { libSelectEl, libMoviesListEl } = libRefs;
 
@@ -60,16 +61,9 @@ const renderLibSelectMarkup = async genresArr => {
 
 const renderLibMoviesListMarkup = async movies => {
   const libMovieListMarkup = await Promise.all(
-    movies.map(movie => createLibMoviesListMarkup(movie))
+    movies.map(async movie => await createLibMoviesListMarkup(movie))
   );
   libMoviesListEl.insertAdjacentHTML('beforeend', libMovieListMarkup.join(' '));
-
-  const deleteFilmButtons =
-    libMoviesListEl.querySelectorAll('.delete-film-btn');
-
-  deleteFilmButtons.forEach(button => {
-    button.addEventListener('click', handleDeleteFilm);
-  });
 };
 
 export { renderLibMoviesListMarkup, renderLibSelectMarkup };
