@@ -74,7 +74,7 @@ async function renderFilmInModal(film) {
     vote_count,
     id,
   } = film;
-  
+
   console.log('poster_path: ', poster_path);
   const genresListIds = genres.map(genre => genre.id);
   const formatedGenres = await getGenresByIds(genresListIds);
@@ -126,7 +126,7 @@ async function renderFilmInModal(film) {
         <p class="modal-card-about-text">${overview}</p>
 
         <button class="modal-button gap-right" id="add-to-lib-modal" type="button"><span>Add to my library</span></button>
-         <button type="button" class="hero-btn modal-button hero-btn-trailer" id="hero-btn-trailer" data-id="${id}">
+         <button type="button" class="modal-button hero-btn-trailer" id="hero-btn-trailer" data-id="${id}">
     Watch trailer
   </button>
       </div>
