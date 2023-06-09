@@ -12,15 +12,16 @@
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
-/*___________Catalog-films__________*/
+/*___________Search Form__________*/
 .search-form {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
   gap: 16px;
   margin-bottom: 36px;
   margin-top: 40px;
 }
+
 .input-container {
   position: relative;
   /* display: flex;
@@ -31,18 +32,22 @@ input:focus {
   background-color: transparent;
 }
 .search-form-input {
-  width: 173px;
+  width: 224px;
   height: 40px;
   padding: 12px 20px;
-  border: 1px solid var(--secondary-ligth-theme-text-color);
+  border: 1px solid var(--white);
   border-radius: 8px;
   background: var(--primary-bgc);
   color: var(--secondary-text-color);
   font-weight: 500;
   font-size: 14px;
-  line-height: 16px;
+  line-height: 1.14;
 }
-
+.search-form-input.ligth-mode {
+  background: var(--white);
+  border: 1px solid var(--secondary-ligth-theme-text-color);
+  color: var(--secondary-ligth-theme-text-color);
+}
 .input-icon {
   position: absolute;
   right: 24px;
@@ -56,6 +61,46 @@ input:focus {
   opacity: 1;
   cursor: pointer;
 }
+.icon-hidden {
+  opacity: 0;
+}
+
+#selectGenres {
+  width: 173px;
+  height: 40px;
+  border: 1px solid var(--white);
+  border-radius: 8px;
+  background: var(--primary-bgc);
+  color: var(--secondary-text-color);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.14;
+}
+
+#selectGenres.ligth-mode {
+  background: var(--white);
+  border: 1px solid var(--secondary-ligth-theme-text-color);
+  color: var(--secondary-ligth-theme-text-color);
+}
+
+#selectDate {
+  width: 95px;
+  height: 40px;
+  border: 1px solid var(--white);
+  border-radius: 8px;
+  background: var(--primary-bgc);
+  color: var(--secondary-text-color);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.14;
+}
+
+#selectDate.ligth-mode {
+  background: var(--white);
+  border: 1px solid var(--secondary-ligth-theme-text-color);
+  color: var(--secondary-ligth-theme-text-color);
+}
+
 .search-btn {
   width: 40px;
   height: 40px;
@@ -74,7 +119,7 @@ input:focus {
 .search-icon {
   width: 100%;
   height: 100%;
-  fill: black;
+  fill: red;
 }
 
 /* .search-btn .search-icon {
@@ -167,11 +212,16 @@ input:focus {
   right: 12px;
   font-size: 17px;
 }
+
+/*-------Create Search Errors--------*/
+
 .no-movie-found {
-  height: 168px;
+  height: 120px;
   display: flex;
   justify-content: center;
   position: relative;
+  margin-top: 48px;
+  margin-bottom: 40px;
 }
 .no-movie-found__text {
   display: flex;
@@ -179,12 +229,14 @@ input:focus {
   justify-content: center;
   text-align: center;
   font-size: 20px;
-  line-height: 28px;
-  color: var(--color-titleAll);
+  line-height: 1.4;
+  color: var(--white);
   position: absolute;
   top: 32px;
 }
+
 /*---------Pagination----------*/
+
 .pagination {
   margin-top: 20px;
   margin-bottom: 40px;
@@ -207,9 +259,6 @@ input:focus {
   display: flex;
   gap: 8px;
 }
-.pagination-list .pagination-item:nth-child(4) {
-  border: none;
-}
 .pagination-item {
   width: 24px;
   height: 24px;
@@ -219,25 +268,41 @@ input:focus {
   align-items: center;
   display: grid;
 }
+
+.pagination-item.ellipsis {
+  border: none;
+  color: #b7b7b7;
+}
 .pagination-item:hover {
   background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
   cursor: pointer;
   border: 0;
 }
+.pagination-item.ligth-mode {
+  border: 1px solid var(--primary-bgc);
+}
+.ellipsis:hover {
+  background: none;
+  cursor: default;
+}
 .btn-active {
   background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
   border: 0px;
 }
-.btn-active.pagination-btn {
-  color: #ffffff;
-}
+
 .pagination-btn {
   font-size: 10px;
   line-height: 1;
   color: #b7b7b7;
 }
-.pagination-item .pagination-btn:hover {
-  fill: #ffffff;
+.pagination-btn.ligth-mode {
+  color: var(--primary-bgc);
+}
+.btn-active > .pagination-btn {
+  color: #ffffff;
+}
+.pagination-item:hover .pagination-btn {
+  color: #ffffff;
 }
 /* .pagination-arrows-prev {
   background-image: url('./images/icon/chevron-forward-outline-1.svg#icon-chevron-forward-outline');
@@ -260,6 +325,10 @@ input:focus {
 
 /* ______________TABLET________________ */
 @media screen and (min-width: 768px) {
+  .search-form {
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
   .catalog-films {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 28px 16px;
@@ -275,6 +344,17 @@ input:focus {
     font-size: 12px;
     bottom: 15px;
   }
+
+  .no-movie-found {
+    height: 104px;
+    margin-top: 80px;
+    margin-bottom: 60px;
+  }
+  .no-movie-found__text {
+    font-size: 24px;
+    line-height: 1.33;
+  }
+
   /*---------Pagination----------*/
   .pagination {
     margin-top: 44px;
@@ -294,6 +374,7 @@ input:focus {
     width: 40px;
     height: 40px;
   }
+
   .pagination-btn {
     font-size: 14px;
   }
@@ -319,6 +400,15 @@ input:focus {
     bottom: 20px;
     right: 20px;
     font-size: 22px;
+  }
+  .no-movie-found {
+    height: 124px;
+    margin-top: 120px;
+    margin-bottom: 100px;
+  }
+  .no-movie-found__text {
+    font-size: 32px;
+    line-height: 1.12;
   }
   /*---------Pagination----------*/
   .pagination {

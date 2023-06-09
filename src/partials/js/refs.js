@@ -8,6 +8,7 @@ const refs = {
   btnClear: document.querySelector('.search-clear-btn'),
   input: document.getElementById('search-form'),
   btnSearch: document.querySelector('.search-btn'),
+  inputIcon: document.querySelector('.input-icon'),
   //____________________
 };
 

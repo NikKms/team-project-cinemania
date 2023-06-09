@@ -1,9 +1,11 @@
 import { refs } from '../refs';
 
 export const createCards = dataCard => {
+  const errorModule = document.querySelector('.no-movie-found');
+  if (errorModule !== null) errorModule.remove();
   const markup = dataCard
     .map(card => {
-      return `<li data-id="${card.id}" class="catalog-card">
+      return `<li data-id="${card.id}" class="catalog-card is-id">
   <img
     src="https://image.tmdb.org/t/p/original${card.poster}"
     alt="${card.title}"
@@ -24,7 +26,28 @@ export const createCards = dataCard => {
 </li>`;
     })
     .join('');
+  if (!markup.length) {
+    const errorMarkup = createSearchErrors();
+    console.log(errorMarkup);
+    refs.catalogFilms.insertAdjacentHTML('beforebegin', errorMarkup);
+    refs.catalogFilms.innerHTML = '';
+    return;
+  }
   addHTML(markup);
+};
+
+const createSearchErrors = () => {
+  const markupErrors = `<div class="no-movie-found">
+    <p class="no-movie-found__text">
+      <span class="no-movie-found__text-item">OOPS...</span>
+      <span class="no-movie-found__text-item">We are very sorry!</span>
+      <span class="no-movie-found__text-item">
+        We don’t have any results matching your search.
+      </span>
+    </p>
+  </div>`;
+
+  return markupErrors;
 };
 
 function addHTML(cards) {

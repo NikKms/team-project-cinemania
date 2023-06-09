@@ -2,32 +2,16 @@
   display: none;
 }
 
-.delete-film-btn {
-  position: absolute;
-  /* visibility: hidden; */
-  top: 10;
-  right: 10;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.6);
-  font-size: 16px;
-  padding: 5px;
-  width: 30px;
-  height: 30px;
-  border: 2px solid;
-  border-image: var(--primary-btn-color);
-  color: #fff;
-  transition: all 0.3s ease-in-out;
-}
-.modal-button-added {
-  background: var(--white);
-  color: var(--accent-color);
-}
-
-.lib-option-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.lib-select {
+  width: 173px;
+  height: 40px;
+  border: 1px solid var(--white);
+  border-radius: 8px;
+  background: var(--primary-bgc);
+  color: var(--secondary-text-color);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.14;
 }
 
 .lib-clear-btn {
@@ -48,9 +32,6 @@
   background: linear-gradient(323deg, #ffc226 9.4%, #f84119 91.91%);
 }
 
-.delete-film-btn:hover {
-  color: #f84119;
-}
 .lib-empty-message {
   display: block;
   margin: 0 auto;
@@ -90,7 +71,13 @@
     padding-top: 40px;
     padding-bottom: 40px;
   }
-
+  .lib-option-wrapper {
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+  .lib-clear-btn {
+    margin-top: 10px;
+  }
   .mylibrary_movies {
     display: flex;
     flex-wrap: wrap;
@@ -190,6 +177,13 @@
     margin-top: 35px;
     margin-bottom: 40px;
     gap: 28px 16px;
+  }
+  .lib-option-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
   }
   .mylibrary_movie {
     width: 224px;

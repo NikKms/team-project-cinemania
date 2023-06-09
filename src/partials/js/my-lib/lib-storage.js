@@ -36,18 +36,26 @@ const handleFilmInStorage = ({
     );
 
     if (!refs.addToLibBtn) {
-      console.log(10);
+      return;
     } else {
       refs.addToLibBtn.textContent = 'Remove from the library';
     }
     return;
   }
 
-  removeItemFromLocalStorage(id);
   if (!refs.addToLibBtn) {
-    console.log(10);
+    Report.error(
+      "Sorry, you've added tis film already",
+      'Go to the library and check it!'
+    );
+    return;
   } else {
+    removeItemFromLocalStorage(id);
     refs.addToLibBtn.textContent = 'Add to the library';
+    Report.info(
+      'Film was removed',
+      'You can find something else in our catalog!'
+    );
   }
 };
 
@@ -77,6 +85,5 @@ const parsedFilmsGenreIds = [
   ...new Set(parsedFilms.flatMap(film => film.genresIds)),
 ];
 
-console.log('parsedFilmsGenreIds: ', parsedFilmsGenreIds);
 
 export { parsedFilms, parsedFilmsGenreIds, handleFilmInStorage };

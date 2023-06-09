@@ -2,7 +2,7 @@
   overflow: hidden;
 }
 
-.backdrop.is-hidden {
+.backdrop.is-hidden-modal {
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
@@ -19,11 +19,11 @@
   background-color: rgba(46, 47, 66, 0.4);
 
   opacity: 1;
-  transition: opacity 500ms cubic-bezier(0.165, 0.84, 0.44, 1),
-    visibility 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 250ms cubic-bezier(0.165, 0.84, 0.44, 1),
+    visibility 250ms cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.backdrop.is-hidden .modal {
+.backdrop.is-hidden-modal .modal {
   transform: translate(-50%, -50%) scale(0.8);
 }
 
@@ -42,7 +42,7 @@
   border-radius: 16px;
 
   transform: translate(-50%, -50%) scale(1);
-  transition: transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 250ms cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .close-btn {
@@ -58,7 +58,7 @@
 
 .close-btn .close-btn-icon {
   stroke: var(--primary-title-color);
-  transition: stroke 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: stroke 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .close-btn:active .close-btn-icon,
@@ -167,6 +167,17 @@
 .modal-button:hover,
 .modal-button:active,
 .modal-button:focus {
+  background: var(--white);
+  color: var(--accent-color);
+}
+
+.modal-button.hero-btn {
+  color: var(--black);
+}
+
+.modal-button.hero-btn:hover,
+.modal-button.hero-btn:active,
+.modal-button.hero-btn:focus {
   background: var(--white);
   color: var(--accent-color);
 }

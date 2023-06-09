@@ -21,7 +21,7 @@ async function heroHandler() {
     return;
   }
   try {
-    const movieArr = await getTopMoviesArr(10);
+    const movieArr = await getTopMoviesArr(5);
     if (movieArr.length === 0) return;
     renderSwiper();
     const markup = movieArr
