@@ -2,26 +2,23 @@
   <div class="container">
     <h2 class="visually-hidden">Search Form</h2>
     <form class="search-form">
-      <input
-        id="search-form"
-        type="text"
-        placeholder="Film"
-        class="search-form-input"
-        name="searchMovies"
-      />
-      <select name="selectGenres" id="selectGenres"></select>
+      <div class="input-container">
+        <input id="search-form" type="text" placeholder="Film" class="search-form-input" name="searchMovies" />
+        <a class="search-clear-btn">
+          <img src="./images/sprite.svg#icon-x" class="input-icon" alt="Clear" />
+        </a>
+      </div>
+      <select name="selectGenres" id="selectGenres" disabled></select>
       <select name="selectDate" id="selectDate" disabled></select>
       <button class="search-btn" type="submit">
         <svg class="search-icon" width="30" height="30">
-          <use href="./images/icon/search.svg#icon-search"></use>
+          <use href="./images/sprite.svg#icon-search-3"></use>
         </svg>
       </button>
     </form>
-    <ul class="catalog-films"></ul>
-    <div class="catalog-pagination">
-      <ul>
-        <!--pages or li are comes from javascript -->
-      </ul>
-    </div>
+    <h3 class="visually-hidden">Catalog Films</h3>
+    <ul class="catalog-films">
+      <!-- Карточки изображений -->
+    </ul>
   </div>
 </section>
