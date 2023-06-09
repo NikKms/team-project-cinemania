@@ -1,9 +1,14 @@
 <section class="mylibrary_movies_section">
   <div class="container" id="lib-container-el">
     <div class="lib-option-wrapper">
-      <select class="lib-select" id="js-genre-select">
-        <option class="option-item" selected value="1">All Genres</option>
-      </select>
+      <span class="wrap-for-icon">
+        <select class="lib-select" id="js-genre-select">
+          <option class="option-item" selected value="1">All Genres</option>
+        </select>
+        <svg class="down-icon" width="16" height="16">
+          <use href="./images/sprite.svg#icon-chevron-down"></use>
+        </svg>
+      </span>
       <button class="lib-clear-btn" id="clear-lib-btn">Clear Library</button>
     </div>
     <ul class="mylibrary_movies" id="js-lib-list" data-modal-open></ul>

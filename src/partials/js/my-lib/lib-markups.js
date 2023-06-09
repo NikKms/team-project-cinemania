@@ -1,7 +1,6 @@
 import { libRefs } from './lib-refs';
 import { getGenreName } from './lib-main';
 
-
 const { libSelectEl, libMoviesListEl } = libRefs;
 
 const createLibSelectMarkup = genre => {
@@ -30,7 +29,7 @@ const createLibMoviesListMarkup = async ({
   }
   return `<li class="mylibrary_movie is-id"  data-id=${id}>
   <div class="mylibrary_dark">
-  <img src="https://image.tmdb.org/t/p/original${poster_path}" alt="${movieTitle}" />
+  <img loading="lazy" src="https://image.tmdb.org/t/p/original${poster_path}" alt="${movieTitle}" />
   </div>
  <div class="mylibrary_overlay"></div>
   <div class="mylibrary_info">

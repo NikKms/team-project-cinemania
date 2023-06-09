@@ -24,7 +24,7 @@ async function renderWeeklyThreeTrends(firstThreeFilms) {
 
         return `<li class="weekly-card is-id" data-id=${id}>
         <div class="weekly-container-image">
-          <img
+          <img loading="lazy"
             class="weekly-card-image"
            src="https://image.tmdb.org/t/p/original/${poster_path}"
             alt=""
