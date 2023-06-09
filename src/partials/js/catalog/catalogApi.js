@@ -14,7 +14,6 @@ async function fetchData(url) {
     removeLoader();
     return data;
   } catch (error) {
-    console.log(error);
     removeLoader();
     return null;
   }
@@ -27,7 +26,6 @@ export const getMoviesByQuery = async (
 ) => {
   refs.selectGenres.disabled = true;
   refs.selectDate.disabled = false;
-  console.log(searchTerm, chosenPage, date);
   const { results, total_pages, page } = await getByQuery(
     searchTerm,
     chosenPage,
@@ -50,9 +48,7 @@ export const showNewestMovies = async (chosenPage, genre_id = 0) => {
       genre_id ? `&with_genres=${genre_id}` : ''
     }&language=en-US`
   );
-  console.log(data);
   const { results, page, total_pages } = data;
-  console.log(results);
   createDataCards(results);
   return {
     results,

@@ -2,6 +2,7 @@ import { swiper, swiperInit, renderSwiper } from './swiper';
 import { crateSlideMarkup } from '../hero/heroUi';
 import { onWatchTrailer } from './trailer-modal';
 import { getTrending } from '../api';
+import { Notify } from 'notiflix';
 
 const heroRefs = {
   hero: document.querySelector('.hero'),
@@ -41,7 +42,6 @@ async function heroHandler() {
     swiperInit();
   } catch (error) {
     heroRefs.heroImgRef.classList.add('hero-main');
-    console.log(error.message);
   }
 }
 
@@ -57,7 +57,7 @@ async function getTopMoviesArr(numberOfMovies) {
     }
     return randomMoviesArr;
   } catch (error) {
-    console.log(error.message);
+    Notify.warning('OOPS... Something go wrong, please try again.');
   }
 }
 

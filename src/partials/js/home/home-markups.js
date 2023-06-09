@@ -65,7 +65,6 @@ async function renderUpcomingFilm(upcomingFilm) {
     vote_count,
     overview,
   } = upcomingFilm;
-  console.log('upcomingFilm: ', upcomingFilm);
 
   genre_ids = filterGenres(genre_ids);
 
