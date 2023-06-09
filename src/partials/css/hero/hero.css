@@ -172,10 +172,6 @@
     background-image: url('../../../images/hero/hero-lib-tabletzip.jpg');
   }
 
-  .hero-gradient {
-    height: 372px;
-  }
-
   .hero-title {
     font-family: 'Roboto';
     font-style: normal;
@@ -190,6 +186,12 @@
   }
 
   .hero-gradient {
+    height: 372px;
+    background: linear-gradient(
+      82.55deg,
+      #111111 39.6%,
+      rgba(17, 17, 17, 0) 72.95%
+    );
     padding-top: 62px;
     padding-left: 32px;
     padding-bottom: 62px;
@@ -198,17 +200,11 @@
 
   .hero-description1 {
     display: none;
-
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.14;
-    color: #f8f8f8;
   }
 
   .hero-description2 {
     height: 61px;
-
+    width: 360px;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -236,6 +232,11 @@
   }
 
   .hero-gradient {
+    background: linear-gradient(
+      83.16deg,
+      #111111 36.85%,
+      rgba(17, 17, 17, 0) 60.05%
+    );
     height: 660px;
     padding-top: 125px;
     padding-left: 32px;
@@ -256,7 +257,9 @@
     color: #ffffff;
   }
 
-  .hero-description1 {
+  .hero-description2 {
+    max-width: 370px;
+    height: 95px;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
