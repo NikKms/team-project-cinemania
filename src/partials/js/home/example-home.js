@@ -3,7 +3,7 @@ import { getWeeklyTrending, getUpcoming, getGenre } from '../api';
 import { renderUpcomingFilm, renderWeeklyThreeTrends } from './home-markups';
 import { homeRefs } from './home-refs';
 
-const { seeAll } = homeRefs;
+const { seeAll, upcomingWrapEl } = homeRefs;
 
 // ================See all=================
 
@@ -47,7 +47,7 @@ async function getUpcomingFilm() {
   } catch (error) {
     upcomingWrapEl.insertAdjacentHTML(
       'beforeend',
-      '<p class="upcoming-not-found">OOPS...We are very sorry! We don’t have any results</p>'
+      '<p class="upcoming-not-found">OOPS...<br>We are very sorry!<br>We don’t have any results</p>'
     );
   }
 }
