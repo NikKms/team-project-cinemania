@@ -8,3 +8,4 @@ import * as catalog from './partials/js/catalog/example';
 import * as header from './partials/js/header/header';
 import * as upBtn from './partials/js/up-btn';
 import * as clear from './partials/js/catalog/clearInput';
+import * as footer from './partials/js/footer/footer';
