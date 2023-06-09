@@ -31,7 +31,7 @@ function onOpenModal(event) {
 
   document.body.classList.add('not-scroll-body');
   window.addEventListener('keydown', onEscKeyPress);
-  refs.backdrop.classList.remove('is-hidden');
+  refs.backdrop.classList.remove('is-hidden-modal');
 }
 
 function onCloseModal() {
@@ -43,7 +43,7 @@ function onCloseModal() {
   }
 
   document.body.classList.remove('not-scroll-body');
-  refs.backdrop.classList.add('is-hidden');
+  refs.backdrop.classList.add('is-hidden-modal');
 }
 
 function onBackdropClick(event) {
@@ -62,7 +62,6 @@ async function getMovieById(id) {
 }
 
 async function renderFilmInModal(film) {
-  console.log(film);
   const {
     poster_path,
     backdrop_path,
@@ -74,7 +73,7 @@ async function renderFilmInModal(film) {
     vote_count,
     id,
   } = film;
-  
+
   console.log('poster_path: ', poster_path);
   const genresListIds = genres.map(genre => genre.id);
   const formatedGenres = await getGenresByIds(genresListIds);
