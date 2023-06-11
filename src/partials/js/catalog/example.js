@@ -1,3 +1,4 @@
+import { refs } from '../refs';
 import { fetchGenre, getMoviesByQuery, showNewestMovies } from './catalogApi';
 import { createDataCards, loadLocal, saveLocal } from './catalogUtils';
 import Pagination from './pagination';
@@ -20,7 +21,12 @@ const submitHandler = e => {
 
 const afterLoad = async () => {
   const { page, total_pages } = await showNewestMovies(1);
-  const pagination = new Pagination(total_pages, page, showNewestMovies);
+  const objPagOptions = {
+    totalPages: total_pages,
+    page: page,
+    parentSection: refs.catalogSection,
+  };
+  const pagination = new Pagination(objPagOptions, showNewestMovies);
   pagination.createButton();
 };
 
@@ -28,7 +34,13 @@ const afterSearching = async searchMovies => {
   const searchTerm = loadLocal('searchTerm');
   const { page, total_pages } = await getMoviesByQuery(1, searchTerm);
 
-  const pagination = new Pagination(total_pages, page, getMoviesByQuery, [
+  const objPagOptions = {
+    totalPages: total_pages,
+    page: page,
+    parentSection: refs.catalogSection,
+  };
+
+  const pagination = new Pagination(objPagOptions, getMoviesByQuery, [
     searchTerm,
     1,
   ]);
@@ -50,8 +62,11 @@ const setGenreFilter = async e => {
   const value = e.target.value;
 
   const { total_pages, results } = await showNewestMovies(1, e.target.value);
-
-  const pagination = new Pagination(total_pages, 1, showNewestMovies, [value]);
+  const objPagOptions = {
+    totalPages: total_pages,
+    page: 1,
+  };
+  const pagination = new Pagination(objPagOptions, showNewestMovies, [value]);
   pagination.createButton();
 };
 
@@ -73,8 +88,12 @@ const setDateFilter = async e => {
   const searchTerm = loadLocal('searchTerm');
 
   const { total_pages, page } = await getMoviesByQuery(1, searchTerm, value);
+  const objPagOptions = {
+    totalPages: total_pages,
+    page: 1,
+  };
 
-  const pagination = new Pagination(total_pages, 1, getMoviesByQuery, [
+  const pagination = new Pagination(objPagOptions, getMoviesByQuery, [
     searchTerm,
     value,
   ]);

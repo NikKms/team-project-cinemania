@@ -2,9 +2,10 @@ import { refs } from '../refs';
 import { saveLocal } from './catalogUtils';
 
 export default class Pagination {
-  constructor(totalPages, page, getMovies, params = []) {
+  constructor({ totalPages, page, parentSection }, getMovies, params = []) {
     this.totalPages = totalPages;
     this.currentPage = page;
+    this.parentSection = parentSection;
     this.getMovies = getMovies;
     this.params = params;
     this.arrPaginationItems = [];
@@ -136,10 +137,21 @@ export default class Pagination {
     if (el) el.remove();
   };
 
-  prev = () => {
+  scrollToTop = () => {
+    if (this.parentSection !== undefined) {
+      this.parentSection.scrollIntoView({
+        behavior: 'instant',
+      });
+    }
+    return;
+  };
+
+  prev = async () => {
     if (this.currentPage === 1) return;
     this.currentPage -= 1;
     this.createButton();
+    await this.getMovies(this.currentPage, ...this.params);
+    this.scrollToTop();
 
     const prevButton = document.querySelector(
       '.pagination-arrow.pagination-arrows-prev'
@@ -151,10 +163,12 @@ export default class Pagination {
     }
   };
 
-  next = () => {
+  next = async () => {
     if (this.currentPage === this.totalPages) return;
     this.currentPage += 1;
     this.createButton();
+    await this.getMovies(this.currentPage, ...this.params);
+    this.scrollToTop();
 
     const nextButton = document.querySelector(
       '.pagination-arrow.pagination-arrows-next'
@@ -179,6 +193,7 @@ export default class Pagination {
       this.createButton();
 
       await this.getMovies(this.currentPage, ...this.params);
+      this.scrollToTop();
     }
   };
 }
