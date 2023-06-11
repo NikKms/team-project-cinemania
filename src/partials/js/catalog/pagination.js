@@ -1,5 +1,6 @@
 import { refs } from '../refs';
 import { saveLocal } from './catalogUtils';
+import svg from '../../../images/sprite.svg';
 
 export default class Pagination {
   constructor({ totalPages, page, parentSection }, getMovies, params = []) {
@@ -84,11 +85,15 @@ export default class Pagination {
       }'>
       <button type="button" class='pagination-arrow pagination-arrows-prev${
         this.totalPages <= 1 ? 'pagination-arrows-hidden' : ''
-      }'>prev</button>
+      }'><svg class="icon" width="32" height="32">
+      <use href="${svg}#icon-arrow-prev"></use>
+    </svg></button>
         <ul class='pagination-list'>${paginationItems}</ul>
         <button type="button" class='pagination-arrow pagination-arrows-next${
           this.totalPages <= 1 ? 'pagination-arrows-hidden' : ''
-        }'>next</button>
+        }'><svg class="icon" width="32" height="32">
+        <use href="${svg}#icon-arrow-next"></use>
+      </svg></button>
       </div>`;
     return paginationContainer;
   };
