@@ -61,10 +61,11 @@ const filterSelectOptions = async () => {
 const setGenreFilter = async e => {
   const value = e.target.value;
 
-  const { total_pages, results } = await showNewestMovies(1, e.target.value);
+  const { total_pages } = await showNewestMovies(1, e.target.value);
   const objPagOptions = {
     totalPages: total_pages,
     page: 1,
+    parentSection: refs.catalogSection,
   };
   const pagination = new Pagination(objPagOptions, showNewestMovies, [value]);
   pagination.createButton();
@@ -87,10 +88,12 @@ const setDateFilter = async e => {
   const value = e.target.value;
   const searchTerm = loadLocal('searchTerm');
 
-  const { total_pages, page } = await getMoviesByQuery(1, searchTerm, value);
+  const { total_pages } = await getMoviesByQuery(1, searchTerm, value);
+
   const objPagOptions = {
     totalPages: total_pages,
     page: 1,
+    parentSection: refs.catalogSection,
   };
 
   const pagination = new Pagination(objPagOptions, getMoviesByQuery, [
