@@ -1,3 +1,4 @@
+import { refs } from '../refs';
 import { fetchGenre, getMoviesByQuery, showNewestMovies } from './catalogApi';
 import { createDataCards, loadLocal, saveLocal } from './catalogUtils';
 import Pagination from './pagination';
@@ -20,7 +21,12 @@ const submitHandler = e => {
 
 const afterLoad = async () => {
   const { page, total_pages } = await showNewestMovies(1);
-  const pagination = new Pagination(total_pages, page, showNewestMovies);
+  const objPagOptions = {
+    totalPages: total_pages,
+    page: page,
+    parentSection: refs.catalogSection,
+  };
+  const pagination = new Pagination(objPagOptions, showNewestMovies);
   pagination.createButton();
 };
 
@@ -28,7 +34,13 @@ const afterSearching = async searchMovies => {
   const searchTerm = loadLocal('searchTerm');
   const { page, total_pages } = await getMoviesByQuery(1, searchTerm);
 
-  const pagination = new Pagination(total_pages, page, getMoviesByQuery, [
+  const objPagOptions = {
+    totalPages: total_pages,
+    page: page,
+    parentSection: refs.catalogSection,
+  };
+
+  const pagination = new Pagination(objPagOptions, getMoviesByQuery, [
     searchTerm,
     1,
   ]);
