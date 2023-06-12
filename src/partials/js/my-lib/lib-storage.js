@@ -1,74 +1,4 @@
 import { Report } from 'notiflix';
-import { refs } from '../modal';
-const localMoviesArr = JSON.parse(localStorage.getItem('films')) || [];
-
-const handleFilmInStorage = ({
-  poster_path,
-  title,
-  name,
-  first_air_date,
-  release_date,
-  vote_average,
-  id,
-  genres,
-  genre_ids,
-}) => {
-  const genresIds =
-    genres && genres.length > 0 ? genres.map(genre => genre.id) : genre_ids;
-
-  const isFilmExists = localMoviesArr.some(movie => movie.id === id);
-
-  if (!isFilmExists) {
-    localMoviesArr.unshift({
-      poster_path,
-      title,
-      name,
-      first_air_date,
-      release_date,
-      vote_average,
-      id,
-      genresIds,
-    });
-    localStorage.setItem('films', JSON.stringify(localMoviesArr));
-    Report.success(
-      'Film was added to the library',
-      'Go to the library and check it :)'
-    );
-
-    if (!refs.addToLibBtn) {
-      return;
-    } else {
-      refs.addToLibBtn.textContent = 'Remove from the library';
-    }
-    return;
-  }
-
-  if (!refs.addToLibBtn) {
-    Report.error(
-      "Sorry, you've added tis film already",
-      'Go to the library and check it!'
-    );
-    return;
-  } else {
-    removeItemFromLocalStorage(id);
-    refs.addToLibBtn.textContent = 'Add to the library';
-    Report.info(
-      'Film was removed',
-      'You can find something else in our catalog!'
-    );
-  }
-};
-
-const removeItemFromLocalStorage = id => {
-  const items = localMoviesArr || [];
-
-  const index = items.findIndex(item => item.id === id);
-
-  if (index !== -1) {
-    items.splice(index, 1);
-    localStorage.setItem('films', JSON.stringify(items));
-  }
-};
 
 const getParsedFilms = () => {
   try {
@@ -79,11 +9,55 @@ const getParsedFilms = () => {
   }
 };
 
-const parsedFilms = getParsedFilms();
+const localMoviesArr = getParsedFilms() || [];
 
-const parsedFilmsGenreIds = [
-  ...new Set(parsedFilms.flatMap(film => film.genresIds)),
-];
+const handleFilmInStorage = (item, btnEl) => {
+  const films = localMoviesArr;
+  const isFilmExists = films.some(id => id === item.id);
+  if (!isFilmExists) {
+    addMovieToLib(item.id);
+    btnEl.textContent = 'Remove from my library';
+    return;
+  }
 
+  removeMovieFromLib(item.id);
+  btnEl.textContent = 'Add to my library';
+};
 
-export { parsedFilms, parsedFilmsGenreIds, handleFilmInStorage };
+const isFilmInLocalStorage = (id, btnEl) => {
+  try {
+    const films = localMoviesArr;
+    const filmExists = films.some(filmId => filmId === id);
+    if (filmExists) {
+      btnEl.textContent = 'Remove from the library';
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const addMovieToLib = id => {
+  const movieId = id;
+  localMoviesArr.unshift(movieId);
+  localStorage.setItem('films', JSON.stringify(localMoviesArr));
+  Report.success(
+    'Film was added to the library',
+    'Go to the library and check it :)'
+  );
+};
+
+const removeMovieFromLib = id => {
+  const index = localMoviesArr.findIndex(movieId => movieId === id);
+
+  if (index !== -1) {
+    localMoviesArr.splice(index, 1);
+    localStorage.setItem('films', JSON.stringify(localMoviesArr));
+  }
+
+  Report.info(
+    'Film was removed',
+    'You can find something else in our catalog!'
+  );
+};
+
+export { handleFilmInStorage, isFilmInLocalStorage };

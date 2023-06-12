@@ -1,7 +1,9 @@
 import { homeRefs } from './home-refs';
 import { getGenresById, getImagePath, filterGenres } from './example-home';
-import { handleFilmInStorage } from '../my-lib/lib-storage';
-
+import {
+  handleFilmInStorage,
+  isFilmInLocalStorage,
+} from '../my-lib/lib-storage';
 const { upcomingWrapEl, listOfFilms } = homeRefs;
 let addToLibBtnHome = null;
 
@@ -122,23 +124,10 @@ async function renderUpcomingFilm(upcomingFilm) {
 
   addToLibBtnHome = document.getElementById('add-to-lib');
 
-  const isFilmInLocalStorage = id => {
-    const films = JSON.parse(localStorage.getItem('films')) || [];
-
-    const filmExists = films.some(film => film.id === id);
-    if (filmExists) {
-      addToLibBtnHome.textContent = 'Remove from the library';
-    }
-  };
-
-  isFilmInLocalStorage(id);
+  isFilmInLocalStorage(id, addToLibBtnHome);
 
   const addToLib = evt => {
-    handleFilmInStorage(upcomingFilm);
-    let currentUrl = window.location.href;
-    if (currentUrl.includes('my-lib-page.html')) {
-      window.location.reload();
-    }
+    handleFilmInStorage(upcomingFilm, addToLibBtnHome);
   };
 
   addToLibBtnHome.addEventListener('click', addToLib);
