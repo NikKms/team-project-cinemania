@@ -20,11 +20,19 @@ export default class Pagination {
 
     this.arrPaginationItems = [];
 
-    this.addFirstPages(this.arrPaginationItems);
+    if (this.currentPage <= 4) {
+      this.addFirstPages(this.arrPaginationItems);
+    }
+    if (this.currentPage > 9) {
+      this.addBeforeMiddlePages(this.arrPaginationItems);
+    }
+
     if (this.totalPages > 6) {
-      this.addEllipsisIfNeeded(this.arrPaginationItems);
+      if (this.currentPage >= 5)
+        this.addEllipsisIfNeeded(this.arrPaginationItems, true);
       this.addMiddlePages(this.arrPaginationItems);
-      this.addEllipsisIfNeeded(this.arrPaginationItems, true);
+      if (this.currentPage < this.totalPages - 4)
+        this.addEllipsisIfNeeded(this.arrPaginationItems, true);
       this.addLastPage(this.arrPaginationItems);
     }
 
@@ -37,6 +45,23 @@ export default class Pagination {
     for (let page = 1; page <= Math.min(3, this.totalPages); page++) {
       const activeEl = this.currentPage === page ? 'btn-active' : '';
       const btn = this.createPaginationItem('0' + page, activeEl);
+      arr.push(btn);
+    }
+  };
+
+  addBeforeMiddlePages = arr => {
+    const startPage = this.currentPage - 9;
+
+    console.log(startPage, this.currentPage - 5);
+
+    for (let page = startPage; page < this.currentPage - 5; page++) {
+      const activeEl = this.currentPage === page ? 'btn-active' : '';
+      let btn = [];
+      if (page <= 9) {
+        btn = this.createPaginationItem('0' + page, activeEl);
+      } else {
+        btn = this.createPaginationItem(page, activeEl);
+      }
       arr.push(btn);
     }
   };
@@ -57,12 +82,7 @@ export default class Pagination {
   };
 
   addEllipsisIfNeeded = (arr, atEnd = false) => {
-    if (
-      (atEnd && this.currentPage < this.totalPages - 2) ||
-      (!atEnd && this.currentPage > 3)
-    ) {
-      arr.push('<li class="pagination-item ellipsis">...</li>');
-    }
+    arr.push('<li class="pagination-item ellipsis">...</li>');
   };
 
   addLastPage = arr => {
