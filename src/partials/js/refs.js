@@ -1,6 +1,7 @@
 const refs = {
   pagination: document.getElementById('pagination'),
   //_______Catalog_______
+  catalogSection: document.querySelector('.catalog'),
   catalogFilms: document.querySelector('.catalog-films'),
   searchForm: document.querySelector('.search-form'),
   selectGenres: document.querySelector('#selectGenres'),

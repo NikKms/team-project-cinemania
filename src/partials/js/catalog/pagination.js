@@ -1,10 +1,12 @@
 import { refs } from '../refs';
 import { saveLocal } from './catalogUtils';
+import svg from '../../../images/sprite.svg';
 
 export default class Pagination {
-  constructor(totalPages, page, getMovies, params = []) {
+  constructor({ totalPages, page, parentSection }, getMovies, params = []) {
     this.totalPages = totalPages;
     this.currentPage = page;
+    this.parentSection = parentSection;
     this.getMovies = getMovies;
     this.params = params;
     this.arrPaginationItems = [];
@@ -18,11 +20,19 @@ export default class Pagination {
 
     this.arrPaginationItems = [];
 
-    this.addFirstPages(this.arrPaginationItems);
+    if (this.currentPage <= 4) {
+      this.addFirstPages(this.arrPaginationItems);
+    }
+    if (this.currentPage > 9) {
+      this.addBeforeMiddlePages(this.arrPaginationItems);
+    }
+
     if (this.totalPages > 6) {
-      this.addEllipsisIfNeeded(this.arrPaginationItems);
+      if (this.currentPage >= 5)
+        this.addEllipsisIfNeeded(this.arrPaginationItems, true);
       this.addMiddlePages(this.arrPaginationItems);
-      this.addEllipsisIfNeeded(this.arrPaginationItems, true);
+      if (this.currentPage < this.totalPages - 4)
+        this.addEllipsisIfNeeded(this.arrPaginationItems, true);
       this.addLastPage(this.arrPaginationItems);
     }
 
@@ -35,6 +45,23 @@ export default class Pagination {
     for (let page = 1; page <= Math.min(3, this.totalPages); page++) {
       const activeEl = this.currentPage === page ? 'btn-active' : '';
       const btn = this.createPaginationItem('0' + page, activeEl);
+      arr.push(btn);
+    }
+  };
+
+  addBeforeMiddlePages = arr => {
+    const startPage = this.currentPage - 9;
+
+    console.log(startPage, this.currentPage - 5);
+
+    for (let page = startPage; page < this.currentPage - 5; page++) {
+      const activeEl = this.currentPage === page ? 'btn-active' : '';
+      let btn = [];
+      if (page <= 9) {
+        btn = this.createPaginationItem('0' + page, activeEl);
+      } else {
+        btn = this.createPaginationItem(page, activeEl);
+      }
       arr.push(btn);
     }
   };
@@ -55,12 +82,7 @@ export default class Pagination {
   };
 
   addEllipsisIfNeeded = (arr, atEnd = false) => {
-    if (
-      (atEnd && this.currentPage < this.totalPages - 2) ||
-      (!atEnd && this.currentPage > 3)
-    ) {
-      arr.push('<li class="pagination-item ellipsis">...</li>');
-    }
+    arr.push('<li class="pagination-item ellipsis">...</li>');
   };
 
   addLastPage = arr => {
@@ -83,11 +105,15 @@ export default class Pagination {
       }'>
       <button type="button" class='pagination-arrow pagination-arrows-prev${
         this.totalPages <= 1 ? 'pagination-arrows-hidden' : ''
-      }'>prev</button>
+      }'><svg class="icon" width="32" height="32">
+      <use href="${svg}#icon-arrow-prev"></use>
+    </svg></button>
         <ul class='pagination-list'>${paginationItems}</ul>
         <button type="button" class='pagination-arrow pagination-arrows-next${
           this.totalPages <= 1 ? 'pagination-arrows-hidden' : ''
-        }'>next</button>
+        }'><svg class="icon" width="32" height="32">
+        <use href="${svg}#icon-arrow-next"></use>
+      </svg></button>
       </div>`;
     return paginationContainer;
   };
@@ -136,10 +162,21 @@ export default class Pagination {
     if (el) el.remove();
   };
 
-  prev = () => {
+  scrollToTop = () => {
+    if (this.parentSection !== undefined) {
+      this.parentSection.scrollIntoView({
+        behavior: 'instant',
+      });
+    }
+    return;
+  };
+
+  prev = async () => {
     if (this.currentPage === 1) return;
     this.currentPage -= 1;
     this.createButton();
+    await this.getMovies(this.currentPage, ...this.params);
+    this.scrollToTop();
 
     const prevButton = document.querySelector(
       '.pagination-arrow.pagination-arrows-prev'
@@ -151,10 +188,12 @@ export default class Pagination {
     }
   };
 
-  next = () => {
+  next = async () => {
     if (this.currentPage === this.totalPages) return;
     this.currentPage += 1;
     this.createButton();
+    await this.getMovies(this.currentPage, ...this.params);
+    this.scrollToTop();
 
     const nextButton = document.querySelector(
       '.pagination-arrow.pagination-arrows-next'
@@ -179,6 +218,7 @@ export default class Pagination {
       this.createButton();
 
       await this.getMovies(this.currentPage, ...this.params);
+      this.scrollToTop();
     }
   };
 }
