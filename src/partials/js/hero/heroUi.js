@@ -1,3 +1,5 @@
+import { swiperInit, renderSwiper } from './swiper';
+
 function crateSlideMarkup(
   backdrop_path,
   title,
@@ -35,4 +37,26 @@ function crateSlideMarkup(
   </div>`;
 }
 
-export { crateSlideMarkup };
+function createMarkup(arr) {
+  return arr
+    .map(({ backdrop_path, title, overview, vote_average, id, name }) => {
+      return crateSlideMarkup(
+        backdrop_path,
+        title,
+        overview,
+        vote_average,
+        id,
+        name
+      );
+    })
+    .join(' ');
+}
+
+function renderHeroSlider(arr) {
+  renderSwiper();
+  const markup = createMarkup(arr);
+  document.querySelector('.swiper-wrapper').innerHTML = markup;
+  swiperInit();
+}
+
+export { renderHeroSlider };
