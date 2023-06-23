@@ -11,16 +11,16 @@ const getParsedFilms = () => {
 
 const localMoviesArr = getParsedFilms() || [];
 
-const handleFilmInStorage = (item, btnEl) => {
+const handleFilmInStorage = ({ id }, btnEl) => {
   const films = localMoviesArr;
-  const isFilmExists = films.some(id => id === item.id);
+  const isFilmExists = films.some(movieId => movieId === id);
   if (!isFilmExists) {
-    addMovieToLib(item.id);
+    addMovieToLib(id);
     btnEl.textContent = 'Remove from my library';
     return;
   }
 
-  removeMovieFromLib(item.id);
+  removeMovieFromLib(id);
   btnEl.textContent = 'Add to my library';
 };
 
@@ -50,8 +50,9 @@ const removeMovieFromLib = id => {
   const index = localMoviesArr.findIndex(movieId => movieId === id);
 
   if (index !== -1) {
-    localMoviesArr.splice(index, 1);
+    const updateList = localMoviesArr.splice(index, 1);
     localStorage.setItem('films', JSON.stringify(localMoviesArr));
+    
   }
 
   Report.info(
@@ -60,4 +61,4 @@ const removeMovieFromLib = id => {
   );
 };
 
-export { handleFilmInStorage, isFilmInLocalStorage };
+export { handleFilmInStorage, isFilmInLocalStorage, localMoviesArr };
