@@ -1,5 +1,5 @@
-import { swiper, swiperInit, renderSwiper } from './swiper';
-import { crateSlideMarkup } from '../hero/heroUi';
+import { swiper } from './swiper';
+import { renderHeroSlider } from '../hero/heroUi';
 import { onWatchTrailer } from './trailer-modal';
 import { getTrending } from '../api';
 import { Notify } from 'notiflix';
@@ -24,22 +24,7 @@ async function heroHandler() {
   try {
     const movieArr = await getTopMoviesArr(5);
     if (movieArr.length === 0) return;
-    renderSwiper();
-    const markup = movieArr
-      .map(({ backdrop_path, title, overview, vote_average, id, name }) => {
-        return crateSlideMarkup(
-          backdrop_path,
-          title,
-          overview,
-          vote_average,
-          id,
-          name
-        );
-      })
-      .join(' ');
-    document.querySelector('.swiper-wrapper').innerHTML = markup;
-
-    swiperInit();
+    renderHeroSlider(movieArr);
   } catch (error) {
     heroRefs.heroImgRef.classList.add('hero-main');
   }
@@ -49,16 +34,19 @@ async function getTopMoviesArr(numberOfMovies) {
   try {
     const data = await getTrending();
     const moviesArr = data.results;
-
-    let randomMoviesArr = [];
-    for (let i = 0; i < numberOfMovies; i++) {
-      let randomIndex = Math.floor(Math.random() * moviesArr.length);
-      randomMoviesArr.push(moviesArr.splice(randomIndex, 1)[0]);
-    }
-    return randomMoviesArr;
+    return createRandomMoviesArr(moviesArr, numberOfMovies);
   } catch (error) {
     Notify.warning('OOPS... Something go wrong, please try again.');
   }
+}
+
+function createRandomMoviesArr(moviesArr, numberOfMovies) {
+  let randomMoviesArr = [];
+  for (let i = 0; i < numberOfMovies; i++) {
+    let randomIndex = Math.floor(Math.random() * moviesArr.length);
+    randomMoviesArr.push(moviesArr.splice(randomIndex, 1)[0]);
+  }
+  return randomMoviesArr;
 }
 
 document.addEventListener('click', onWatchTrailer);

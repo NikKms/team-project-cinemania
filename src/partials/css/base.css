@@ -34,6 +34,7 @@ body {
   color: var(--primary-text-color);
   background-color: var(--primary-bgc);
   margin: 0;
+  transition: background-color 0.5s ease;
 }
 
 body.ligth-mode {
