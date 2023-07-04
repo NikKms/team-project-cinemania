@@ -9,13 +9,44 @@ const getParsedFilms = () => {
   }
 };
 
-const localMoviesArr = getParsedFilms() || [];
+const parsedFilms = getParsedFilms() || [];
 
-const handleFilmInStorage = ({ id }, btnEl) => {
-  const films = localMoviesArr;
-  const isFilmExists = films.some(movieId => movieId === id);
+const handleFilmInStorage = (
+  {
+    poster_path,
+    title,
+    name,
+    first_air_date,
+    release_date,
+    vote_average,
+    id,
+    genres,
+    genre_ids,
+  },
+  btnEl
+) => {
+  const films = parsedFilms;
+  let currentUrl = window.location.href;
+  if (currentUrl.includes('my-lib-page.html')) {
+    window.location.reload();
+  }
+  const genresIds =
+    genres && genres.length > 0 ? genres.map(genre => genre.id) : genre_ids;
+
+  const film = {
+    poster_path,
+    title,
+    name,
+    first_air_date,
+    release_date,
+    vote_average,
+    id,
+    genresIds,
+  };
+  const isFilmExists = films.some(film => film.id === id);
+
   if (!isFilmExists) {
-    addMovieToLib(id);
+    addMovieToLib(film);
     btnEl.textContent = 'Remove from my library';
     return;
   }
@@ -26,8 +57,8 @@ const handleFilmInStorage = ({ id }, btnEl) => {
 
 const isFilmInLocalStorage = (id, btnEl) => {
   try {
-    const films = localMoviesArr;
-    const filmExists = films.some(filmId => filmId === id);
+    const films = parsedFilms;
+    const filmExists = films.some(film => film.id === id);
     if (filmExists) {
       btnEl.textContent = 'Remove from the library';
     }
@@ -36,10 +67,10 @@ const isFilmInLocalStorage = (id, btnEl) => {
   }
 };
 
-const addMovieToLib = id => {
-  const movieId = id;
-  localMoviesArr.unshift(movieId);
-  localStorage.setItem('films', JSON.stringify(localMoviesArr));
+const addMovieToLib = film => {
+  const movie = film;
+  parsedFilms.unshift(movie);
+  localStorage.setItem('films', JSON.stringify(parsedFilms));
   Report.success(
     'Film was added to the library',
     'Go to the library and check it :)'
@@ -47,12 +78,11 @@ const addMovieToLib = id => {
 };
 
 const removeMovieFromLib = id => {
-  const index = localMoviesArr.findIndex(movieId => movieId === id);
+  const index = parsedFilms.findIndex(film => film.id === id);
+  parsedFilms.splice(index, 1);
 
   if (index !== -1) {
-    const updateList = localMoviesArr.splice(index, 1);
-    localStorage.setItem('films', JSON.stringify(localMoviesArr));
-    
+    localStorage.setItem('films', JSON.stringify(parsedFilms));
   }
 
   Report.info(
@@ -61,4 +91,13 @@ const removeMovieFromLib = id => {
   );
 };
 
-export { handleFilmInStorage, isFilmInLocalStorage, localMoviesArr };
+const parsedFilmsGenreIds = [
+  ...new Set(parsedFilms.flatMap(film => film.genresIds)),
+];
+
+export {
+  handleFilmInStorage,
+  isFilmInLocalStorage,
+  parsedFilms,
+  parsedFilmsGenreIds,
+};
