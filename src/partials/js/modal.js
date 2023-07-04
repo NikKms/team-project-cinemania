@@ -1,8 +1,7 @@
 import { swiper } from '../../partials/js/hero/hero';
-// import { render } from './my-lib/lib-main';
 import { getInfoByMovie } from './api';
 import { getGenre } from './api';
-import { handleFilmInStorage } from './my-lib/lib-storage';
+import { handleFilmInStorage, isFilmInLocalStorage } from './my-lib/lib-storage';
 import { onWatchTrailer } from './hero/trailer-modal';
 import { getGenresByIds } from './my-lib/example-my-lib';
 
@@ -135,23 +134,10 @@ async function renderFilmInModal(film) {
 
   refs.addToLibBtn = document.getElementById('add-to-lib-modal');
 
-  const isFilmInLocalStorage = id => {
-    const films = JSON.parse(localStorage.getItem('films')) || [];
-
-    const filmExists = films.some(film => film.id === id);
-    if (filmExists) {
-      refs.addToLibBtn.textContent = 'Remove from the library';
-    }
-  };
-
-  isFilmInLocalStorage(id);
+  isFilmInLocalStorage(id, refs.addToLibBtn);
 
   const addToLib = evt => {
-    handleFilmInStorage(film);
-    let currentUrl = window.location.href;
-    if (currentUrl.includes('my-lib-page.html')) {
-      window.location.reload();
-    }
+    handleFilmInStorage(film, refs.addToLibBtn);
   };
 
   refs.addToLibBtn.addEventListener('click', addToLib);

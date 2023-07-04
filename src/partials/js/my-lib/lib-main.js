@@ -1,4 +1,3 @@
-import * as hero from '../../js/modal';
 import { getGenre } from '../api';
 import { parsedFilms, parsedFilmsGenreIds } from './lib-storage';
 import {
